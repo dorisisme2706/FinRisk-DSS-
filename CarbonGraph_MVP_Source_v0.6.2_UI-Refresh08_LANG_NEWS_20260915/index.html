@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>CarbonGraph – CBAM Core for Steel · UI Refresh 08</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="ambient-graph" aria-hidden="true">
+    <canvas id="ambient-graph-canvas"></canvas>
+    <div class="ambient-graph-glow ambient-graph-glow-one"></div>
+    <div class="ambient-graph-glow ambient-graph-glow-two"></div>
+    <div class="ambient-graph-grid"></div>
+  </div>
+
+  <header class="app-header">
+    <div class="marketing-header">
+      <div class="brand">
+        <img class="brand-logo" src="assets/carbongraph-logo.png" alt="CarbonGraph logo" />
+        <div class="brand-copy">
+          <div class="brand-name">Carbon<span>Graph</span></div>
+          <small>CBAM Core for Steel · Data control, traceability & working release guardrail</small>
+        </div>
+      </div>
+
+      <nav class="product-nav" aria-label="Điều hướng giới thiệu sản phẩm">
+        <button type="button" data-overview-target="cg-suite">Giải pháp</button>
+        <button type="button" data-overview-target="cg-workflow">Quy trình</button>
+        <button type="button" data-overview-target="cg-compare">So sánh</button>
+        <button type="button" data-overview-target="cg-news">Tin tức</button>
+        <button type="button" data-overview-target="cg-faq">Hỏi đáp</button>
+      </nav>
+
+      <div class="header-actions">
+        <button id="language-toggle" class="language-chip language-toggle" type="button" aria-label="Ngôn ngữ hiện tại: Tiếng Việt. Chuyển sang English" title="Switch to English">VI</button>
+        <a class="header-login" href="#acceptance">Test Center</a>
+        <a class="header-cta" href="#data">Mở workspace <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="workspace-bar">
+      <div class="workspace-bar-inner">
+        <div class="workspace-context">
+          <span class="workspace-eyebrow">LOCAL PRODUCT WORKSPACE</span>
+          <span class="workspace-version">v0.6.2 · RC1_CANDIDATE</span>
+        </div>
+        <div class="nav-shell">
+          <nav id="nav" class="nav" aria-label="Điều hướng CarbonGraph MVP"></nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <div class="page-kicker">CARBONGRAPH WORKSPACE</div>
+        <h1 id="screen-title">Overview</h1>
+        <p id="screen-subtitle"></p>
+      </div>
+      <div class="topbar-status">
+        <span class="runtime-chip"><span class="runtime-dot"></span> localhost / local state</span>
+      </div>
+    </header>
+
+    <section id="content" class="content"></section>
+  </main>
+
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="false"></div>
+
+  <footer class="app-footer">
+    <div class="footer-shell">
+      <section class="footer-brand-block">
+        <div class="footer-brand-title">🌳 CarbonGraph</div>
+        <div class="footer-brand-subtitle">Sản phẩm của TerraMetric</div>
+        <p class="footer-brand-copy">CarbonGraph là workspace dữ liệu CBAM cho ngành thép, tập trung vào chuẩn hóa dữ liệu, quản lý bằng chứng, truy vết evidence graph và kiểm soát working release theo cơ chế fail-closed.</p>
+        <ul class="footer-contact-list">
+          <li>📍 69/68 Đặng Thuỳ Trâm, Bình Lợi Trung, Hồ Chí Minh</li>
+          <li>☎️ 096.9216.067</li>
+          <li>📧 teeracarbon@graph.vn</li>
+        </ul>
+      </section>
+
+      <section class="footer-links-block">
+        <h4>Giải pháp</h4>
+        <ul>
+          <li>CBAM Core for Steel</li>
+          <li>Input Module</li>
+          <li>Validation Engine</li>
+          <li>Evidence Graph</li>
+          <li>Release Gate</li>
+          <li>Working Export</li>
+        </ul>
+      </section>
+
+      <section class="footer-links-block">
+        <h4>Dự án</h4>
+        <ul>
+          <li>VietFuture Awards 2026</li>
+          <li>Localhost MVP Demo</li>
+          <li>SYNTHETIC_DEMO dataset</li>
+          <li>75/75 automated assertions PASS</li>
+          <li>RC1 candidate workspace</li>
+        </ul>
+      </section>
+
+      <section class="footer-links-block footer-note-block">
+        <h4>Ghi chú vận hành</h4>
+        <p>CarbonGraph hiện là MVP nghiên cứu. Hệ thống hỗ trợ cấu trúc hóa và kiểm soát dữ liệu, không thay thế đơn vị verifier và chưa phát hành numeric emissions khi evidence thực tế chưa đủ.</p>
+        <div class="footer-guardrail">SYNTHETIC_DEMO · R-006 OPEN · NUMERIC BLOCKED / MASKED · COMPLIANCE NOT_EVALUATED</div>
+      </section>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 TerraMetric · CarbonGraph – Evidence before emissions.</div>
+      <div class="footer-bottom-links">
+        <span>CBAM data workspace</span>
+        <span>Traceability</span>
+        <span>Data control</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="src/demo-data.js"></script>
+  <script src="src/validation-rules.js"></script>
+  <script src="src/validation-engine.js"></script>
+  <script src="src/graph-model.js"></script>
+  <script src="src/graph-engine.js"></script>
+  <script src="src/release-engine.js"></script>
+  <script src="src/report-engine.js"></script>
+  <script src="src/e2e-engine.js"></script>
+  <script src="src/acceptance-catalog.js"></script>
+  <script src="src/acceptance-engine.js"></script>
+  <script src="src/persistence.js"></script>
+  <script src="src/state.js"></script>
+  <script src="src/ambient-graph.js"></script>
+  <script src="src/app.js"></script>
+  <script src="src/i18n.js"></script>
+</body>
+</html>
