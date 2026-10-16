@@ -156,9 +156,30 @@
   }
 
   function activateNav(screenId) {
-    document.querySelectorAll("#nav button").forEach((button) => {
-      button.classList.toggle("active", button.dataset.screen === screenId);
+    const nav = document.getElementById("nav");
+    if (!nav) return;
+    let activeButton = null;
+    nav.querySelectorAll("button").forEach((button) => {
+      const isActive = button.dataset.screen === screenId;
+      button.classList.toggle("active", isActive);
+      if (isActive) button.setAttribute("aria-current", "page");
+      else button.removeAttribute("aria-current");
+      if (isActive) activeButton = button;
     });
+
+    // #20: Keep the selected workspace tab visible within the horizontal
+    // mobile nav, including direct hash navigation. Scroll this bar only;
+    // scrollIntoView() would also move the page vertically on small devices.
+    if (activeButton && nav.scrollWidth > nav.clientWidth) {
+      const viewport = nav.getBoundingClientRect();
+      const tab = activeButton.getBoundingClientRect();
+      const edge = 6;
+      if (tab.left < viewport.left + edge) {
+        nav.scrollLeft -= viewport.left + edge - tab.left;
+      } else if (tab.right > viewport.right - edge) {
+        nav.scrollLeft += tab.right - (viewport.right - edge);
+      }
+    }
   }
 
   function renderOverview() {
@@ -1231,11 +1252,39 @@
 
   function render(screenId, updateHash = true) {
     const safeScreen = renderers[screenId] ? screenId : "overview";
+    const screenChanged = Boolean(document.body.dataset.screen) && document.body.dataset.screen !== safeScreen;
     document.body.classList.toggle("screen-overview", safeScreen === "overview");
     document.body.dataset.screen = safeScreen;
     activateNav(safeScreen);
     renderers[safeScreen]();
-    if (updateHash) window.location.hash = safeScreen;
+
+    // #03: Animate only real screen changes, not validation/state re-renders.
+    // The animation is CSS-only; reduced-motion automatically disables it.
+    if (screenChanged) {
+      const mobileMenu = document.getElementById("product-nav");
+      const menuToggle = document.getElementById("product-menu-toggle");
+      if (safeScreen !== "overview") {
+        document.querySelectorAll(".product-nav [data-overview-target]").forEach((button) => {
+          button.classList.remove("is-active");
+          button.removeAttribute("aria-current");
+        });
+        if (mobileMenu && menuToggle) {
+          mobileMenu.classList.remove("is-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        }
+      }
+      const content = document.getElementById("content");
+      content.classList.remove("screen-enter");
+      void content.offsetWidth;
+      content.classList.add("screen-enter");
+      content.onanimationend = (event) => {
+        if (event.target === content) content.classList.remove("screen-enter");
+      };
+      // Workspace navigation should always reveal the new page heading rather
+      // than leave the user at the scroll position of the previous screen.
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+    if (updateHash && window.location.hash !== `#${safeScreen}`) window.location.hash = safeScreen;
   }
 
   function bindMotionControl() {
@@ -1296,20 +1345,83 @@
   });
 
   function bindMarketingNavigation() {
+    const marketingNav = document.getElementById("product-nav");
+    const menuButton = document.getElementById("product-menu-toggle");
+    const narrowHeader = window.matchMedia("(max-width: 1120px)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function closeMarketingMenu(returnFocus = false) {
+      if (!marketingNav || !menuButton) return;
+      const wasOpen = marketingNav.classList.contains("is-open");
+      marketingNav.classList.remove("is-open");
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Mở menu giới thiệu");
+      if (returnFocus && wasOpen) menuButton.focus();
+    }
+
+    function setMarketingMenu(open) {
+      marketingNav.classList.toggle("is-open", open);
+      menuButton.setAttribute("aria-expanded", String(open));
+      menuButton.setAttribute("aria-label", open ? "Đóng menu giới thiệu" : "Mở menu giới thiệu");
+    }
+
+    function setActiveMarketingTarget(targetId) {
+      marketingNav?.querySelectorAll("[data-overview-target]").forEach((button) => {
+        const active = button.dataset.overviewTarget === targetId;
+        button.classList.toggle("is-active", active);
+        if (active) button.setAttribute("aria-current", "location");
+        else button.removeAttribute("aria-current");
+      });
+    }
+
+    // #04: Restore the five marketing sections on tablets/phones through an
+    // accessible expandable menu, rather than hiding them completely.
+    menuButton?.addEventListener("click", () => {
+      setMarketingMenu(!marketingNav.classList.contains("is-open"));
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && marketingNav?.classList.contains("is-open")) {
+        closeMarketingMenu(true);
+      }
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (marketingNav?.classList.contains("is-open") &&
+          !marketingNav.contains(event.target) && !menuButton.contains(event.target)) {
+        closeMarketingMenu();
+      }
+    });
+    narrowHeader.addEventListener("change", () => closeMarketingMenu());
+
     document.querySelectorAll("[data-overview-target]").forEach((button) => {
       button.addEventListener("click", () => {
         const targetId = button.dataset.overviewTarget;
-        render("overview");
+        const alreadyOverview = document.body.dataset.screen === "overview";
+        closeMarketingMenu();
+        setActiveMarketingTarget(targetId);
+        // Do not re-create the whole Overview just to scroll to an existing
+        // section; that used to cause an unnecessary jump/reflow.
+        if (!alreadyOverview) render("overview");
         window.requestAnimationFrame(() => {
           const target = document.getElementById(targetId);
-          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+          if (!target) return;
+          // Cancel any previous smooth scroll before calculating a fresh
+          // target (important after resizing or fast repeated menu clicks).
+          window.scrollTo({ top: window.scrollY, behavior: "instant" });
+          const header = document.querySelector(".app-header");
+          const offset = (header?.getBoundingClientRect().height || 0) + 16;
+          const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - offset);
+          window.scrollTo({ top, behavior: reducedMotion.matches ? "instant" : "smooth" });
         });
       });
     });
 
     window.addEventListener("hashchange", () => {
       const requested = window.location.hash.replace("#", "") || "overview";
-      if (renderers[requested]) render(requested, false);
+      if (renderers[requested] && document.body.dataset.screen !== requested) {
+        closeMarketingMenu();
+        setActiveMarketingTarget(null);
+        render(requested, false);
+      }
     });
   }
 
