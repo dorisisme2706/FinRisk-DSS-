@@ -1,0 +1,22 @@
+{
+  "version": "2026-10-16/Items03-04",
+  "based_on": "FinRisk UI #01/#02 approved and #20 responsive branch pending leader approval",
+  "changed_files": [
+    "index.html",
+    "assets/styles.css",
+    "src/app.js",
+    "run_tests.bat",
+    "tests/finrisk-ui-03-04.test.js",
+    "qa/item03_04_qa.py"
+  ],
+  "unchanged_canvas_sha256": "529a82e65ad17807509a0ed4c7076be243049ce0fbe179c32d8e703b47d98a0b",
+  "frontend_only": true,
+  "regression": {
+    "browser_scenarios_item03_04": "68/68",
+    "responsive_viewport_screens": "162/162",
+    "JS_assertions": "156/156",
+    "source_syntax": "16/16",
+    "browser_errors": 0
+  },
+  "status": "CHỜ TRỌNG KHANG DUYỆT"
+}

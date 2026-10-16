@@ -11,7 +11,9 @@
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // #02: the system setting can change while the page is open.
+    const motionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    let prefersReducedMotion = Boolean(motionQuery && motionQuery.matches);
     let persistedEnabled = true;
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
@@ -22,6 +24,7 @@
 
     let enabled = prefersReducedMotion ? false : persistedEnabled;
     let rafId = 0;
+    let resizeRafId = 0;
     let width = 0;
     let height = 0;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -63,16 +66,51 @@
     }
 
     function resize() {
-      width = root.clientWidth || window.innerWidth;
-      height = root.clientHeight || window.innerHeight;
+      const previousWidth = width;
+      const previousHeight = height;
+      width = Math.max(1, root.clientWidth || window.innerWidth);
+      height = Math.max(1, root.clientHeight || window.innerHeight);
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.max(1, Math.floor(width * dpr));
       canvas.height = Math.max(1, Math.floor(height * dpr));
       canvas.style.width = width + "px";
       canvas.style.height = height + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      seedNodes();
+
+      // Preserve positions when resizing; recreating all nodes caused a
+      // visible jump during laptop resizing / mobile browser chrome changes.
+      if (!nodes.length) {
+        seedNodes();
+      } else {
+        nodes.forEach((node) => {
+          node.x = Math.max(0, Math.min(width, node.x * width / previousWidth));
+          node.y = Math.max(0, Math.min(height, node.y * height / previousHeight));
+        });
+        const targetCount = config.nodeCount();
+        nodes.length = Math.min(nodes.length, targetCount);
+        while (nodes.length < targetCount) {
+          const index = nodes.length;
+          nodes.push({
+            id: index,
+            x: random(0, width),
+            y: random(0, height),
+            vx: random(-config.speed, config.speed),
+            vy: random(-config.speed, config.speed),
+            radius: random(config.radiusMin, config.radiusMax),
+            accent: Math.random() > 0.62,
+            glow: Math.random() > 0.72
+          });
+        }
+      }
       draw();
+    }
+
+    function requestResize() {
+      if (resizeRafId) return;
+      resizeRafId = window.requestAnimationFrame(() => {
+        resizeRafId = 0;
+        resize();
+      });
     }
 
     function drawBackdrop() {
@@ -164,7 +202,7 @@
     }
 
     function start() {
-      if (!enabled || rafId) return;
+      if (!enabled || rafId || document.hidden) return;
       rafId = window.requestAnimationFrame(tick);
     }
 
@@ -174,13 +212,24 @@
       draw();
     }
 
-    function setEnabled(next) {
-      enabled = Boolean(next) && !prefersReducedMotion;
-      try { window.localStorage.setItem(STORAGE_KEY, String(enabled)); } catch (_) {}
+    function applyMotionPreference() {
+      enabled = persistedEnabled && !prefersReducedMotion;
       root.classList.toggle("is-paused", !enabled);
       if (enabled) start(); else stop();
       document.dispatchEvent(new CustomEvent("cg:motionchange", { detail: { enabled } }));
       return enabled;
+    }
+
+    function setEnabled(next) {
+      // Persist the user's choice, not a temporary OS reduced-motion override.
+      persistedEnabled = Boolean(next);
+      try { window.localStorage.setItem(STORAGE_KEY, String(persistedEnabled)); } catch (_) {}
+      return applyMotionPreference();
+    }
+
+    function onMotionPreferenceChange(event) {
+      prefersReducedMotion = event.matches;
+      applyMotionPreference();
     }
 
     function setMouse(event) {
@@ -208,7 +257,14 @@
     root.classList.toggle("is-paused", !enabled);
     if (enabled) start();
 
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", requestResize, { passive: true });
+    if (motionQuery) {
+      if (typeof motionQuery.addEventListener === "function") {
+        motionQuery.addEventListener("change", onMotionPreferenceChange);
+      } else if (typeof motionQuery.addListener === "function") {
+        motionQuery.addListener(onMotionPreferenceChange);
+      }
+    }
     window.addEventListener("pointermove", setMouse, { passive: true });
     window.addEventListener("pointerleave", clearMouse, { passive: true });
     window.addEventListener("blur", clearMouse, { passive: true });

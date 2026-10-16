@@ -785,7 +785,9 @@ tr:last-child td { border-bottom: 0; }
   --mint: #edf8e6;
   --sage: #c5edab;
   --body-copy: #2c4a3c;
-  --muted-green: #6a8978;
+  --muted-green: #54715f; /* #01: darker legible text on white without changing the green identity */
+  --workspace-ink: #e6f5ed;
+  --workspace-muted: #b5dcc4;
   --hairline: #cce5c0;
   --hairline-soft: #e2f0db;
   --tech-blue: #0b6f91;
@@ -3206,4 +3208,129 @@ summary:focus-visible {
   .news-grid { grid-template-columns: 1fr; gap: 16px; }
   .news-view-all { width: 100%; }
   .news-card h3 { font-size: 17px; }
+}
+
+
+/* FINRISK UI PRESERVATION #01 (16–17/10/2026)
+   Preserve the original forest/emerald/mint/leaf palette, glow and CTA.
+   Accessibility fix: inactive workspace labels must not use dark text on
+   the dark-green workspace bar. All other original styling stays intact. */
+.workspace-bar .nav button:not(.active) {
+  color: var(--workspace-ink);
+}
+.workspace-bar .nav button:not(.active):is(:hover, :focus-visible) {
+  color: var(--forest);
+  background: #f2f8f7;
+}
+.workspace-bar .workspace-eyebrow {
+  color: var(--workspace-muted);
+}
+.workspace-bar .workspace-version {
+  color: var(--workspace-ink);
+}
+
+/* FINRISK UI BASELINE #20 (16–29/10/2026)
+   Compact-screen hardening for long technical identifiers. Keep the approved
+   forest/emerald colors, ambient canvas and existing interaction styles intact.
+   Long non-spaced English tokens must wrap instead of widening the document. */
+@media (max-width: 640px) {
+  .e2e-hero > div:first-child,
+  .evidence-work-main {
+    min-width: 0;
+  }
+
+  .e2e-hero h2,
+  .evidence-work-main h3 {
+    overflow-wrap: anywhere;
+  }
+}
+
+
+/* FINRISK UI #03 / #04 (16–18/10/2026)
+   Preserve the approved forest/emerald/mint theme, canvas motion, 2-tier
+   header and original hover effects. Add lightweight screen-change animation
+   and accessible marketing navigation for tablet/mobile only. */
+@keyframes finrisk-screen-enter {
+  from { opacity: .65; transform: translateY(7px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.content.screen-enter {
+  animation: finrisk-screen-enter 250ms cubic-bezier(.2, .7, .2, 1) both;
+}
+
+/* Active state is visible for mouse, keyboard and touch section selection. */
+.product-nav button.is-active,
+.product-nav button[aria-current="location"] {
+  color: var(--forest);
+  background: var(--mint);
+  box-shadow: inset 0 0 0 1px rgba(22, 118, 66, .18);
+}
+.product-nav button:focus-visible,
+.product-menu-toggle:focus-visible,
+.header-login:focus-visible,
+.header-cta:focus-visible {
+  outline: 3px solid rgba(78, 176, 93, .45);
+  outline-offset: 3px;
+}
+
+/* Screen reader-friendly mobile/tablet marketing menu toggle. Desktop keeps
+   the original five-link navigation without an extra control. */
+.product-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--hairline, #c9dfd2);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--forest);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.product-menu-toggle:hover,
+.product-menu-toggle[aria-expanded="true"] {
+  background: var(--mint);
+  border-color: #aed89a;
+}
+.product-menu-toggle:hover { transform: translateY(-1px); }
+
+@media (max-width: 1120px) {
+  .product-menu-toggle { display: inline-flex; }
+  .marketing-header .product-nav { display: none; }
+  .marketing-header .product-nav.is-open {
+    display: flex;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+    padding-top: 9px;
+    border-top: 1px solid var(--hairline-soft, #dae9df);
+  }
+  .marketing-header .product-nav.is-open button {
+    min-height: 36px;
+    padding: 8px 11px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .marketing-header .header-actions { grid-column: 2; grid-row: 1; }
+  .marketing-header .brand { grid-column: 1; grid-row: 1; min-width: 0; }
+}
+@media (max-width: 860px) {
+  .marketing-header .header-actions { grid-column: 1; grid-row: 2; justify-content: flex-start; }
+  .marketing-header .product-nav.is-open { grid-row: 3; }
+}
+@media (max-width: 420px) {
+  .product-menu-toggle { padding: 0 9px; min-height: 34px; font-size: 10px; }
+  .marketing-header .product-nav.is-open { gap: 3px; }
+  .marketing-header .product-nav.is-open button { font-size: 11px; padding: 7px 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .content.screen-enter { animation: none !important; }
+  .product-menu-toggle { transition: none !important; }
 }
