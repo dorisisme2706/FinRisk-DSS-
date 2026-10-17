@@ -194,83 +194,51 @@
     const graphPass = state.graphSummary?.integrityStatus === "PASS";
     const releaseReady = state.release.numericReleaseStatus !== "BLOCKED" && state.release.resultVisibility !== "MASKED";
 
-    setHeader("Tổng quan sản phẩm", "Landing + product narrative ở phía trên, operational workspace ở các module bên dưới.");
+    setHeader("FinRisk DSS · Tổng quan", "Hero & KPI Dashboard · dữ liệu minh họa, chưa tích hợp backend.");
 
     $("#content").innerHTML = `
       <section class="product-hero" id="cg-product">
         <div class="product-hero-copy">
-          <div class="hero-badge"><span class="hero-badge-dot"></span> CBAM DATA CONTROL FOR STEEL</div>
-          <h2>Đừng bắt đầu bằng con số.<br><span>Bắt đầu bằng bằng chứng.</span></h2>
-          <p class="product-hero-lead">
-            CarbonGraph là workspace local giúp chuẩn hóa dữ liệu, phát hiện thiếu sót và truy vết
-            <strong>data → rule → issue → gate</strong> trước khi một working result được phép đi xa hơn.
-          </p>
+          <div class="hero-badge"><span class="hero-badge-dot"></span> FINRISK DSS · CREDIT RISK INTELLIGENCE</div>
+          <h2>Hiểu rủi ro rõ hơn.<br><span>Ra quyết định tự tin hơn.</span></h2>
+          <p class="product-hero-lead">FinRisk DSS hỗ trợ quy trình <strong>Hồ sơ → Đặc trưng → Dự báo ML → Đánh giá rủi ro → Quyết định</strong>. Minh bạch đầu vào, hỗ trợ giải thích kết quả và lưu vết quyết định khi tích hợp backend.</p>
           <div class="hero-actions">
-            <button class="btn hero-primary" data-open-screen="data">${icon("database", 17)} Mở dữ liệu demo <span>→</span></button>
-            <button class="btn hero-secondary" data-open-screen="trace">${icon("network", 17)} Xem Evidence Graph</button>
+            <button class="btn hero-primary" data-open-screen="data">${icon("database", 17)} Nhập hồ sơ vay <span>→</span></button>
+            <button class="btn hero-secondary" data-open-screen="trace">${icon("network", 17)} Xem luồng đánh giá</button>
           </div>
           <div class="hero-proof-row">
-            <span><b>75/75</b><small>automated assertions PASS</small></span>
-            <span><b>22</b><small>validation rules mapped</small></span>
-            <span><b>0</b><small>numeric emission value released</small></span>
+            <span><b>01</b><small>Customer profile</small></span>
+            <span><b>05</b><small>Decision pipeline stages</small></span>
+            <span><b>DEMO</b><small>Chưa kết nối ML/PostgreSQL</small></span>
           </div>
         </div>
-
-        <div class="app-preview-shell" aria-label="CarbonGraph app preview">
-          <div class="preview-browser-bar">
-            <div class="browser-dots"><i></i><i></i><i></i></div>
-            <span>localhost · CarbonGraph Workspace</span>
-            <span class="preview-live"><i></i> local state</span>
-          </div>
+        <div class="app-preview-shell" aria-label="FinRisk DSS concept preview">
+          <div class="preview-browser-bar"><div class="browser-dots"><i></i><i></i><i></i></div><span>FinRisk DSS · Concept Preview</span><span class="preview-live"><i></i> DEMO</span></div>
           <div class="preview-body">
-            <div class="preview-title-row">
-              <div>
-                <small>Working scenario</small>
-                <strong>${escapeHtml(state.meta.scenarioId)}</strong>
-              </div>
-              ${pill(state.release.numericReleaseStatus)}
-            </div>
-
+            <div class="preview-title-row"><div><small>Credit assessment</small><strong>Decision workspace</strong></div><span class="finrisk-demo-tag">MOCK DATA</span></div>
             <div class="preview-metrics">
-              <div class="preview-metric">
-                <span>Candidate CN8</span>
-                <strong class="code">${valueOrDash(state.precursor.candidateCn8.value)}</strong>
-                <small>${escapeHtml(state.precursor.candidateCn8.label)}</small>
-              </div>
-              <div class="preview-metric">
-                <span>Validation</span>
-                <strong>${issueCount}</strong>
-                <small>${blockerCount} blocker(s)</small>
-              </div>
-              <div class="preview-metric">
-                <span>Graph integrity</span>
-                <strong>${escapeHtml(state.graphSummary?.integrityStatus || "REVIEW")}</strong>
-                <small>${state.graphSummary?.nodeCount ?? 0} nodes · ${state.graphSummary?.orphanCount ?? 0} orphan</small>
-              </div>
+              <div class="preview-metric"><span>Hồ sơ</span><strong>1.248</strong><small>Minh họa</small></div>
+              <div class="preview-metric"><span>Phê duyệt</span><strong>68,4%</strong><small>Minh họa</small></div>
+              <div class="preview-metric"><span>Cần xem xét</span><strong>18,2%</strong><small>Minh họa</small></div>
             </div>
-
-            <div class="preview-panel">
-              <div class="preview-panel-head">
-                <span>Evidence & release path</span>
-                <small>${missingEvidence}/${totalEvidence} real evidence item(s) missing</small>
-              </div>
-              <div class="preview-flow-mini">
-                <div class="mini-node ok">Input<span>${escapeHtml(state.batch.batchId || "—")}</span></div>
-                <b>→</b>
-                <div class="mini-node ${blockerCount ? "warn" : "ok"}">Rules<span>${blockerCount} blocker</span></div>
-                <b>→</b>
-                <div class="mini-node ${graphPass ? "ok" : "warn"}">Graph<span>${escapeHtml(state.graphSummary?.integrityStatus || "REVIEW")}</span></div>
-                <b>→</b>
-                <div class="mini-node stop">Gate<span>${escapeHtml(state.release.resultVisibility)}</span></div>
-              </div>
+            <div class="preview-panel"><div class="preview-panel-head"><span>Decision pipeline</span><small>Concept UI · Chưa chạy mô hình</small></div>
+              <div class="preview-flow-mini"><div class="mini-node ok">Customer<span>Profile</span></div><b>→</b><div class="mini-node ok">Features<span>Input</span></div><b>→</b><div class="mini-node warn">ML<span>Pending</span></div><b>→</b><div class="mini-node warn">Decision<span>Pending</span></div></div>
             </div>
-
-            <div class="preview-status-line">
-              <span>${pill(state.meta.dataOrigin, "WARNING")}</span>
-              <span>${pill(`R-006 ${state.meta.r006Status}`)}</span>
-              <span>${pill("COMPLIANCE NOT_EVALUATED", "WARNING")}</span>
-            </div>
+            <div class="preview-status-line"><span class="finrisk-demo-tag">SYNTHETIC DEMO</span><span>Không phải quyết định tín dụng thật</span></div>
           </div>
+        </div>
+      </section>
+      <section class="finrisk-dashboard" id="finrisk-kpi-dashboard" aria-label="FinRisk KPI Dashboard demo">
+        <div class="finrisk-section-head"><div><span class="section-eyebrow">#06 · FINRISK KPI DASHBOARD</span><h2>Tổng quan danh mục hồ sơ</h2><p>Số liệu giả lập để kiểm tra giao diện. Chưa kết nối PostgreSQL, API hoặc mô hình ML.</p></div><span class="finrisk-demo-tag">DEMO / MOCK</span></div>
+        <div class="finrisk-kpi-grid">
+          <article class="finrisk-kpi"><span>Tổng hồ sơ</span><strong>1.248</strong><small>100% dữ liệu minh họa</small></article>
+          <article class="finrisk-kpi"><span>Tỷ lệ phê duyệt</span><strong>68,4%</strong><small>854 hồ sơ (giả lập)</small></article>
+          <article class="finrisk-kpi"><span>Chờ xem xét</span><strong>18,2%</strong><small>227 hồ sơ (giả lập)</small></article>
+          <article class="finrisk-kpi"><span>Rủi ro cao</span><strong>13,4%</strong><small>167 hồ sơ (giả lập)</small></article>
+        </div>
+        <div class="finrisk-chart-grid">
+          <article class="finrisk-chart"><h3>Phân bố trạng thái hồ sơ</h3><p>Giả lập · 1.248 hồ sơ</p><div class="finrisk-stacked" role="img" aria-label="Phê duyệt 68,4 phần trăm; chờ xem xét 18,2 phần trăm; rủi ro cao 13,4 phần trăm"><i style="width:68.4%;background:#16a36b"></i><i style="width:18.2%;background:#e5ad48"></i><i style="width:13.4%;background:#d46b61"></i></div><div class="finrisk-legend"><span>🟢 Phê duyệt 68,4%</span><span>🟡 Xem xét 18,2%</span><span>🔴 Rủi ro cao 13,4%</span></div></article>
+          <article class="finrisk-chart"><h3>Xu hướng hồ sơ theo tháng</h3><p>Giả lập · Tháng 5–10/2026</p><div class="finrisk-bars" role="img" aria-label="Số hồ sơ giả lập: tháng 5 là 125, tháng 6 là 158, tháng 7 là 180, tháng 8 là 212, tháng 9 là 261, tháng 10 là 312">${[125,158,180,212,261,312].map((v,i)=>`<div><b style="height:${Math.round(v/312*100)}%" title="${v} hồ sơ"></b><small>T${i+5}</small></div>`).join("")}</div></article>
         </div>
       </section>
 
