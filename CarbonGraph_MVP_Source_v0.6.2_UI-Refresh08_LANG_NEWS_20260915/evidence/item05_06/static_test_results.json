@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-17",
+  "source_archive": "FinRisk_UI_Items05_06_Demo.zip",
+  "scope": "Static source checks only",
+  "checks": {
+    "hero_heading": true,
+    "hero_finrisk": true,
+    "dashboard_section": true,
+    "mock_label": true,
+    "dashboard_css": true,
+    "two_ctas": true,
+    "legacy_cbam_present": true,
+    "javascript_syntax": true
+  },
+  "test_exit_code": 0,
+  "test_stdout": "PASS FinRisk hero heading\nPASS FinRisk overview\nPASS CTA to application\nPASS CTA to trace\nPASS Dashboard section\nPASS Dashboard CSS\nPASS Demo disclosure in source\nPASS Existing theme stylesheet\n8 static checks passed; browser behavior NOT tested\n",
+  "test_stderr": "",
+  "browser_screenshots": "NOT CAPTURED",
+  "leader_signoff": "PENDING",
+  "overall": "PENDING UAT AND SIGNOFF"
+}

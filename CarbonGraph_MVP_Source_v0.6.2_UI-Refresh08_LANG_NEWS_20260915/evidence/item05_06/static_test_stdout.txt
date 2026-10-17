@@ -1,0 +1,11 @@
+PASS FinRisk hero heading
+PASS FinRisk overview
+PASS CTA to application
+PASS CTA to trace
+PASS Dashboard section
+PASS Dashboard CSS
+PASS Demo disclosure in source
+PASS Existing theme stylesheet
+8 static checks passed; browser behavior NOT tested
+
+node --check: PASS
