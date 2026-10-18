@@ -465,92 +465,86 @@
         </div>
       </section>
 
-      <section class="landing-section news-section" id="cg-news">
+      <section class="landing-section news-section" id="cg-news" aria-label="Tin tức tài chính và vay vốn">
         <div class="news-heading-row">
           <div class="section-heading">
-            <span class="section-eyebrow">TIN TỨC & KIẾN THỨC</span>
-            <h2>CBAM, thuế carbon và những chuyển động của ngành thép</h2>
-            <p>Các nguồn dưới đây giúp theo dõi thay đổi chính sách, áp lực chi phí carbon và những thách thức thương mại mà doanh nghiệp thép đang đối mặt tại Việt Nam và quốc tế.</p>
+            <span class="section-eyebrow">FINRISK INSIGHTS · TÀI CHÍNH & VAY VỐN</span>
+            <h2>Tin tức tài chính, tín dụng và quản trị rủi ro</h2>
+            <p>Nguồn tham khảo từ cơ quan quản lý và tổ chức quốc tế. Nội dung được biên tập tóm tắt, không phải dữ liệu đánh giá khoản vay thời gian thực.</p>
           </div>
-          <a class="news-view-all" href="https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/cbam-communication-and-news_en" target="_blank" rel="noopener noreferrer">Xem tin CBAM chính thức <span aria-hidden="true">→</span></a>
+          <a class="news-view-all" href="https://www.sbv.gov.vn/" target="_blank" rel="noopener noreferrer">Nguồn Ngân hàng Nhà nước <span aria-hidden="true">→</span></a>
         </div>
-
         <div class="news-grid">
           <article class="news-card">
-            <a class="news-image-link" href="https://moit.gov.vn/bao-ve-moi-truong/cbam-doanh-nghiep-viet-can-chuan-bi-gi-truoc-yeu-cau-moi-cua-thi-truong-eu-.html" target="_blank" rel="noopener noreferrer" aria-label="Đọc bài Bộ Công Thương về doanh nghiệp Việt chuẩn bị cho CBAM">
-              <img src="assets/news/vn-cbam.svg" alt="Minh họa doanh nghiệp Việt, dữ liệu carbon và CBAM" loading="lazy" />
+            <a class="news-image-link" href="https://www.sbv.gov.vn/vi/web/sbv_portal/w/sbv596408" target="_blank" rel="noopener noreferrer" aria-label="Xem nguồn NGÂN HÀNG NHÀ NƯỚC: Giới hạn cấp tín dụng theo Luật Các tổ chức tín dụng 2024">
+              <img src="assets/news/credit-policy.svg" alt="Minh họa chủ đề chính sách tín dụng" loading="lazy" />
               <span class="news-region vietnam">VIỆT NAM</span>
             </a>
             <div class="news-card-body">
-              <div class="news-meta"><span>BỘ CÔNG THƯƠNG</span><time datetime="2026-08-05">05/08/2026</time></div>
-              <h3>CBAM: Doanh nghiệp Việt cần chuẩn bị gì trước yêu cầu mới của thị trường EU?</h3>
-              <p>Bài viết nhấn mạnh nhu cầu hoàn thiện hệ thống đo lường, báo cáo và kiểm chứng phát thải khi CBAM bước vào giai đoạn chính thức.</p>
-              <a class="news-read-more" href="https://moit.gov.vn/bao-ve-moi-truong/cbam-doanh-nghiep-viet-can-chuan-bi-gi-truoc-yeu-cau-moi-cua-thi-truong-eu-.html" target="_blank" rel="noopener noreferrer">Đọc tiếp <span aria-hidden="true">→</span></a>
+              <div class="news-meta"><span>NGÂN HÀNG NHÀ NƯỚC</span><span>Chính sách tín dụng</span></div>
+              <h3>Giới hạn cấp tín dụng theo Luật Các tổ chức tín dụng 2024</h3>
+              <p>Tìm hiểu lộ trình giới hạn cấp tín dụng và mục tiêu kiểm soát rủi ro tập trung.</p>
+              <a class="news-read-more" href="https://www.sbv.gov.vn/vi/web/sbv_portal/w/sbv596408" target="_blank" rel="noopener noreferrer">Xem nguồn gốc <span aria-hidden="true">→</span></a>
             </div>
           </article>
-
           <article class="news-card">
-            <a class="news-image-link" href="https://vnexpress.net/doanh-nghiep-nguy-co-mat-100-usd-moi-tan-thep-sang-eu-vi-phat-thai-5113827.html" target="_blank" rel="noopener noreferrer" aria-label="Đọc bài VnExpress về áp lực chi phí phát thải với thép xuất khẩu EU">
-              <img src="assets/news/vn-steel-cost.svg" alt="Minh họa thép, CBAM và áp lực chi phí carbon" loading="lazy" />
+            <a class="news-image-link" href="https://www.sbv.gov.vn/vi/w/sbv637542" target="_blank" rel="noopener noreferrer" aria-label="Xem nguồn NGÂN HÀNG NHÀ NƯỚC: Quản lý nợ xấu và các cơ chế bảo vệ hệ thống ngân hàng">
+              <img src="assets/news/risk-management.svg" alt="Minh họa chủ đề quản trị rủi ro" loading="lazy" />
               <span class="news-region vietnam">VIỆT NAM</span>
             </a>
             <div class="news-card-body">
-              <div class="news-meta"><span>VNEXPRESS</span><time datetime="2026-08-27">27/08/2026</time></div>
-              <h3>Doanh nghiệp nguy cơ mất 100 USD mỗi tấn thép sang EU vì phát thải</h3>
-              <p>Một góc nhìn thị trường về rủi ro chi phí carbon đối với hàng phát thải cao, đặc biệt là thép xuất khẩu vào EU.</p>
-              <a class="news-read-more" href="https://vnexpress.net/doanh-nghiep-nguy-co-mat-100-usd-moi-tan-thep-sang-eu-vi-phat-thai-5113827.html" target="_blank" rel="noopener noreferrer">Đọc tiếp <span aria-hidden="true">→</span></a>
+              <div class="news-meta"><span>NGÂN HÀNG NHÀ NƯỚC</span><span>Quản trị rủi ro</span></div>
+              <h3>Quản lý nợ xấu và các cơ chế bảo vệ hệ thống ngân hàng</h3>
+              <p>Thông tin về quản lý rủi ro, xử lý nợ xấu và các biện pháp can thiệp đặc biệt.</p>
+              <a class="news-read-more" href="https://www.sbv.gov.vn/vi/w/sbv637542" target="_blank" rel="noopener noreferrer">Xem nguồn gốc <span aria-hidden="true">→</span></a>
             </div>
           </article>
-
           <article class="news-card">
-            <a class="news-image-link" href="https://vneconomy.vn/san-xuat-va-tieu-thu-thep-tang-truong-hai-con-so-xuat-khau-doi-mat-voi-rao-can-thuong-mai.htm" target="_blank" rel="noopener noreferrer" aria-label="Đọc bài VnEconomy về thị trường thép và rào cản xuất khẩu">
-              <img src="assets/news/vn-steel-trade.svg" alt="Minh họa thép và rào cản thương mại xuất khẩu" loading="lazy" />
+            <a class="news-image-link" href="https://www.worldbank.org/ext/en/topic/financial-sector" target="_blank" rel="noopener noreferrer" aria-label="Xem nguồn WORLD BANK: Phát triển dịch vụ tài chính và tiếp cận vốn bền vững">
+              <img src="assets/news/financial-access.svg" alt="Minh họa chủ đề tiếp cận tài chính" loading="lazy" />
+              <span class="news-region international">QUỐC TẾ</span>
+            </a>
+            <div class="news-card-body">
+              <div class="news-meta"><span>WORLD BANK</span><span>Tiếp cận tài chính</span></div>
+              <h3>Phát triển dịch vụ tài chính và tiếp cận vốn bền vững</h3>
+              <p>Tổng quan các ưu tiên về tiếp cận tài chính, hạ tầng tài chính và cho vay bền vững.</p>
+              <a class="news-read-more" href="https://www.worldbank.org/ext/en/topic/financial-sector" target="_blank" rel="noopener noreferrer">Xem nguồn gốc <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+          <article class="news-card">
+            <a class="news-image-link" href="https://databank.worldbank.org/embed/Vietnam--Financial-Sector/id/2c1430e" target="_blank" rel="noopener noreferrer" aria-label="Xem nguồn WORLD BANK: Các chỉ số tài chính và tín dụng của Việt Nam">
+              <img src="assets/news/credit-data.svg" alt="Minh họa chủ đề dữ liệu tín dụng" loading="lazy" />
               <span class="news-region vietnam">VIỆT NAM</span>
             </a>
             <div class="news-card-body">
-              <div class="news-meta"><span>VNECONOMY</span><time datetime="2026-08-01">2026</time></div>
-              <h3>Thị trường thép 2026: Sản lượng tăng, xuất khẩu đối mặt nhiều rào cản</h3>
-              <p>Ngành thép Việt Nam tăng trưởng sản xuất nhưng tiếp tục chịu sức ép từ hạn ngạch, phòng vệ thương mại và các yêu cầu mới tại EU.</p>
-              <a class="news-read-more" href="https://vneconomy.vn/san-xuat-va-tieu-thu-thep-tang-truong-hai-con-so-xuat-khau-doi-mat-voi-rao-can-thuong-mai.htm" target="_blank" rel="noopener noreferrer">Đọc tiếp <span aria-hidden="true">→</span></a>
+              <div class="news-meta"><span>WORLD BANK</span><span>Dữ liệu tín dụng</span></div>
+              <h3>Các chỉ số tài chính và tín dụng của Việt Nam</h3>
+              <p>Khám phá nguồn dữ liệu thống kê về tín dụng, ngân hàng và các chỉ tiêu tài chính.</p>
+              <a class="news-read-more" href="https://databank.worldbank.org/embed/Vietnam--Financial-Sector/id/2c1430e" target="_blank" rel="noopener noreferrer">Xem nguồn gốc <span aria-hidden="true">→</span></a>
             </div>
           </article>
-
           <article class="news-card">
-            <a class="news-image-link" href="https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/cbam-definitive-regime_en" target="_blank" rel="noopener noreferrer" aria-label="Đọc thông tin chính thức của Ủy ban châu Âu về CBAM definitive regime">
-              <img src="assets/news/eu-cbam.svg" alt="Minh họa CBAM definitive regime và dữ liệu phát thải" loading="lazy" />
+            <a class="news-image-link" href="https://www.worldbank.org/en/news/press-release/2025/07/16/mobile-phone-technology-powers-saving-surge-in-developing-economies" target="_blank" rel="noopener noreferrer" aria-label="Xem nguồn World Bank về tiết kiệm số và tài chính toàn diện">
+              <img src="assets/news/digital-savings.svg" alt="Minh họa tiết kiệm và giao dịch tài chính trên điện thoại" loading="lazy" />
               <span class="news-region international">QUỐC TẾ</span>
             </a>
             <div class="news-card-body">
-              <div class="news-meta"><span>EUROPEAN COMMISSION</span><time datetime="2026-01-01">2026</time></div>
-              <h3>CBAM definitive regime: nghĩa vụ chính thức áp dụng từ năm 2026</h3>
-              <p>Nguồn chính thức về cơ chế CBAM từ 2026, bao gồm khai báo phát thải hàm chứa và nghĩa vụ liên quan tới chứng chỉ CBAM.</p>
-              <a class="news-read-more" href="https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/cbam-definitive-regime_en" target="_blank" rel="noopener noreferrer">Đọc tiếp <span aria-hidden="true">→</span></a>
+              <div class="news-meta"><span>WORLD BANK</span><span>16/07/2025 · Tài chính số</span></div>
+              <h3>Điện thoại thúc đẩy tiết kiệm và tiếp cận dịch vụ tài chính</h3>
+              <p>Global Findex 2025 ghi nhận vai trò của điện thoại trong mở rộng tài khoản, tiết kiệm và thanh toán tại các nền kinh tế đang phát triển.</p>
+              <a class="news-read-more" href="https://www.worldbank.org/en/news/press-release/2025/07/16/mobile-phone-technology-powers-saving-surge-in-developing-economies" target="_blank" rel="noopener noreferrer">Xem nguồn gốc <span aria-hidden="true">→</span></a>
             </div>
           </article>
-
           <article class="news-card">
-            <a class="news-image-link" href="https://taxation-customs.ec.europa.eu/news/commission-welcomes-council-agreement-strengthening-cbam-2026-06-12_en" target="_blank" rel="noopener noreferrer" aria-label="Đọc bài European Commission về tăng cường CBAM">
-              <img src="assets/news/eu-policy.svg" alt="Minh họa chính sách CBAM và bảo vệ công nghiệp xanh" loading="lazy" />
-              <span class="news-region international">QUỐC TẾ</span>
+            <a class="news-image-link" href="https://microdata.worldbank.org/index.php/catalog/7998" target="_blank" rel="noopener noreferrer" aria-label="Xem dữ liệu Global Findex 2025 cho Việt Nam">
+              <img src="assets/news/vietnam-findex.svg" alt="Minh họa khảo sát tiếp cận tín dụng và thanh toán số tại Việt Nam" loading="lazy" />
+              <span class="news-region vietnam">VIỆT NAM</span>
             </a>
             <div class="news-card-body">
-              <div class="news-meta"><span>EUROPEAN COMMISSION</span><time datetime="2026-06-12">12/06/2026</time></div>
-              <h3>EU tiếp tục tăng cường CBAM và mở rộng kiểm soát rò rỉ carbon</h3>
-              <p>Ủy ban châu Âu cho biết các bước tăng cường CBAM nhằm củng cố quá trình chuyển đổi công nghiệp sạch và hạn chế carbon leakage.</p>
-              <a class="news-read-more" href="https://taxation-customs.ec.europa.eu/news/commission-welcomes-council-agreement-strengthening-cbam-2026-06-12_en" target="_blank" rel="noopener noreferrer">Đọc tiếp <span aria-hidden="true">→</span></a>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <a class="news-image-link" href="https://www.reuters.com/business/outokumpu-cfo-says-costs-eat-into-gains-eu-steel-measures-2026-07-30/" target="_blank" rel="noopener noreferrer" aria-label="Đọc bài Reuters về áp lực chi phí của ngành thép châu Âu">
-              <img src="assets/news/global-steel.svg" alt="Minh họa ngành thép quốc tế và áp lực chi phí" loading="lazy" />
-              <span class="news-region international">QUỐC TẾ</span>
-            </a>
-            <div class="news-card-body">
-              <div class="news-meta"><span>REUTERS</span><time datetime="2026-07-30">30/07/2026</time></div>
-              <h3>Chi phí đầu vào tiếp tục gây sức ép lên ngành thép châu Âu</h3>
-              <p>Reuters ghi nhận chi phí phế liệu, vận tải và nhiên liệu đang bào mòn lợi ích từ các biện pháp hỗ trợ ngành thép tại EU.</p>
-              <a class="news-read-more" href="https://www.reuters.com/business/outokumpu-cfo-says-costs-eat-into-gains-eu-steel-measures-2026-07-30/" target="_blank" rel="noopener noreferrer">Đọc tiếp <span aria-hidden="true">→</span></a>
+              <div class="news-meta"><span>WORLD BANK</span><span>Global Findex 2025</span></div>
+              <h3>Global Findex 2025: Dữ liệu về vay vốn và tài chính số tại Việt Nam</h3>
+              <p>Bộ dữ liệu khảo sát tại Việt Nam giúp tham khảo hành vi sử dụng tài khoản, thanh toán, tiết kiệm và vay vốn của người trưởng thành.</p>
+              <a class="news-read-more" href="https://microdata.worldbank.org/index.php/catalog/7998" target="_blank" rel="noopener noreferrer">Xem nguồn gốc <span aria-hidden="true">→</span></a>
             </div>
           </article>
         </div>
