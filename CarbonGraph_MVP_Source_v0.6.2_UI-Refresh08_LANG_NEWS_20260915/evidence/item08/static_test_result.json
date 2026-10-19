@@ -1,0 +1,18 @@
+{
+  "checks": {
+    "3 roadmap cards": true,
+    "preserves suite grid": true,
+    "preserves preview variants": true,
+    "financial wording": true,
+    "concept disclaimer": true,
+    "mock label": true,
+    "no emissions terminology in roadmap": true,
+    "news 6 cards retained": true,
+    "hero retained": true,
+    "JS syntax": true,
+    "node roadmap test": true
+  },
+  "passed": 11,
+  "total": 11,
+  "browser_tested": false
+}
