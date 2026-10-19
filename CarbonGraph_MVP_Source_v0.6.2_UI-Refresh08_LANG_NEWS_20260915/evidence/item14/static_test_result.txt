@@ -1,0 +1,13 @@
+PASS Footer exists
+PASS FinRisk brand
+PASS No legacy CBAM in footer
+PASS Four footer columns
+PASS News anchor
+PASS Roadmap anchor
+PASS FAQ anchor
+PASS Mock label
+PASS Financial disclaimer
+PASS No invented contact
+PASS Footer responsive rules retained
+PASS Existing animation canvas retained
+12/12 PASS
