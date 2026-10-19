@@ -278,82 +278,45 @@
         </div>
       </section>
 
-      <section class="landing-section product-suite-section" id="cg-suite">
+      <section class="landing-section product-suite-section" id="cg-suite" aria-label="FinRisk Product Roadmap">
         <div class="section-heading centered">
           <span class="section-eyebrow">PRODUCT ROADMAP · CONCEPT UI</span>
-          <h2>Hướng mở rộng: kiểm kê, báo cáo và phân tích dữ liệu phát thải</h2>
-          <p>Các card dưới đây mô tả hướng mở rộng sản phẩm, không phải module đã hoàn thiện trong RC1. Lõi đang chạy vẫn là data control, evidence trace, validation và release guardrail.</p>
+          <h2>Lộ trình phát triển hệ thống hỗ trợ quyết định tín dụng FinRisk DSS</h2>
+          <p>Ba định hướng sản phẩm dưới đây là concept UI, chưa phải tính năng nghiệp vụ đã triển khai. Kết quả đánh giá cần được kiểm chứng với schema, mô hình ML và policy đã thống nhất.</p>
         </div>
         <div class="suite-grid">
           <article class="suite-card">
-            <div class="suite-preview">
-              <div class="suite-mini-list">
-                <span><i></i> Điện lưới <b>DATA</b></span>
-                <span><i></i> Nhiên liệu <b>DATA</b></span>
-                <span><i></i> Chuỗi giá trị <b>DATA</b></span>
-                <strong>Kết quả phát thải <b>MASKED</b></strong>
-              </div>
-            </div>
-            <div class="suite-body">
-              <div class="suite-icon">⌘</div><span class="suite-roadmap-badge">ROADMAP</span>
-              <h3>Kiểm kê</h3>
-              <h4>Hệ thống kiểm kê toàn diện</h4>
-              <ul>
-                <li>Kiểm kê KNK cho tất cả chi nhánh, nhà máy</li>
-                <li>Hệ thống nhập liệu thân thiện, dễ dùng</li>
-                <li>Lưu trữ nhiều sổ phát thải, lâu dài</li>
-                <li>Hệ số phát thải cập nhật liên tục</li>
-              </ul>
+            <div class="suite-preview"><div class="suite-mini-list">
+              <span><i></i> Hồ sơ khách hàng <b>INPUT</b></span>
+              <span><i></i> Thu nhập & khoản vay <b>DATA</b></span>
+              <span><i></i> Kiểm tra trường dữ liệu <b>CHECK</b></span>
+              <strong>Trạng thái hồ sơ <b>CONCEPT</b></strong>
+            </div></div>
+            <div class="suite-body"><div class="suite-icon">⌘</div><span class="suite-roadmap-badge">ROADMAP</span>
+              <h3>Hồ sơ tín dụng</h3><h4>Chuẩn hóa dữ liệu khách hàng và khoản vay</h4>
+              <ul><li>Form hồ sơ theo schema đã được nhóm phê duyệt</li><li>Kiểm tra trường bắt buộc và định dạng tài chính</li><li>Lưu, truy xuất và theo dõi phiên bản hồ sơ khi có backend</li><li>Phân biệt dữ liệu demo và dữ liệu thực</li></ul>
             </div>
           </article>
-
           <article class="suite-card">
-            <div class="suite-preview suite-preview-report">
-              <div class="suite-report-card">
-                <div class="suite-report-head"><span>Mẫu báo cáo KNK</span><em>ROADMAP</em></div>
-                <div class="suite-report-checks">
-                  <span>✓ Phạm vi Scope 1 · 2 · 3</span>
-                  <span>✓ Template theo NĐ06 / ISO 14064</span>
-                  <span>✓ Trường dữ liệu phục vụ review</span>
-                </div>
-                <div class="suite-file-chips"><b>PDF</b><b>Excel</b><b>XML</b></div>
-              </div>
-            </div>
-            <div class="suite-body">
-              <div class="suite-icon">▤</div><span class="suite-roadmap-badge">ROADMAP</span>
-              <h3>Báo cáo</h3>
-              <h4>Xuất báo cáo theo nhiều định dạng</h4>
-              <ul>
-                <li>Nghị định 06/2022/NĐ-CP</li>
-                <li>Tiêu chuẩn ISO 14064-1:2018</li>
-                <li>Báo cáo chuẩn quốc tế</li>
-              </ul>
+            <div class="suite-preview suite-preview-report"><div class="suite-report-card">
+              <div class="suite-report-head"><span>Credit Assessment Report</span><em>ROADMAP</em></div>
+              <div class="suite-report-checks"><span>✓ Thông tin hồ sơ và chỉ số đầu vào</span><span>✓ Risk · Decision · Recommendation</span><span>✓ Lịch sử & dấu vết quyết định</span></div>
+              <div class="suite-file-chips"><b>HTML</b><b>JSON</b><b>TRACE</b></div>
+            </div></div>
+            <div class="suite-body"><div class="suite-icon">▤</div><span class="suite-roadmap-badge">ROADMAP</span>
+              <h3>Báo cáo tín dụng</h3><h4>Giải thích và xuất kết quả đánh giá</h4>
+              <ul><li>Trình bày mức rủi ro và lý do đề xuất</li><li>Truy vết Customer → Features → ML → Decision</li><li>Xuất báo cáo HTML/JSON theo dữ liệu hợp lệ</li><li>Hỗ trợ người duyệt, không thay thế phê duyệt thực tế</li></ul>
             </div>
           </article>
-
           <article class="suite-card">
-            <div class="suite-preview suite-preview-ai">
-              <div class="suite-line-chart">
-                <div class="suite-chart-head"><span>Kịch bản phân tích</span><em>ROADMAP</em></div>
-                <svg viewBox="0 0 260 90" aria-hidden="true">
-                  <polyline fill="none" stroke="#0a3c33" stroke-width="3" points="8,24 72,30 132,26 190,40 250,48"></polyline>
-                  <polyline fill="none" stroke="#84cc16" stroke-width="3" stroke-dasharray="8 6" points="132,26 190,36 250,48"></polyline>
-                  <circle cx="8" cy="24" r="4" fill="#0a3c33"></circle>
-                  <circle cx="250" cy="48" r="4" fill="#84cc16"></circle>
-                </svg>
-                <div class="suite-chart-scale"><span>Baseline <b>—</b></span><span>Scenario <b>—</b></span><span class="suite-trend">DEMO UI</span></div>
-              </div>
-            </div>
-            <div class="suite-body">
-              <div class="suite-icon">✦</div><span class="suite-roadmap-badge">ROADMAP</span>
-              <h3>Dự báo</h3>
-              <h4>Hệ thống AI tân tiến</h4>
-              <ul>
-                <li>Phân tích, báo cáo, dự báo hoạt động phát thải</li>
-                <li>Tự động cập nhật quy định & tiêu chuẩn mới</li>
-                <li>Phát hiện, cảnh báo bất thường trong dữ liệu</li>
-                <li>Giải đáp mọi thắc mắc về kiểm kê KNK</li>
-              </ul>
+            <div class="suite-preview suite-preview-ai"><div class="suite-line-chart">
+              <div class="suite-chart-head"><span>Minh họa phân tầng rủi ro</span><em>ROADMAP</em></div>
+              <svg viewBox="0 0 260 90" aria-hidden="true"><polyline fill="none" stroke="#0a3c33" stroke-width="3" points="8,60 72,52 132,44 190,35 250,24"></polyline><polyline fill="none" stroke="#84cc16" stroke-width="3" stroke-dasharray="8 6" points="132,44 190,40 250,30"></polyline><circle cx="8" cy="60" r="4" fill="#0a3c33"></circle><circle cx="250" cy="24" r="4" fill="#84cc16"></circle></svg>
+              <div class="suite-chart-scale"><span>Risk <b>—</b></span><span>Scenario <b>—</b></span><span class="suite-trend">MOCK UI</span></div>
+            </div></div>
+            <div class="suite-body"><div class="suite-icon">✦</div><span class="suite-roadmap-badge">ROADMAP</span>
+              <h3>AI & Decision Engine</h3><h4>Hỗ trợ phân tích và ra quyết định có giải thích</h4>
+              <ul><li>Nhận điểm rủi ro từ mô hình ML được xác thực</li><li>Áp dụng policy phê duyệt do nhóm thống nhất</li><li>Giải thích khuyến nghị và cảnh báo bất thường</li><li>Không tự động phê duyệt khoản vay từ dữ liệu mock</li></ul>
             </div>
           </article>
         </div>
