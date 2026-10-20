@@ -1,0 +1,10 @@
+{
+  "item": "#15",
+  "test_type": "static",
+  "passed": 15,
+  "total": 15,
+  "js_syntax": "PASS",
+  "browser_test": "NOT_RUN",
+  "leader_approval": "PENDING",
+  "source": "src/i18n.js"
+}

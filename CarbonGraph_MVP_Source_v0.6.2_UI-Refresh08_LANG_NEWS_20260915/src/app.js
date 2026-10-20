@@ -78,7 +78,7 @@
     return `<svg class="ui-icon ${escapeHtml(extraClass)}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
   }
 
-  function showToast(message, type = "info", title = "CarbonGraph", duration = 3600) {
+  function showToast(message, type = "info", title = "FinRisk DSS", duration = 3600) {
     const region = document.getElementById("toast-region");
     if (!region) return;
     const toast = document.createElement("div");
