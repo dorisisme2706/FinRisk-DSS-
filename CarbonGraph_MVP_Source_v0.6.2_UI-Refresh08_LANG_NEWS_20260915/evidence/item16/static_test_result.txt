@@ -1,0 +1,16 @@
+PASS No visible #16 demo section
+PASS No demo feedback buttons
+PASS No demo binding
+PASS No feedback demo CSS
+PASS Shared toast retained
+PASS FinRisk default toast title
+PASS Toast error style
+PASS Toast dismiss button
+PASS Loading button helper
+PASS Busy action helper
+PASS Busy button disabled
+PASS Busy button reenabled
+PASS Existing VI/EN translations
+PASS Six news cards preserved
+PASS Three roadmap cards preserved
+15/15 PASS

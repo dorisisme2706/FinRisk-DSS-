@@ -1,0 +1,16 @@
+PASS VI/EN toggle exists
+PASS Language storage persists
+PASS Saved language restored
+PASS HTML lang synchronized
+PASS Hero translations
+PASS Dashboard translations
+PASS News translations
+PASS Roadmap translations
+PASS Footer translations
+PASS Translation on dynamic DOM
+PASS VI restoration supported
+PASS Existing 6 news cards
+PASS Existing 3 roadmap cards
+PASS Ambient animation retained
+PASS No backend integration added
+15/15 PASS
