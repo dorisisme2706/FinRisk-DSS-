@@ -78,55 +78,53 @@
 
   <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="false"></div>
 
-  <footer class="app-footer">
+  <footer class="app-footer" aria-label="Thông tin FinRisk DSS">
     <div class="footer-shell">
       <section class="footer-brand-block">
-        <div class="footer-brand-title">🌳 CarbonGraph</div>
-        <div class="footer-brand-subtitle">Sản phẩm của TerraMetric</div>
-        <p class="footer-brand-copy">CarbonGraph là workspace dữ liệu CBAM cho ngành thép, tập trung vào chuẩn hóa dữ liệu, quản lý bằng chứng, truy vết evidence graph và kiểm soát working release theo cơ chế fail-closed.</p>
+        <div class="footer-brand-title">FinRisk DSS</div>
+        <div class="footer-brand-subtitle">Credit Risk Decision Support · Sprint 01</div>
+        <p class="footer-brand-copy">Không gian hỗ trợ đánh giá rủi ro tín dụng: hồ sơ khách hàng, chỉ số tổng quan, giải thích kết quả và định hướng hỗ trợ ra quyết định. Các tính năng chưa tích hợp được trình bày dưới dạng demo.</p>
         <ul class="footer-contact-list">
-          <li>📍 69/68 Đặng Thuỳ Trâm, Bình Lợi Trung, Hồ Chí Minh</li>
-          <li>☎️ 096.9216.067</li>
-          <li>📧 teeracarbon@graph.vn</li>
+          <li>Dự án học thuật FinRisk DSS · Nhóm 06</li>
+          <li>Trạng thái: Giao diện thử nghiệm (UI DEMO)</li>
+          <li>Không thu thập thông tin cá nhân thật trong bản demo</li>
         </ul>
       </section>
 
       <section class="footer-links-block">
         <h4>Giải pháp</h4>
         <ul>
-          <li>CBAM Core for Steel</li>
-          <li>Input Module</li>
-          <li>Validation Engine</li>
-          <li>Evidence Graph</li>
-          <li>Release Gate</li>
-          <li>Working Export</li>
+          <li>Hồ sơ tín dụng (đang phát triển)</li>
+          <li>Dashboard KPI (MOCK)</li>
+          <li>Đánh giá rủi ro (định hướng)</li>
+          <li>Decision Trace (định hướng)</li>
+          <li>Báo cáo tín dụng (định hướng)</li>
         </ul>
       </section>
 
       <section class="footer-links-block">
-        <h4>Dự án</h4>
+        <h4>Khám phá</h4>
         <ul>
-          <li>VietFuture Awards 2026</li>
-          <li>Localhost MVP Demo</li>
-          <li>SYNTHETIC_DEMO dataset</li>
-          <li>75/75 automated assertions PASS</li>
-          <li>RC1 candidate workspace</li>
+          <li><button type="button" data-overview-target="cg-news">Tin tức tài chính</button></li>
+          <li><button type="button" data-overview-target="cg-suite">Product Roadmap</button></li>
+          <li><button type="button" data-overview-target="cg-faq">Câu hỏi thường gặp</button></li>
+          <li>FinRisk DSS · Local UI Demo</li>
         </ul>
       </section>
 
       <section class="footer-links-block footer-note-block">
-        <h4>Ghi chú vận hành</h4>
-        <p>CarbonGraph hiện là MVP nghiên cứu. Hệ thống hỗ trợ cấu trúc hóa và kiểm soát dữ liệu, không thay thế đơn vị verifier và chưa phát hành numeric emissions khi evidence thực tế chưa đủ.</p>
-        <div class="footer-guardrail">SYNTHETIC_DEMO · R-006 OPEN · NUMERIC BLOCKED / MASKED · COMPLIANCE NOT_EVALUATED</div>
+        <h4>Thông báo quan trọng</h4>
+        <p>FinRisk DSS là nguyên mẫu phục vụ học tập và trình diễn. Các chỉ số MOCK không phản ánh hồ sơ vay thực tế. Hệ thống không đưa ra phê duyệt tín dụng chính thức và không thay thế thẩm định của tổ chức tài chính.</p>
+        <div class="footer-guardrail">UI DEMO · MOCK DATA · NOT A CREDIT APPROVAL · NO LIVE BACKEND</div>
       </section>
     </div>
 
     <div class="footer-bottom">
-      <div>© 2026 TerraMetric · CarbonGraph – Evidence before emissions.</div>
+      <div>© 2026 FinRisk DSS · Dự án học thuật Nhóm 06.</div>
       <div class="footer-bottom-links">
-        <span>CBAM data workspace</span>
-        <span>Traceability</span>
-        <span>Data control</span>
+        <span>Minh bạch dữ liệu</span>
+        <span>Hỗ trợ quyết định</span>
+        <span>Không phải tư vấn tài chính</span>
       </div>
     </div>
   </footer>
@@ -144,6 +142,7 @@
   <script src="src/persistence.js"></script>
   <script src="src/state.js"></script>
   <script src="src/ambient-graph.js"></script>
+  <script src="src/finrisk-loan.js"></script>
   <script src="src/app.js"></script>
   <script src="src/i18n.js"></script>
 </body>
