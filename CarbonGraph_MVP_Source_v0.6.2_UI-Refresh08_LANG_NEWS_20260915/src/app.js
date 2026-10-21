@@ -40,9 +40,9 @@
 
   const screens = [
     ["overview", "Tổng quan", "Dashboard", "dashboard"],
-    ["data", "Input Module", "Working data", "database"],
+    ["data", "Hồ sơ vay", "Nhập hồ sơ", "database"],
     ["evidence", "Evidence Queue", "Bằng chứng", "file-check"],
-    ["validation", "Validation", "Rule & issue", "shield-check"],
+    ["validation", "Kiểm tra tài chính", "Kiểm tra hồ sơ", "shield-check"],
     ["trace", "Trace Explorer", "Evidence graph", "network"],
     ["result", "Release Gate", "Blocked / masked", "lock"],
     ["export", "Working Export", "Working-only", "download"],
@@ -579,122 +579,65 @@
   }
 
   function renderInputModule() {
-    const state = store.getState();
-    const blockerCount = state.validationSummary?.BLOCKER ?? 0;
-    const persistenceLabel = persistenceMeta.restored ? "RESTORED" : "BASELINE";
-    setHeader("Input Module", "Nhập working data theo từng nhóm; Apply sẽ validate, rebuild graph và cập nhật release state ngay trên localhost.");
-
+    const loan = window.FinRiskLoan;
+    const data = loan.load();
+    const fields = [
+      ["customer_id","Mã khách hàng","text","VD: KH001"],
+      ["full_name","Họ và tên","text","Nguyễn Văn A"],
+      ["age","Tuổi","number","25"],
+      ["monthly_income","Thu nhập hàng tháng (VNĐ)","number","15000000"],
+      ["monthly_expenses","Chi phí hàng tháng (VNĐ)","number","5000000"],
+      ["existing_monthly_debt","Khoản trả nợ hiện tại/tháng (VNĐ)","number","1000000"],
+      ["loan_amount","Số tiền đề nghị vay (VNĐ)","number","200000000"],
+      ["loan_term_months","Thời hạn vay (tháng)","number","24"]
+    ];
+    setHeader("Input Module · FinRisk", "Nhập hồ sơ vay MOCK. Dữ liệu chỉ lưu trên trình duyệt, chưa gửi PostgreSQL hoặc ML.");
     $("#content").innerHTML = `
-      <div class="workspace-screen input-screen">
+      <div class="workspace-screen input-screen finrisk-loan-screen">
         <div class="screen-summary-grid">
-          <div class="screen-summary-card"><span>Dataset</span><strong class="code">${escapeHtml(state.meta.datasetId)}</strong><small>${escapeHtml(state.meta.dataOrigin)}</small></div>
-          <div class="screen-summary-card"><span>Working revision</span><strong>${state.runtime.revision}</strong><small>${escapeHtml(persistenceLabel)} local state</small></div>
-          <div class="screen-summary-card"><span>Validation blockers</span><strong>${blockerCount}</strong><small>${blockerCount ? "Cần xử lý trước release" : "Không có blocker"}</small></div>
-          <div class="screen-summary-card"><span>Release</span><strong>${escapeHtml(state.release.numericReleaseStatus)}</strong><small>${escapeHtml(state.release.resultVisibility)}</small></div>
+          <div class="screen-summary-card"><span>Data source</span><strong>MOCK</strong><small>Browser localStorage</small></div>
+          <div class="screen-summary-card"><span>Customer</span><strong>${escapeHtml(data.customer_id || "—")}</strong><small>Mã hồ sơ khách hàng</small></div>
+          <div class="screen-summary-card"><span>Validation</span><strong>${loan.validate(data).valid ? "PASS" : "PENDING"}</strong><small>Quy tắc mẫu, chưa duyệt policy</small></div>
+          <div class="screen-summary-card"><span>Backend</span><strong>OFFLINE</strong><small>Chưa kết nối API / ML</small></div>
         </div>
-
         <div class="input-workspace-layout">
-          <form id="input-form" class="workspace-panel input-builder" novalidate>
-            <div class="panel-heading">
-              <div><span class="panel-eyebrow">WORKING DATA BUILDER</span><h2>Tạo bộ dữ liệu làm việc</h2><p>Mỗi nhóm dữ liệu tương ứng một lớp kiểm soát. Trường real evidence vẫn bị khóa khỏi synthetic input.</p></div>
-              <span class="panel-status">Local autosave</span>
-            </div>
-
-            <div class="input-stepper" aria-hidden="true">
-              <span class="active"><b>1</b> Định danh</span><i></i><span class="active"><b>2</b> HRC</span><i></i><span class="active"><b>3</b> Giả định</span><i></i><span><b>4</b> Derived state</span>
-            </div>
-
-            <section class="form-section">
-              <div class="form-section-head"><span class="form-section-index">01</span><div><h3>Định danh & phạm vi</h3><p>Khóa dataset synthetic và nhận diện batch/HRC lot đang thao tác.</p></div></div>
-              <div class="form-grid">
-                <div class="field full locked-field"><label>Data origin <span class="field-tag">LOCKED</span></label><input value="${escapeHtml(state.meta.dataOrigin)}" readonly disabled /><div class="field-help">Không thể chuyển synthetic thành real evidence bằng giao diện này.</div></div>
-                <div class="field"><label for="batch-id">Batch ID</label><input id="batch-id" value="${escapeHtml(inputValue(state.batch.batchId))}" /><div class="field-help">Định danh lô thành phẩm trong working trace.</div></div>
-                <div class="field"><label for="hrc-lot-id">HRC lot ID</label><input id="hrc-lot-id" value="${escapeHtml(inputValue(state.batch.hrcLotId))}" /><div class="field-help">Liên kết batch với lô tiền chất HRC.</div></div>
-              </div>
-            </section>
-
-            <section class="form-section">
-              <div class="form-section-head"><span class="form-section-index">02</span><div><h3>Đặc tính tiền chất HRC</h3><p>Thông số hình học và bề mặt dùng cho candidate classification trong phạm vi MVP.</p></div></div>
-              <div class="form-grid">
-                <div class="field"><label for="width-mm">Width <span class="unit-chip">mm</span></label><input id="width-mm" type="number" step="0.1" value="${escapeHtml(inputValue(state.precursor.widthMm))}" /><div class="field-help">Blank được giữ là null/MISSING, không đổi thành 0.</div></div>
-                <div class="field"><label for="thickness-mm">Thickness <span class="unit-chip">mm</span></label><input id="thickness-mm" type="number" step="0.1" value="${escapeHtml(inputValue(state.precursor.thicknessMm))}" /></div>
-                <div class="field full"><label for="surface-state">Surface state</label><select id="surface-state">${surfaceOptions(state.precursor.surfaceState)}</select><div class="field-help">Nhánh ngoài phạm vi classifier sẽ giữ REVIEW thay vì đoán CN8.</div></div>
-              </div>
-            </section>
-
-            <section class="form-section">
-              <div class="form-section-head"><span class="form-section-index">03</span><div><h3>Working assumptions</h3><p>Thông tin phục vụ demo kỹ thuật; không thay thế chứng từ nguồn gốc/route thực tế.</p></div></div>
-              <div class="form-grid">
-                <div class="field"><label for="origin">Origin <span class="unit-chip">ISO2</span></label><input id="origin" maxlength="2" value="${escapeHtml(inputValue(state.precursor.origin))}" /></div>
-                <div class="field"><label for="route">Production route</label><select id="route">${routeOptions(state.precursor.route)}</select></div>
-              </div>
-            </section>
-
-            <div class="input-action-bar">
-              <div><strong>Sẵn sàng chạy pipeline</strong><small>Apply → Validation → Graph → Release state</small></div>
-              <div class="actions compact-actions">
-                <button type="button" id="reset-demo" class="btn danger-outline">${icon("refresh", 16)} Reset baseline</button>
-                <button type="submit" class="btn primary">${icon("play", 16)} Apply working data <span>→</span></button>
-              </div>
-            </div>
+          <form id="finrisk-loan-form" class="workspace-panel input-builder" novalidate>
+            <div class="panel-heading"><div><span class="panel-eyebrow">#09 · LOAN APPLICATION · MOCK</span><h2>Hồ sơ đề nghị vay</h2><p>Nhập và chỉnh sửa thông tin. Bấm Kiểm tra để xem lỗi theo #10; Lưu MOCK để giữ dữ liệu trên thiết bị này.</p></div><span class="panel-status">MOCK · Local only</span></div>
+            <div class="input-stepper" aria-hidden="true"><span class="active"><b>1</b> Khách hàng</span><i></i><span class="active"><b>2</b> Tài chính</span><i></i><span><b>3</b> Kiểm tra</span><i></i><span><b>4</b> Lưu MOCK</span></div>
+            <section class="form-section"><div class="form-section-head"><span class="form-section-index">01</span><div><h3>Thông tin khách hàng & khoản vay</h3><p>Schema MOCK tạm thời, có thể chuyển sang API adapter khi nhóm thống nhất hợp đồng dữ liệu.</p></div></div>
+            <div class="form-grid">
+              ${fields.map(([key,label,type,placeholder])=>`<div class="field"><label for="loan-${key}">${label}</label><input id="loan-${key}" name="${key}" type="${type}" ${type==="number"?'min="0" step="1"':''} placeholder="${placeholder}" value="${escapeHtml(data[key])}" aria-describedby="loan-error-${key}"/><div class="field-help finrisk-field-error" id="loan-error-${key}" role="alert"></div></div>`).join("")}
+              <div class="field full"><label for="loan-purpose">Mục đích vay</label><select id="loan-purpose" name="loan_purpose">${[["","Chọn mục đích"],["personal","Tiêu dùng cá nhân"],["business","Kinh doanh"],["education","Giáo dục"],["housing","Nhà ở"],["other","Khác"]].map(([value,label])=>`<option value="${value}" ${data.loan_purpose===value?"selected":""}>${label}</option>`).join("")}</select><div class="field-help finrisk-field-error" id="loan-error-loan_purpose" role="alert"></div></div>
+            </div></section>
+            <div class="finrisk-loan-actions"><button class="btn primary" type="submit">${icon("check",16)} Kiểm tra & lưu MOCK</button><button class="btn" type="button" id="loan-validate">${icon("shield-check",16)} Kiểm tra dữ liệu</button><button class="btn" type="button" id="loan-reset">${icon("refresh",16)} Reset hồ sơ</button></div>
+            <div id="loan-form-feedback" aria-live="polite" class="notice warning">Dữ liệu giả lập, không phải hồ sơ tín dụng được phê duyệt.</div>
           </form>
-
-          <aside class="workspace-panel derived-sidebar">
-            <div class="panel-heading compact-heading"><div><span class="panel-eyebrow">DERIVED STATE</span><h2>Kết quả kiểm soát</h2></div></div>
-            <div class="derived-hero ${blockerCount ? "is-blocked" : "is-ready"}">
-              <span>Candidate CN8</span>
-              <strong class="code">${valueOrDash(state.precursor.candidateCn8.value)}</strong>
-              ${pill(state.precursor.candidateCn8.label)}
-            </div>
-            <div class="derived-list">
-              <div><span>Validation</span><strong>${blockerCount} blocker(s)</strong></div>
-              <div><span>Graph integrity</span><strong>${pill(state.graphSummary?.integrityStatus || "REVIEW")}</strong></div>
-              <div><span>Numeric release</span><strong>${pill(state.release.numericReleaseStatus)}</strong></div>
-              <div><span>Visibility</span><strong>${pill(state.release.resultVisibility)}</strong></div>
-            </div>
-            <div class="evidence-separation-card">
-              <span class="panel-eyebrow">REAL EVIDENCE BOUNDARY</span>
-              <div><span>Real HRC CN8</span><strong>${valueOrDash(state.precursor.realCn8.value)}</strong>${pill(state.precursor.realCn8.status)}</div>
-              <div><span>HRC SEE</span><strong>${valueOrDash(state.precursor.seeDirect.value)}</strong>${pill(state.precursor.seeDirect.status)}</div>
-              <p>Candidate classification không được tự ghi vào field real; SEE không được suy ra từ dữ liệu demo.</p>
-            </div>
-          </aside>
+          <aside class="workspace-panel classification-panel"><div class="panel-heading compact-heading"><div><span class="panel-eyebrow">DATA CONTRACT · DRAFT</span><h2>Trạng thái hồ sơ</h2></div></div><div class="derived-list"><div><span>Schema</span><strong>finrisk.loan.v1-mock</strong></div><div><span>Persistence</span><strong>localStorage</strong></div><div><span>ML / Decision</span><strong>Not connected</strong></div><div><span>PostgreSQL</span><strong>Not connected</strong></div></div><div class="notice warning compact-notice">Các giới hạn kiểm tra hiện chỉ là quy tắc nhập liệu minh họa, không phải chính sách xét duyệt tín dụng.</div></aside>
         </div>
-
-        <section class="workspace-panel change-timeline-panel">
-          <div class="panel-heading compact-heading"><div><span class="panel-eyebrow">AUDIT TRAIL</span><h2>Working change log</h2></div><span class="panel-status">revision ${state.runtime.revision}</span></div>
-          <div class="change-list timeline-list">${renderHistory(state.runtime.history)}</div>
-        </section>
-      </div>
-    `;
-
-    $("#input-form").addEventListener("submit", (event) => {
+      </div>`;
+    const form = $("#finrisk-loan-form");
+    const read = () => Object.fromEntries([...form.querySelectorAll("[name]")].map(el=>[el.name,el.value.trim()]));
+    const showErrors = (result) => {
+      form.querySelectorAll(".finrisk-field-error").forEach(el=>el.textContent="");
+      form.querySelectorAll("[name]").forEach(el=>el.removeAttribute("aria-invalid"));
+      Object.entries(result.errors).forEach(([key,message])=>{
+        const el=document.getElementById("loan-error-"+key);
+        const field=form.elements.namedItem(key);
+        if(el) el.textContent=message;
+        if(field) field.setAttribute("aria-invalid","true");
+      });
+      $("#loan-form-feedback").textContent=result.valid?"Dữ liệu hợp lệ theo bộ quy tắc MOCK. Chưa đánh giá tín dụng.":`Có ${Object.keys(result.errors).length} trường cần sửa.`;
+      return result.valid;
+    };
+    $("#loan-validate").addEventListener("click",()=>{const ok=showErrors(loan.validate(read()));showToast(ok?"Kiểm tra MOCK thành công.":"Vui lòng sửa các trường chưa hợp lệ.",ok?"success":"warning");});
+    form.addEventListener("submit",event=>{
       event.preventDefault();
-      const submitButton = event.submitter || $("#input-form button[type=submit]");
-      setButtonBusy(submitButton, true, "Đang chạy pipeline…");
-      try {
-        store.applyInput({
-          batchId: $("#batch-id").value,
-          hrcLotId: $("#hrc-lot-id").value,
-          widthMm: $("#width-mm").value,
-          thicknessMm: $("#thickness-mm").value,
-          surfaceState: $("#surface-state").value,
-          origin: $("#origin").value,
-          route: $("#route").value
-        });
-        showToast("Working data đã được lưu và pipeline derived-state đã chạy lại.", "success", "Input updated");
-      } catch (error) {
-        setButtonBusy(submitButton, false);
-        showToast(`Không thể Apply: ${error.message}`, "danger", "Input rejected", 5200);
-      }
+      const values=read();
+      if(!showErrors(loan.validate(values))) {showToast("Hồ sơ chưa hợp lệ, chưa lưu.","warning");return;}
+      loan.save(values);
+      showToast("Đã lưu hồ sơ MOCK trong trình duyệt.","success");
     });
-
-    $("#reset-demo").addEventListener("click", () => {
-      window.CGPersistence.clear(window.localStorage);
-      persistenceMeta = { restored: false, savedAt: null, lastSaveOk: true };
-      store.reset();
-      showToast("Working state đã trở về synthetic baseline.", "warning", "Baseline restored");
-    });
+    $("#loan-reset").addEventListener("click",()=>{loan.reset();renderInputModule();showToast("Đã reset hồ sơ MOCK.","warning");});
   }
 
   function renderEvidence() {
@@ -752,79 +695,33 @@
   }
 
   function renderValidation() {
-    const state = store.getState();
-    const total = state.validationSummary?.total ?? state.validation.length;
-    const blocker = state.validationSummary?.BLOCKER ?? 0;
-    const error = state.validationSummary?.ERROR ?? 0;
-    const warning = state.validationSummary?.WARNING ?? 0;
-    const resolved = state.validation.filter((item) => item.status === "RESOLVED").length;
-    setHeader("Validation", "Issue management dashboard cho C3; mỗi Apply sẽ chạy lại rule engine và cập nhật candidate classification.");
-
-    $("#content").innerHTML = `
-      <div class="workspace-screen validation-screen">
+    const loan=window.FinRiskLoan;
+    const data=loan.load();
+    const result=loan.validate(data);
+    const entries=Object.entries(result.errors);
+    setHeader("Validation · FinRisk", "Kiểm tra dữ liệu tài chính của hồ sơ vay MOCK; không áp dụng chính sách phê duyệt tín dụng.");
+    $("#content").innerHTML=`
+      <div class="workspace-screen validation-screen finrisk-loan-screen">
         <div class="screen-summary-grid validation-summary-grid">
-          <div class="screen-summary-card"><span>Total issues</span><strong>${total}</strong><small>Dynamic runtime issues</small></div>
-          <div class="screen-summary-card danger-accent"><span>Blockers</span><strong>${blocker}</strong><small>Chặn release path</small></div>
-          <div class="screen-summary-card warning-accent"><span>Errors / warnings</span><strong>${error + warning}</strong><small>${error} error · ${warning} warning</small></div>
-          <div class="screen-summary-card success-accent"><span>Resolved</span><strong>${resolved}</strong><small>Technical control passed</small></div>
+          <div class="screen-summary-card"><span>Input fields</span><strong>${loan.fields.length}</strong><small>Schema MOCK</small></div>
+          <div class="screen-summary-card danger-accent"><span>Errors</span><strong>${entries.length}</strong><small>Trường không hợp lệ</small></div>
+          <div class="screen-summary-card success-accent"><span>Valid</span><strong>${result.valid?"YES":"NO"}</strong><small>Kiểm tra nhập liệu</small></div>
+          <div class="screen-summary-card"><span>Source</span><strong>MOCK</strong><small>Browser localStorage</small></div>
         </div>
-
         <div class="validation-control-layout">
           <section class="workspace-panel validation-board-panel">
-            <div class="panel-heading">
-              <div><span class="panel-eyebrow">ISSUE MANAGEMENT</span><h2>Validation Queue</h2><p>Lọc theo severity để tìm nhanh field/rule đang chặn working flow.</p></div>
-              <button id="run-validation" class="btn primary">${icon("refresh", 16)} Run pipeline again</button>
-            </div>
-            <div class="validation-toolbar">
-              ${["ALL", "BLOCKER", "ERROR", "WARNING", "INFO"].map((level) => `<button type="button" class="filter-chip ${level === "ALL" ? "active" : ""}" data-validation-filter="${level}">${level}</button>`).join("")}
-              <span class="validation-toolbar-count">${total} issue(s)</span>
-            </div>
-            <div class="issue-list" id="validation-issue-list">
-              ${state.validation.map((item) => `
-                <article class="issue-card severity-${escapeHtml(item.severity).toLowerCase()}" data-issue-severity="${escapeHtml(item.severity)}">
-                  <div class="issue-status-rail"></div>
-                  <div class="issue-main">
-                    <div class="issue-topline"><span class="code">${escapeHtml(item.issueId)}</span>${pill(item.severity)}${pill(item.status)}</div>
-                    <h3>${escapeHtml(item.message)}</h3>
-                    <div class="issue-meta"><span><b>Rule</b> <code>${escapeHtml(item.rule)}</code></span><span><b>Field</b> <code>${escapeHtml(item.field || "—")}</code></span></div>
-                  </div>
-                </article>
-              `).join("") || emptyState("Không có validation issue", "Working state hiện không sinh issue nào.", "check")}
-              <div id="validation-filter-empty" hidden>${emptyState("Không có issue phù hợp bộ lọc", "Chọn ALL hoặc một severity khác để tiếp tục.", "search")}</div>
-            </div>
+            <div class="panel-heading"><div><span class="panel-eyebrow">#10 · FINANCIAL VALIDATION</span><h2>Kiểm tra hồ sơ vay</h2><p>Kết quả dựa trên hồ sơ MOCK đã lưu tại Input Module. Các giới hạn là giả định để kiểm thử UI.</p></div><button id="loan-validation-refresh" class="btn primary">${icon("refresh",16)} Kiểm tra lại</button></div>
+            <div class="issue-list">${entries.length?entries.map(([key,message],i)=>`<article class="issue-card severity-error"><div class="issue-status-rail"></div><div class="issue-main"><div class="issue-topline"><span class="code">FIN-${String(i+1).padStart(3,"0")}</span>${pill("ERROR")}</div><h3>${escapeHtml(message)}</h3><div class="issue-meta"><span><b>Field</b> <code>${escapeHtml(key)}</code></span></div></div></article>`).join(""):emptyState("Không có lỗi nhập liệu","Hồ sơ MOCK hiện tại vượt qua các quy tắc kiểm tra dữ liệu mẫu.","check")}</div>
           </section>
-
-          <aside class="workspace-panel classification-panel">
-            <div class="panel-heading compact-heading"><div><span class="panel-eyebrow">CLASSIFICATION STATE</span><h2>Candidate CN8</h2></div></div>
-            <div class="classification-hero"><strong class="code">${valueOrDash(state.precursor.candidateCn8.value)}</strong>${pill(state.precursor.candidateCn8.label)}</div>
-            <div class="derived-list">
-              <div><span>Reason</span><strong>${escapeHtml(state.precursor.candidateCn8.reason || "—")}</strong></div>
-              <div><span>Source class</span><strong>${escapeHtml(state.precursor.candidateCn8.sourceClass)}</strong></div>
-              <div><span>Real CN8</span><strong>${valueOrDash(state.precursor.realCn8.value)} ${pill(state.precursor.realCn8.status)}</strong></div>
-              <div><span>Numeric release</span><strong>${pill(state.release.numericReleaseStatus)}</strong></div>
-            </div>
-            <div class="notice warning compact-notice"><strong>Candidate ≠ Real:</strong> classifier chỉ hỗ trợ nhánh đã unit-test; nhánh ngoài phạm vi giữ REVIEW.</div>
+          <aside class="workspace-panel classification-panel"><div class="panel-heading compact-heading"><div><span class="panel-eyebrow">FINANCIAL INPUT</span><h2>Tóm tắt hồ sơ</h2></div></div>
+            <div class="derived-list"><div><span>Customer ID</span><strong>${escapeHtml(data.customer_id||"—")}</strong></div><div><span>Monthly income</span><strong>${escapeHtml(data.monthly_income||"—")} VND</strong></div><div><span>Loan amount</span><strong>${escapeHtml(data.loan_amount||"—")} VND</strong></div><div><span>Loan term</span><strong>${escapeHtml(data.loan_term_months||"—")} months</strong></div></div>
+            <div class="notice warning compact-notice">Validation PASS không có nghĩa khoản vay được chấp thuận. Chưa kết nối ML, Decision Engine hay PostgreSQL.</div>
+            <button id="loan-edit-from-validation" class="btn" type="button">Chỉnh sửa tại Input Module</button>
           </aside>
         </div>
-      </div>
-    `;
-
-    $("#run-validation").addEventListener("click", () => {
-      store.validate();
-      showToast("Validation, graph và release state đã được tính lại.", "success", "Pipeline refreshed");
-    });
-    document.querySelectorAll("[data-validation-filter]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const level = button.dataset.validationFilter;
-        document.querySelectorAll("[data-validation-filter]").forEach((item) => item.classList.toggle("active", item === button));
-        const issues = [...document.querySelectorAll("[data-issue-severity]")];
-        issues.forEach((item) => {
-          item.hidden = level !== "ALL" && item.dataset.issueSeverity !== level;
-        });
-        const filterEmpty = document.getElementById("validation-filter-empty");
-        if (filterEmpty) filterEmpty.hidden = issues.some((item) => !item.hidden);
-      });
-    });
+      </div>`;
+    $("#loan-validation-refresh").addEventListener("click",()=>{renderValidation();showToast("Đã kiểm tra lại dữ liệu MOCK.","info");});
+    $("#loan-edit-from-validation").addEventListener("click",()=>{window.location.hash="data";});
   }
 
   function renderTrace() {
