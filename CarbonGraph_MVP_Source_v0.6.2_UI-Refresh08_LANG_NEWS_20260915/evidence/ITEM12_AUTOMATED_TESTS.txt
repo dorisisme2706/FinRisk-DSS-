@@ -1,0 +1,20 @@
+PASS low risk
+PASS medium risk
+PASS high risk
+PASS missing ML
+PASS invalid income
+PASS invalid amount
+PASS missing score
+PASS invalid scenario
+PASS scenario persistence
+PASS invalid saved scenario
+PASS loan contract
+PASS no fetch
+PASS assessment UI
+PASS renamed tab
+PASS #09 #10 retained
+PASS script order
+PASS VI EN
+PASS MOCK label
+18/18 PASS
+Exit code: 0
