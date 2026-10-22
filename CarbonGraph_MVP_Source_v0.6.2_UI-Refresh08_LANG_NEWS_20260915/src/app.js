@@ -43,7 +43,7 @@
     ["data", "Hồ sơ vay", "Nhập hồ sơ", "database"],
     ["evidence", "Evidence Queue", "Bằng chứng", "file-check"],
     ["validation", "Kiểm tra tài chính", "Kiểm tra hồ sơ", "shield-check"],
-    ["trace", "Trace Explorer", "Evidence graph", "network"],
+    ["trace", "Giải thích quyết định", "Luồng đánh giá", "network"],
     ["result", "Đánh giá tín dụng", "Kết quả MOCK", "lock"],
     ["export", "Working Export", "Working-only", "download"],
     ["e2e", "End-to-End", "Safety flow", "route"],
@@ -725,66 +725,45 @@
   }
 
   function renderTrace() {
-    const state = store.getState();
-    const groups = [
-      ["Scope", ["DATASET", "FACILITY", "PRODUCT"]],
-      ["Material flow", ["BATCH", "PRECURSOR_LOT", "PRECURSOR"]],
-      ["Evidence & rules", ["EVIDENCE", "VALIDATION_ISSUE", "RULE", "RISK"]],
-      ["Result trace", ["TRACE", "RESULT"]]
-    ];
-    const renderGraphGroup = ([label, types]) => {
-      const nodes = state.graph.nodes.filter((node) => types.includes(node.type));
-      return `<div class="graph-lane"><div class="graph-lane-title">${escapeHtml(label)}</div><div class="graph-lane-nodes">${nodes.map((node) => `<button type="button" class="graph-node-card type-${escapeHtml(node.type).toLowerCase()}" data-graph-node="${escapeHtml(node.id)}"><span>${escapeHtml(node.type)}</span><strong class="code">${escapeHtml(node.id)}</strong>${pill(node.status)}<small>Click để inspect</small></button>`).join("") || emptyState("No node", "Lane này chưa có entity tương ứng trong working graph.", "network")}</div></div>`;
-    };
-    setHeader("Trace Explorer", "Evidence Graph workspace: xem node, relation, integrity và đường trace từ batch tới result/gate.");
-
+    const trace = window.FinRiskDecisionTrace.build(
+      window.FinRiskLoan.load(),
+      window.FinRiskDecisionMock.getScenario()
+    );
+    setHeader("Giải thích quyết định · FinRisk", "#11 · Decision Trace: truy vết Customer → Features → ML → Risk → Decision → Recommendation bằng dữ liệu MOCK.");
+    const statusText = {PASS:"Sẵn sàng",MOCK:"Giả lập",BLOCKED:"Bị chặn",UNAVAILABLE:"Chưa có dữ liệu"};
+    const nodes = trace.steps;
     $("#content").innerHTML = `
-      <div class="workspace-screen trace-screen">
+      <div class="workspace-screen trace-screen finrisk-trace-screen">
         <div class="screen-summary-grid">
-          <div class="screen-summary-card success-accent"><span>Graph integrity</span><strong>${escapeHtml(state.graphSummary.integrityStatus)}</strong><small>${state.graphSummary.orphanCount} orphan(s)</small></div>
-          <div class="screen-summary-card"><span>Nodes</span><strong>${state.graphSummary.nodeCount}</strong><small>Dynamic entities</small></div>
-          <div class="screen-summary-card"><span>Edges</span><strong>${state.graphSummary.edgeCount}</strong><small>Trace relations</small></div>
-          <div class="screen-summary-card"><span>Trace ID</span><strong class="code compact-code">${escapeHtml(state.release.traceId)}</strong><small>Working trace</small></div>
+          <div class="screen-summary-card"><span>Customer ID</span><strong>${escapeHtml(trace.customerId)}</strong><small>Hồ sơ #09</small></div>
+          <div class="screen-summary-card"><span>Validation</span><strong>${trace.validation.valid?"PASS":"BLOCKED"}</strong><small>Kiểm tra #10</small></div>
+          <div class="screen-summary-card"><span>Risk score</span><strong>${trace.assessment.score===null?"N/A":escapeHtml(trace.assessment.score+"/100")}</strong><small>Điểm MOCK #12</small></div>
+          <div class="screen-summary-card"><span>Decision</span><strong>${escapeHtml(trace.assessment.status)}</strong><small>Không phải phê duyệt thật</small></div>
         </div>
-
-        ${state.graphSummary.missingCoreRelations.length ? `<div class="notice warning"><strong>Missing core relations:</strong> ${escapeHtml(state.graphSummary.missingCoreRelations.join(", "))}</div>` : ""}
-
+        <div class="notice warning"><strong>MOCK ONLY:</strong> Truy vết mô phỏng dựa trên #09, #10 và kịch bản #12. Chưa có ML output, policy hoặc lịch sử quyết định từ backend.</div>
         <section class="workspace-panel graph-canvas-panel">
-          <div class="panel-heading"><div><span class="panel-eyebrow">DYNAMIC EVIDENCE GRAPH</span><h2>Trace map</h2><p>Node được build từ working state; validation issues cũng trở thành một phần của evidence graph.</p></div><span class="panel-status">${state.graphSummary.integrityStatus}</span></div>
-          <div class="graph-canvas">
-            ${groups.map(renderGraphGroup).join('<div class="graph-lane-arrow">→</div>')}
+          <div class="panel-heading"><div><span class="panel-eyebrow">#11 · DECISION TRACE · MOCK</span><h2>Luồng giải thích quyết định</h2><p>Chọn từng bước để xem đầu vào, trạng thái và giải thích. Thay đổi kịch bản ở tab Đánh giá tín dụng để cập nhật luồng.</p></div><span class="panel-status">MOCK · Local only</span></div>
+          <div class="graph-canvas finrisk-trace-canvas">
+            ${nodes.map((node,index)=>`${index?'<div class="graph-lane-arrow">→</div>':""}<div class="graph-lane"><div class="graph-lane-title">${String(index+1).padStart(2,"0")} · ${escapeHtml(node.label)}</div><div class="graph-lane-nodes"><button type="button" class="graph-node-card type-${escapeHtml(node.status.toLowerCase())}" data-trace-step="${escapeHtml(node.id)}" aria-pressed="false"><span>${escapeHtml(node.label)}</span><strong>${escapeHtml(node.value)}</strong>${pill(node.status)}<small>Chọn để xem chi tiết</small></button></div></div>`).join("")}
           </div>
-          <div id="graph-node-inspector" class="graph-node-inspector">
-            <span class="inspector-icon">${icon("network", 20)}</span>
-            <div><strong>Node inspector</strong><p>Chọn một node trên Trace map để xem type, status và các relation kết nối.</p></div>
-          </div>
+          <div id="finrisk-trace-inspector" class="graph-node-inspector" aria-live="polite"><span class="inspector-icon">${icon("network",20)}</span><div><strong>Chi tiết bước xử lý</strong><p>Chọn một bước trong luồng để xem giải thích.</p></div></div>
         </section>
-
         <section class="workspace-panel trace-relations-panel">
-          <details open>
-            <summary><span>Relation registry</span><strong>${state.graph.edges.length} edge(s)</strong></summary>
-            <div class="table-shell">
-              <table><thead><tr><th>Edge</th><th>From</th><th>Relation</th><th>To</th><th>Status</th></tr></thead><tbody>
-                ${state.graph.edges.map((item) => `<tr><td class="code">${escapeHtml(item.id)}</td><td class="code">${escapeHtml(item.from)}</td><td><span class="relation-chip">${escapeHtml(item.relation)}</span></td><td class="code">${escapeHtml(item.to)}</td><td>${pill(item.status)}</td></tr>`).join("")}
-              </tbody></table>
-            </div>
-          </details>
+          <details open><summary><span>Danh sách bước và trạng thái</span><strong>${nodes.length} bước</strong></summary>
+          <div class="table-shell"><table><thead><tr><th>Bước</th><th>Giá trị</th><th>Trạng thái</th><th>Giải thích</th></tr></thead><tbody>
+            ${nodes.map(node=>`<tr><td>${escapeHtml(node.label)}</td><td>${escapeHtml(node.value)}</td><td>${pill(node.status)}</td><td>${escapeHtml(node.description)}</td></tr>`).join("")}
+          </tbody></table></div></details>
         </section>
-      </div>
-    `;
-
-    document.querySelectorAll("[data-graph-node]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const nodeId = button.dataset.graphNode;
-        const node = state.graph.nodes.find((item) => item.id === nodeId);
-        if (!node) return;
-        document.querySelectorAll("[data-graph-node]").forEach((item) => item.classList.toggle("selected", item === button));
-        const connected = state.graph.edges.filter((edge) => edge.from === nodeId || edge.to === nodeId);
-        const inspector = document.getElementById("graph-node-inspector");
-        if (!inspector) return;
-        inspector.innerHTML = `<span class="inspector-icon">${icon("network", 20)}</span><div class="inspector-copy"><div class="inspector-title"><strong class="code">${escapeHtml(node.id)}</strong>${pill(node.status)}</div><p>${escapeHtml(node.type)} · ${connected.length} connected relation(s)</p><div class="inspector-relations">${connected.map((edge) => `<span><code>${escapeHtml(edge.relation)}</code> ${escapeHtml(edge.from === nodeId ? "→ " + edge.to : edge.from + " →")}</span>`).join("") || '<span>No connected edge</span>'}</div></div>`;
+      </div>`;
+    document.querySelectorAll("[data-trace-step]").forEach(button=>button.addEventListener("click",()=>{
+      const node=nodes.find(item=>item.id===button.dataset.traceStep);
+      if(!node)return;
+      document.querySelectorAll("[data-trace-step]").forEach(item=>{
+        item.classList.toggle("selected",item===button);
+        item.setAttribute("aria-pressed",String(item===button));
       });
-    });
+      $("#finrisk-trace-inspector").innerHTML=`<span class="inspector-icon">${icon("network",20)}</span><div class="inspector-copy"><div class="inspector-title"><strong>${escapeHtml(node.label)}</strong>${pill(node.status)}</div><p>${escapeHtml(node.description)}</p><div class="inspector-relations"><span>${escapeHtml(node.value)}</span><span>${escapeHtml(statusText[node.status]||node.status)}</span></div></div>`;
+    }));
   }
 
   function renderResult() {
