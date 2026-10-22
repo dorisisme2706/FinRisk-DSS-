@@ -44,7 +44,7 @@
     ["evidence", "Evidence Queue", "Bằng chứng", "file-check"],
     ["validation", "Kiểm tra tài chính", "Kiểm tra hồ sơ", "shield-check"],
     ["trace", "Trace Explorer", "Evidence graph", "network"],
-    ["result", "Release Gate", "Blocked / masked", "lock"],
+    ["result", "Đánh giá tín dụng", "Kết quả MOCK", "lock"],
     ["export", "Working Export", "Working-only", "download"],
     ["e2e", "End-to-End", "Safety flow", "route"],
     ["acceptance", "Test Center", "Manual UAT", "flask"]
@@ -273,7 +273,7 @@
           </div>
           <div class="readiness-result ${releaseReady ? "ready" : "blocked"}">
             <div><small>Kết luận runtime</small><strong>${releaseReady ? "READY FOR CONTROLLED RELEASE" : "CHƯA ĐỦ — GIỮ BLOCKED / MASKED"}</strong></div>
-            <button class="btn ${releaseReady ? "primary" : "danger-outline"}" data-open-screen="result">Mở Release Gate</button>
+            <button class="btn ${releaseReady ? "primary" : "danger-outline"}" data-open-screen="result">Mở Đánh giá tín dụng</button>
           </div>
         </div>
       </section>
@@ -351,7 +351,7 @@
             <div class="capability-number">04</div><div class="capability-icon">⛔</div>
             <h3>Release Guardrail</h3>
             <p>Fail-closed: R-006 OPEN hoặc blocker còn tồn tại thì numeric result tiếp tục BLOCKED/MASKED.</p>
-            <span class="capability-link">Mở Release Gate →</span>
+            <span class="capability-link">Mở Đánh giá tín dụng →</span>
           </article>
           <article class="capability-card tone-slate" data-open-screen="export">
             <div class="capability-number">05</div><div class="capability-icon">⇩</div>
@@ -530,7 +530,7 @@
         <div>
           <span class="section-eyebrow light">LOCAL MVP · RC1_CANDIDATE</span>
           <h2>Đi từ dữ liệu đến bằng chứng — rồi mới đến kết quả.</h2>
-          <p>Mở workspace để thử Input, Validation, Evidence Graph, Release Gate và Working Export trên cùng một state local.</p>
+          <p>Mở workspace để thử Input, Validation, Evidence Graph, Đánh giá tín dụng và Working Export trên cùng một state local.</p>
         </div>
         <div class="final-cta-actions">
           <button class="btn hero-primary" data-open-screen="data">${icon("database", 17)} Bắt đầu với Input Module →</button>
@@ -788,45 +788,65 @@
   }
 
   function renderResult() {
-    const state = store.getState();
-    const releaseReasons = state.release.reasons || [];
+    const engine = window.FinRiskDecisionMock;
+    const application = window.FinRiskLoan.load();
+    const validation = window.FinRiskLoan.validate(application);
+    const scenario = engine.getScenario();
+    const assessment = engine.assess(application, scenario);
+    const statusLabel = {
+      APPROVE: "Đề xuất chấp thuận (MOCK)",
+      REVIEW: "Cần xem xét (MOCK)",
+      REJECT: "Đề xuất từ chối (MOCK)",
+      INVALID_INPUT: "Dữ liệu chưa hợp lệ",
+      UNAVAILABLE: "Chưa có kết quả ML thật"
+    };
     const checks = [
-      ["Data origin", state.meta.dataOrigin === "SYNTHETIC_DEMO" ? "BLOCKED" : "PASS", `Current = ${state.meta.dataOrigin}`],
-      ["R-006", state.meta.r006Status === "CLOSED" ? "PASS" : "BLOCKED", `Current = ${state.meta.r006Status}`],
-      ["Validation blockers", (state.validationSummary?.BLOCKER ?? 0) === 0 ? "PASS" : "BLOCKED", `${state.validationSummary?.BLOCKER ?? 0} blocker(s)`],
-      ["Graph integrity", state.graphSummary?.integrityStatus === "PASS" ? "PASS" : "REVIEW", `Current = ${state.graphSummary?.integrityStatus || "REVIEW"}`]
+      ["Hồ sơ nhập liệu", validation.valid ? "PASS" : "BLOCKED", validation.valid ? "Dữ liệu qua kiểm tra #10" : `${Object.keys(validation.errors).length} trường cần sửa`],
+      ["Nguồn dữ liệu", "REVIEW", "MOCK · localStorage, chưa có API/PostgreSQL"],
+      ["Kết quả ML", "REVIEW", "Điểm rủi ro là kịch bản giả lập, không phải mô hình thật"],
+      ["Chính sách tín dụng", "REVIEW", "Ngưỡng chỉ phục vụ trình diễn, chưa được leader duyệt"]
     ];
     const passCount = checks.filter((item) => item[1] === "PASS").length;
-    setHeader("Release Gate", "Readiness/gate dashboard cho C6; giải thích rõ điều kiện nào đang giữ numeric result ở BLOCKED/MASKED.");
-
+    setHeader("Đánh giá tín dụng · FinRisk", "#12 · Loan Decision Engine UI: kết quả MOCK minh họa, chưa phải quyết định cấp tín dụng thật.");
     $("#content").innerHTML = `
-      <div class="workspace-screen release-screen">
-        <section class="release-hero ${state.release.numericReleaseStatus === "BLOCKED" ? "blocked" : "ready"}">
-          <div class="release-hero-copy"><span class="panel-eyebrow">WORKING RELEASE DECISION</span><h2>${state.release.numericReleaseStatus === "BLOCKED" ? "Chưa đủ điều kiện phát hành kết quả số" : "Ready for controlled review"}</h2><p>Gate state được derive từ data origin, R-006, validation và graph integrity. C6 không tính phát thải.</p></div>
-          <div class="release-state-stack"><span>Numeric release</span><strong>${escapeHtml(state.release.numericReleaseStatus)}</strong><span>Visibility</span><strong>${escapeHtml(state.release.resultVisibility)}</strong></div>
+      <div class="workspace-screen release-screen finrisk-decision-screen">
+        <div class="screen-summary-grid release-summary-grid">
+          <div class="screen-summary-card"><span>Application</span><strong>${escapeHtml(application.customer_id || "—")}</strong><small>Hồ sơ MOCK từ #09</small></div>
+          <div class="screen-summary-card"><span>Financial validation</span><strong>${validation.valid ? "PASS" : "BLOCKED"}</strong><small>Kiểm tra #10</small></div>
+          <div class="screen-summary-card"><span>Decision source</span><strong>MOCK</strong><small>Không chạy ML thật</small></div>
+          <div class="screen-summary-card"><span>Approval authority</span><strong>NONE</strong><small>Không phát hành quyết định thật</small></div>
+        </div>
+        <section class="workspace-panel release-hero-panel">
+          <div class="release-hero-copy"><span class="panel-eyebrow">#12 · LOAN DECISION ENGINE · MOCK ONLY</span><h2>${escapeHtml(statusLabel[assessment.status] || assessment.status)}</h2><p>${escapeHtml(assessment.message)} Mọi kết quả chỉ dùng để thử giao diện, không có giá trị phê duyệt.</p></div>
+          <div class="release-state-stack"><span>Risk score</span><strong>${assessment.score === null ? "N/A" : escapeHtml(assessment.score + "/100")}</strong><span>Result</span><strong>${escapeHtml(assessment.status)}</strong></div>
         </section>
-
         <div class="release-layout">
           <section class="workspace-panel gate-checklist-panel">
-            <div class="panel-heading"><div><span class="panel-eyebrow">READINESS CHECKLIST</span><h2>${passCount}/${checks.length} control(s) pass</h2></div><span class="panel-status">${state.release.resultStatus}</span></div>
-            <div class="gate-check-list">
-              ${checks.map(([name, status, detail]) => `<div class="gate-check-row ${status.toLowerCase()}"><span class="gate-check-icon">${status === "PASS" ? "✓" : status === "REVIEW" ? "!" : "×"}</span><div><strong>${escapeHtml(name)}</strong><small>${escapeHtml(detail)}</small></div>${pill(status)}</div>`).join("")}
-            </div>
+            <div class="panel-heading"><div><span class="panel-eyebrow">MOCK ASSESSMENT INPUT</span><h2>Kịch bản đánh giá tín dụng</h2><p>Thay đổi kịch bản để xem các trạng thái giao diện; không thay đổi dữ liệu hồ sơ.</p></div><span class="panel-status">MOCK · Not approved policy</span></div>
+            <div class="field"><label for="finrisk-risk-scenario">Điểm rủi ro giả lập</label><select id="finrisk-risk-scenario">
+              <option value="low" ${scenario === "low" ? "selected" : ""}>Rủi ro thấp · 20/100</option>
+              <option value="medium" ${scenario === "medium" ? "selected" : ""}>Rủi ro trung bình · 55/100</option>
+              <option value="high" ${scenario === "high" ? "selected" : ""}>Rủi ro cao · 85/100</option>
+              <option value="missing" ${scenario === "missing" ? "selected" : ""}>Không có điểm ML</option>
+            </select></div>
+            <div class="gate-check-list">${checks.map(([name,status,detail]) => `<div class="gate-check-row ${status.toLowerCase()}"><span class="gate-check-icon">${status === "PASS" ? "✓" : status === "REVIEW" ? "!" : "×"}</span><div><strong>${escapeHtml(name)}</strong><small>${escapeHtml(detail)}</small></div>${pill(status)}</div>`).join("")}</div>
+            <div class="notice warning compact-notice">Chỉ có ${passCount}/${checks.length} điều kiện dữ liệu đạt; các mục REVIEW là phụ thuộc chưa có thật. Không được dùng màn hình này để ra quyết định cho khách hàng.</div>
           </section>
-
           <aside class="workspace-panel masked-result-panel">
-            <span class="panel-eyebrow">EMBEDDED EMISSIONS</span>
-            <div class="masked-result-visual"><span>Result value</span><strong>${state.release.resultVisibility === "MASKED" ? "MASKED" : "NOT CALCULATED"}</strong><small>Không có tCO₂e/SEE numeric output trong C6.</small></div>
-            <div class="derived-list"><div><span>Result ID</span><strong class="code">${escapeHtml(state.release.resultId)}</strong></div><div><span>Trace ID</span><strong class="code">${escapeHtml(state.release.traceId)}</strong></div><div><span>Result status</span><strong>${pill(state.release.resultStatus)}</strong></div></div>
+            <span class="panel-eyebrow">ASSESSMENT RESULT · MOCK</span>
+            <div class="masked-result-visual"><span>Gợi ý trạng thái (MOCK)</span><strong>${escapeHtml(assessment.status)}</strong><small>${escapeHtml(assessment.reason)}</small></div>
+            <div class="derived-list"><div><span>Customer ID</span><strong>${escapeHtml(application.customer_id || "—")}</strong></div><div><span>Monthly income</span><strong>${escapeHtml(application.monthly_income || "—")} VND</strong></div><div><span>Loan amount</span><strong>${escapeHtml(application.loan_amount || "—")} VND</strong></div><div><span>Loan term</span><strong>${escapeHtml(application.loan_term_months || "—")} months</strong></div></div>
+            <button class="btn" type="button" id="finrisk-decision-edit">Chỉnh sửa hồ sơ vay</button>
           </aside>
         </div>
-
-        <section class="workspace-panel release-reasons-panel">
-          <div class="panel-heading compact-heading"><div><span class="panel-eyebrow">WHY BLOCKED?</span><h2>Release reasons</h2></div><span class="panel-status">${releaseReasons.length} reason(s)</span></div>
-          <div class="release-reason-grid">${releaseReasons.map((item) => `<article class="release-reason-card"><span class="code">${escapeHtml(item.code)}</span><p>${escapeHtml(item.message)}</p></article>`).join("") || emptyState("Không có release blocker", "Release engine hiện không trả về reason chặn nào.", "check")}</div>
-        </section>
-      </div>
-    `;
+        <section class="workspace-panel release-reasons-panel"><div class="panel-heading compact-heading"><div><span class="panel-eyebrow">WHY THIS STATUS?</span><h2>Giải thích kết quả minh họa</h2></div><span class="panel-status">${assessment.reasons.length} reason(s)</span></div><div class="release-reason-grid">${assessment.reasons.map((reason,i) => `<article class="release-reason-card"><span class="code">MOCK-${String(i+1).padStart(2,"0")}</span><p>${escapeHtml(reason)}</p></article>`).join("")}</div></section>
+      </div>`;
+    $("#finrisk-risk-scenario").addEventListener("change", event => {
+      engine.setScenario(event.target.value);
+      renderResult();
+      showToast("Đã đổi kịch bản đánh giá MOCK.", "info");
+    });
+    $("#finrisk-decision-edit").addEventListener("click", () => {window.location.hash = "data";});
   }
 
   function triggerDownload(filename, type, content) {
@@ -923,7 +943,7 @@
             <div class="pipeline-step done"><span>01</span><strong>Input</strong><small>Working state</small></div><i>→</i>
             <div class="pipeline-step ${state.validationSummary?.BLOCKER ? "review" : "done"}"><span>02</span><strong>Validation</strong><small>${state.validationSummary?.BLOCKER ?? 0} blocker(s)</small></div><i>→</i>
             <div class="pipeline-step ${state.graphSummary?.integrityStatus === "PASS" ? "done" : "review"}"><span>03</span><strong>Graph</strong><small>${escapeHtml(state.graphSummary?.integrityStatus || "REVIEW")}</small></div><i>→</i>
-            <div class="pipeline-step blocked"><span>04</span><strong>Release Gate</strong><small>${escapeHtml(state.release.resultVisibility)}</small></div><i>→</i>
+            <div class="pipeline-step blocked"><span>04</span><strong>Đánh giá tín dụng</strong><small>${escapeHtml(state.release.resultVisibility)}</small></div><i>→</i>
             <div class="pipeline-step done"><span>05</span><strong>Working Export</strong><small>HTML / JSON</small></div>
           </div>
         </section>
