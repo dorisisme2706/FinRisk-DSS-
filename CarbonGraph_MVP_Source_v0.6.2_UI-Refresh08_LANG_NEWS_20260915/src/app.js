@@ -45,7 +45,7 @@
     ["validation", "Kiểm tra tài chính", "Kiểm tra hồ sơ", "shield-check"],
     ["trace", "Giải thích quyết định", "Luồng đánh giá", "network"],
     ["result", "Đánh giá tín dụng", "Kết quả MOCK", "lock"],
-    ["export", "Working Export", "Working-only", "download"],
+    ["export", "Báo cáo tín dụng", "HTML / JSON", "download"],
     ["e2e", "End-to-End", "Safety flow", "route"],
     ["acceptance", "Test Center", "Manual UAT", "flask"]
   ];
@@ -842,64 +842,56 @@
   }
 
   function renderExport() {
-    const state = store.getState();
-    setHeader("Working Export", "Report Center cho C7: tạo working-only HTML và trace JSON trực tiếp trên localhost, không phát hành numeric emission result.");
-
-    let report;
-    try {
-      report = window.CGReportEngine.buildReport(state);
-    } catch (error) {
-      $("#content").innerHTML = `<div class="workspace-screen">${emptyState("Export refused", error.message, "alert")}</div>`;
-      showToast(error.message, "danger", "Export refused", 5200);
+    setHeader("Báo cáo tín dụng · FinRisk", "#13 · Xem trước và xuất báo cáo HTML / JSON từ dữ liệu MOCK; không phải quyết định cho vay thật.");
+    const engine = window.FinRiskCreditReport;
+    if (!engine || !window.FinRiskLoan || !window.FinRiskDecisionMock) {
+      $("#content").innerHTML = `<div class="workspace-screen">${emptyState("Không thể tạo báo cáo", "Thiếu module báo cáo tín dụng FinRisk.", "alert")}</div>`;
       return;
     }
-
+    let report;
+    try { report = engine.build(window.FinRiskLoan.load(), window.FinRiskDecisionMock.getScenario()); }
+    catch (error) {
+      $("#content").innerHTML = `<div class="workspace-screen">${emptyState("Không thể tạo báo cáo", error.message, "alert")}</div>`;
+      return;
+    }
+    const data = report.application;
+    const validation = report.validation;
+    const assessment = report.assessment;
+    const formatMoney = (value) => Number.isFinite(Number(value)) && String(value).trim() ? `${Number(value).toLocaleString("vi-VN")} VND` : "—";
     $("#content").innerHTML = `
-      <div class="workspace-screen export-screen">
+      <div class="workspace-screen export-screen finrisk-credit-report-screen">
         <div class="screen-summary-grid">
-          <div class="screen-summary-card"><span>Report type</span><strong>WORKING</strong><small>Internal review only</small></div>
-          <div class="screen-summary-card"><span>Dataset</span><strong class="code compact-code">${escapeHtml(report.guardrails.dataOrigin)}</strong><small>${escapeHtml(report.scope.datasetId)}</small></div>
-          <div class="screen-summary-card danger-accent"><span>Numeric</span><strong>${escapeHtml(report.guardrails.embeddedEmissionNumeric)}</strong><small>${escapeHtml(report.release.resultVisibility)}</small></div>
-          <div class="screen-summary-card"><span>Trace</span><strong>${escapeHtml(report.graph.integrityStatus)}</strong><small class="code">${escapeHtml(report.graph.traceId)}</small></div>
+          <div class="screen-summary-card"><span>Report</span><strong>CREDIT</strong><small>MOCK · INTERNAL ONLY</small></div>
+          <div class="screen-summary-card"><span>Customer ID</span><strong class="code compact-code">${escapeHtml(data.customer_id || "—")}</strong><small>Hồ sơ #09</small></div>
+          <div class="screen-summary-card"><span>Validation #10</span><strong>${validation.valid ? "PASS" : "INVALID"}</strong><small>${Object.keys(validation.errors).length} lỗi dữ liệu</small></div>
+          <div class="screen-summary-card"><span>Decision #12</span><strong>${escapeHtml(assessment.status)}</strong><small>${assessment.score === null ? "Không có điểm ML" : `${assessment.score}/100 · MOCK`}</small></div>
         </div>
-
         <div class="export-center-layout">
           <section class="workspace-panel export-products-panel">
-            <div class="panel-heading"><div><span class="panel-eyebrow">EXPORT CENTER</span><h2>Chọn định dạng làm việc</h2><p>Cả hai file đều được tạo hoàn toàn trong browser local.</p></div>${pill(report.reportStatus, "WARNING")}</div>
+            <div class="panel-heading"><div><span class="panel-eyebrow">CREDIT REPORT · #13</span><h2>Xuất báo cáo tín dụng</h2><p>Dữ liệu lấy từ hồ sơ #09, validation #10 và kịch bản #12 hiện tại. Tất cả xử lý trong trình duyệt.</p></div>${pill("MOCK", "WARNING")}</div>
             <div class="export-product-grid">
-              <article class="export-product-card html-product"><div class="export-file-icon">HTML</div><h3>Working Report</h3><p>Bản đọc dành cho review nội bộ: scope, candidate/real state, validation, trace và release guardrail.</p><button id="download-working-html" class="btn primary">${icon("download", 16)} Download .html</button></article>
-              <article class="export-product-card json-product"><div class="export-file-icon">JSON</div><h3>Trace Package</h3><p>Gói kỹ thuật machine-readable cho node/edge, validation relation và release state.</p><button id="download-trace-json" class="btn">${icon("download", 16)} Download .json</button></article>
+              <article class="export-product-card html-product"><div class="export-file-icon">HTML</div><h3>Báo cáo HTML</h3><p>Bản đọc độc lập gồm hồ sơ, kiểm tra dữ liệu, đánh giá, lý do và lưu ý MOCK.</p><button id="finrisk-report-html" class="btn primary">${icon("download", 16)} Xuất HTML</button></article>
+              <article class="export-product-card json-product"><div class="export-file-icon">JSON</div><h3>Báo cáo JSON</h3><p>Dữ liệu có cấu trúc phục vụ kiểm thử và tích hợp API trong tương lai.</p><button id="finrisk-report-json" class="btn">${icon("download", 16)} Xuất JSON</button></article>
             </div>
-            <div class="notice danger compact-notice"><strong>WORKING_ONLY:</strong> ${escapeHtml(report.guardrails.disclaimer)}</div>
+            <div class="notice danger compact-notice"><strong>MOCK / NOT A CREDIT DECISION:</strong> Dữ liệu lưu localStorage, điểm và ngưỡng đánh giá là giả lập. Chưa tích hợp ML, policy được duyệt hoặc PostgreSQL. Không sử dụng để phê duyệt khoản vay.</div>
           </section>
-
           <aside class="workspace-panel report-preview-panel">
-            <div class="panel-heading compact-heading"><div><span class="panel-eyebrow">LIVE PREVIEW</span><h2>Report summary</h2></div></div>
+            <div class="panel-heading compact-heading"><div><span class="panel-eyebrow">LIVE PREVIEW</span><h2>Xem trước báo cáo</h2></div></div>
             <div class="report-preview-list">
-              <div><span>Scenario</span><strong class="code">${escapeHtml(report.scope.scenarioId)}</strong></div>
-              <div><span>Batch</span><strong class="code">${valueOrDash(report.workingInput.batchId)}</strong></div>
-              <div><span>HRC lot</span><strong class="code">${valueOrDash(report.workingInput.hrcLotId)}</strong></div>
-              <div><span>Candidate CN8</span><strong>${valueOrDash(report.classification.candidateCn8)} ${pill(report.classification.candidateLabel)}</strong></div>
-              <div><span>Real CN8</span><strong>${valueOrDash(report.classification.realCn8)} ${pill(report.classification.realCn8Status)}</strong></div>
-              <div><span>SEE</span><strong>${pill(report.precursorEmissionData.seeStatus)}</strong></div>
-              <div><span>Validation issues</span><strong>${report.validation.summary.total ?? report.validation.issues.length}</strong></div>
-              <div><span>Release</span><strong>${pill(report.release.numericReleaseStatus)} ${pill(report.release.resultVisibility)}</strong></div>
+              <div><span>Khách hàng</span><strong>${escapeHtml(data.full_name || "—")}</strong></div>
+              <div><span>Mã hồ sơ</span><strong class="code">${escapeHtml(data.customer_id || "—")}</strong></div>
+              <div><span>Thu nhập tháng</span><strong>${escapeHtml(formatMoney(data.monthly_income))}</strong></div>
+              <div><span>Số tiền vay</span><strong>${escapeHtml(formatMoney(data.loan_amount))}</strong></div>
+              <div><span>Thời hạn</span><strong>${escapeHtml(data.loan_term_months || "—")} tháng</strong></div>
+              <div><span>Validation</span><strong>${validation.valid ? "PASS" : "INVALID"}</strong></div>
+              <div><span>Điểm rủi ro</span><strong>${assessment.score === null ? "N/A" : `${assessment.score}/100 (MOCK)`}</strong></div>
+              <div><span>Gợi ý</span><strong>${escapeHtml(assessment.status)} (MOCK)</strong></div>
             </div>
           </aside>
         </div>
-      </div>
-    `;
-
-    $("#download-working-html").addEventListener("click", (event) => {
-      runBusyAction(event.currentTarget, "Đang tạo HTML…", () => {
-        triggerDownload(window.CGReportEngine.fileName(report, "html"), "text/html;charset=utf-8", window.CGReportEngine.renderHtml(report));
-      });
-    });
-    $("#download-trace-json").addEventListener("click", (event) => {
-      runBusyAction(event.currentTarget, "Đang tạo JSON…", () => {
-        triggerDownload(window.CGReportEngine.fileName(report, "json"), "application/json;charset=utf-8", window.CGReportEngine.renderJson(report));
-      });
-    });
+      </div>`;
+    $("#finrisk-report-html").addEventListener("click", event => runBusyAction(event.currentTarget, "Đang tạo HTML…", () => triggerDownload(engine.fileName(report, "html"), "text/html;charset=utf-8", engine.renderHtml(report))));
+    $("#finrisk-report-json").addEventListener("click", event => runBusyAction(event.currentTarget, "Đang tạo JSON…", () => triggerDownload(engine.fileName(report, "json"), "application/json;charset=utf-8", engine.renderJson(report))));
   }
 
   function renderE2E() {
