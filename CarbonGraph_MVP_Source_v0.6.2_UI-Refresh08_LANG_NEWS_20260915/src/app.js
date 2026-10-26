@@ -952,103 +952,21 @@
   }
 
   function renderAcceptance() {
-    const catalog = window.CGAcceptanceCatalog;
-    const summary = window.CGAcceptanceEngine.summary(catalog, acceptanceRecords);
-    const exportReady = window.CGAcceptanceEngine.isExportReady(catalog, acceptanceRecords, acceptanceReviewer);
-    const progress = summary.total ? Math.round((summary.PASS / summary.total) * 100) : 0;
-    setHeader("Test Center", "QA console cho D1/D3/D4/D5 manual acceptance; UAT record tách biệt hoàn toàn khỏi runtime release/compliance state.");
-
-    $("#content").innerHTML = `
-      <div class="workspace-screen test-center-screen">
-        <div class="test-center-hero">
-          <div><span class="panel-eyebrow">MANUAL ACCEPTANCE</span><h2>${summary.PASS}/${summary.total} case(s) PASS</h2><p>Hoàn tất manual evidence, định danh reviewer thật và chỉ export UAT JSON khi toàn bộ case đạt.</p></div>
-          <div class="uat-progress-ring" style="--progress:${progress * 3.6}deg"><div><strong>${progress}%</strong><span>${escapeHtml(summary.reviewStatus)}</span></div></div>
-        </div>
-
-        <div class="screen-summary-grid test-summary-grid">
-          <div class="screen-summary-card success-accent"><span>PASS</span><strong>${summary.PASS}</strong><small>Manual cases</small></div>
-          <div class="screen-summary-card danger-accent"><span>FAIL</span><strong>${summary.FAIL}</strong><small>Cần điều tra/sửa</small></div>
-          <div class="screen-summary-card warning-accent"><span>NOT RUN</span><strong>${summary.NOT_RUN}</strong><small>Chưa có bằng chứng</small></div>
-          <div class="screen-summary-card"><span>Export readiness</span><strong>${exportReady ? "READY" : "PENDING"}</strong><small>${acceptanceReviewer ? "Reviewer identified" : "Missing reviewer"}</small></div>
-        </div>
-
-        <div class="test-center-layout">
-          <section class="workspace-panel reviewer-panel">
-            <div class="panel-heading"><div><span class="panel-eyebrow">REVIEWER IDENTITY</span><h2>Người duyệt UAT</h2><p>Tên này đi vào UAT JSON và phải là người thực sự review.</p></div>${pill(exportReady ? "SẴN SÀNG XUẤT" : "CHƯA ĐỦ ĐIỀU KIỆN", exportReady ? "PASS" : "WARNING")}</div>
-            <div class="reviewer-form-row">
-              <div class="field"><label for="uat-reviewer">Họ và tên reviewer</label><input id="uat-reviewer" maxlength="120" value="${escapeHtml(acceptanceReviewer)}" placeholder="Nhập họ và tên người thực sự duyệt" /><div class="field-help">Không dùng placeholder/UNSPECIFIED_REVIEWER.</div></div>
-              <button id="save-uat-reviewer" class="btn">${icon("save", 16)} Lưu reviewer</button>
-            </div>
-            <div class="guardrail-grid compact-guardrail-grid"><span>Dataset ${pill(summary.dataset, "WARNING")}</span><span>R-006 ${pill(summary.r006Status)}</span><span>Numeric ${pill(summary.numericEmissionStatus)}</span><span>Compliance ${pill(summary.complianceStatus, "WARNING")}</span></div>
-          </section>
-
-          <section class="workspace-panel test-catalog-panel">
-            <div class="panel-heading compact-heading"><div><span class="panel-eyebrow">TEST CATALOG</span><h2>10 manual acceptance scenarios</h2></div><span class="panel-status">Catalog v${escapeHtml(catalog.version)}</span></div>
-            <div class="test-cases modern-test-cases">
-              ${catalog.cases.map((testCase, index) => {
-                const record = acceptanceRecords[testCase.id];
-                return `
-                  <details class="test-case modern-test-case" ${record.status === "FAIL" ? "open" : ""}>
-                    <summary>
-                      <span class="test-order">${String(index + 1).padStart(2, "0")}</span>
-                      <span class="code">${escapeHtml(testCase.id)}</span>
-                      <strong>${escapeHtml(testCase.title)}</strong>
-                      <span class="test-work-item">${escapeHtml(testCase.workItem)}</span>
-                      ${pill(record.status)}
-                    </summary>
-                    <div class="test-body">
-                      <p class="test-purpose"><strong>Mục đích:</strong> ${escapeHtml(testCase.purpose)}</p>
-                      <div class="test-grid">
-                        <section><h4>Dữ liệu/mẫu cần test</h4>${renderGuidanceList(testCase.sampleInput, "sample")}</section>
-                        <section><h4>Các bước</h4>${renderGuidanceList(testCase.steps)}</section>
-                        <section class="pass-box"><h4>Đạt khi hiện</h4>${renderGuidanceList(testCase.expected)}</section>
-                        <section class="fail-box"><h4>Không đạt nếu</h4>${renderGuidanceList(testCase.failSymptoms)}</section>
-                        <section class="fix-box"><h4>Cách sửa/điều tra</h4>${renderGuidanceList(testCase.fixes)}</section>
-                        <section><h4>Bằng chứng cần lưu</h4><p>${escapeHtml(testCase.evidence)}</p></section>
-                      </div>
-                      <div class="field test-note-field"><label for="note-${escapeHtml(testCase.id)}">Ghi chú người test</label><textarea id="note-${escapeHtml(testCase.id)}" data-note-for="${escapeHtml(testCase.id)}" rows="3" placeholder="Máy/trình duyệt, kết quả quan sát, link/filename bằng chứng...">${escapeHtml(record.note)}</textarea><div class="field-help">Lần kiểm tra gần nhất: ${valueOrDash(record.checkedAt)}</div></div>
-                      <div class="actions test-actions"><button class="btn pass-action" data-case-id="${escapeHtml(testCase.id)}" data-status="PASS">Mark PASS</button><button class="btn fail-action" data-case-id="${escapeHtml(testCase.id)}" data-status="FAIL">Mark FAIL</button><button class="btn" data-case-id="${escapeHtml(testCase.id)}" data-status="NOT_RUN">Reset case</button></div>
-                    </div>
-                  </details>`;
-              }).join("")}
-            </div>
-          </section>
-        </div>
-
-        <div class="uat-export-bar"><div><strong>UAT evidence package</strong><small>Export chỉ mở khi 10/10 PASS + reviewer đã định danh.</small></div><div class="actions compact-actions"><button id="reset-uat-record" class="btn danger-outline">${icon("refresh", 16)} Reset manual result</button><button id="export-uat-record" class="btn primary" ${exportReady ? "" : "disabled"}>${icon("download", 16)} Export UAT record (.json)</button></div></div>
-        <div class="notice danger"><strong>Biên an toàn:</strong> Manual UAT không thay đổi runtime, không đóng R-006, không đánh giá compliance và không quyết định Gate 3.</div>
-      </div>
-    `;
-
-    document.querySelectorAll("[data-case-id][data-status]").forEach((button) => {
-      button.addEventListener("click", () => saveAcceptanceResult(button.dataset.caseId, button.dataset.status));
-    });
-
-    $("#save-uat-reviewer").addEventListener("click", () => {
-      acceptanceReviewer = window.CGAcceptanceEngine.normalizeReviewer($("#uat-reviewer").value);
-      window.CGAcceptanceEngine.saveReviewer(acceptanceReviewer, window.localStorage);
-      renderAcceptance();
-      showToast(acceptanceReviewer ? `Reviewer đã lưu: ${acceptanceReviewer}` : "Reviewer đang để trống.", acceptanceReviewer ? "success" : "warning", "Reviewer identity");
-    });
-
-    $("#export-uat-record").addEventListener("click", () => {
-      if (!window.CGAcceptanceEngine.isExportReady(catalog, acceptanceRecords, acceptanceReviewer)) {
-        showToast("Cần đủ 10/10 PASS và họ tên reviewer thực tế trước khi xuất UAT.", "warning", "UAT chưa sẵn sàng", 5200);
-        return;
-      }
-      runBusyAction($("#export-uat-record"), "Đang tạo UAT JSON…", () => {
-        const record = window.CGAcceptanceEngine.buildRecord(catalog, acceptanceRecords, { reviewer: acceptanceReviewer });
-        const stamp = record.generatedAt.replace(/[:.]/g, "-");
-        triggerDownload(`CG_UAT_Record_${stamp}.json`, "application/json;charset=utf-8", JSON.stringify(record, null, 2));
-      });
-    });
-
-    $("#reset-uat-record").addEventListener("click", () => {
-      acceptanceRecords = window.CGAcceptanceEngine.clear(catalog, window.localStorage);
-      acceptanceReviewer = "";
-      renderAcceptance();
-      showToast("Manual UAT result và reviewer đã được reset.", "warning", "UAT reset");
-    });
+    const api=window.FinRiskUAT;
+    const state=api.load(window.localStorage);
+    const s=api.summary(state);
+    setHeader("Test Center", "FinRisk DSS · 12 UAT thủ công cho #09/#10/#11/#12/#13/#15/#20. Kết quả chưa phải nghiệm thu của leader.");
+    $("#content").innerHTML=`<div class="workspace-screen finrisk-uat-screen">
+      <div class="test-center-hero"><div><span class="panel-eyebrow">FINRISK MANUAL UAT · MOCK</span><h2>${s.PASS}/${s.total} UAT PASS</h2><p>Chỉ đánh dấu PASS sau khi thực sự chạy trên trình duyệt và lưu bằng chứng. Kết quả lưu cục bộ.</p></div></div>
+      <div class="screen-summary-grid test-summary-grid"><div class="screen-summary-card success-accent"><span>PASS</span><strong>${s.PASS}</strong></div><div class="screen-summary-card danger-accent"><span>FAIL</span><strong>${s.FAIL}</strong></div><div class="screen-summary-card warning-accent"><span>NOT RUN</span><strong>${s.NOT_RUN}</strong></div><div class="screen-summary-card"><span>Xuất UAT</span><strong>${s.ready?"READY":"PENDING"}</strong></div></div>
+      <section class="workspace-panel"><div class="panel-heading"><div><span class="panel-eyebrow">REVIEWER</span><h2>Người thực hiện UAT</h2></div></div><div class="reviewer-form-row"><div class="field"><label for="fr-uat-reviewer">Họ tên người kiểm thử</label><input id="fr-uat-reviewer" maxlength="120" value="${escapeHtml(state.reviewer)}" placeholder="Nhập tên thật"/></div><button class="btn" id="fr-uat-save">Lưu reviewer</button></div></section>
+      <section class="workspace-panel"><div class="panel-heading"><div><span class="panel-eyebrow">FINRISK UAT CATALOG</span><h2>12 tình huống kiểm thử</h2></div><span class="panel-status">12 manual cases</span></div><div class="test-cases modern-test-cases">${api.cases.map((c,i)=>{const r=state.records[c.id];return `<details class="test-case modern-test-case"><summary><span class="test-order">${String(i+1).padStart(2,"0")}</span><span class="code">${c.id}</span><strong>${escapeHtml(c.title)}</strong><span class="test-work-item">${c.workItem}</span>${pill(r.status)}</summary><div class="test-body"><p><strong>Các bước:</strong> ${escapeHtml(c.steps)}</p><p><strong>DoD:</strong> ${escapeHtml(c.expected)}</p><p><strong>Evidence:</strong> ${escapeHtml(c.evidence)}</p><div class="field"><label for="fr-note-${c.id}">Ghi chú, tên file bằng chứng, thiết bị/trình duyệt</label><textarea rows="3" id="fr-note-${c.id}" data-fr-note="${c.id}">${escapeHtml(r.note)}</textarea></div><div class="actions test-actions"><button class="btn pass-action" data-fr-case="${c.id}" data-fr-status="PASS">PASS</button><button class="btn fail-action" data-fr-case="${c.id}" data-fr-status="FAIL">FAIL</button><button class="btn" data-fr-case="${c.id}" data-fr-status="NOT_RUN">NOT RUN</button></div></div></details>`}).join("")}</div></section>
+      <div class="uat-export-bar"><div><strong>FinRisk UAT JSON</strong><small>Chỉ xuất khi 12/12 PASS và đã nhập reviewer; đây không phải chữ ký nghiệm thu leader.</small></div><div class="actions"><button id="fr-uat-reset" class="btn danger-outline">Reset UAT</button><button id="fr-uat-export" class="btn primary" ${s.ready?"":"disabled"}>Xuất UAT JSON</button></div></div><div class="notice danger"><strong>Giới hạn:</strong> ML, policy và PostgreSQL vẫn MOCK/chưa tích hợp. Không tự đánh dấu PASS hoặc xác nhận nghiệm thu.</div>
+    </div>`;
+    $("#fr-uat-save").addEventListener("click",()=>{state.reviewer=$("#fr-uat-reviewer").value.trim();api.save(window.localStorage,state);renderAcceptance();showToast("Đã lưu reviewer.","success");});
+    document.querySelectorAll("[data-fr-case]").forEach(btn=>btn.addEventListener("click",()=>{const id=btn.dataset.frCase;const note=document.querySelector(`[data-fr-note="${id}"]`).value;const next=api.update(state,id,btn.dataset.frStatus,note);api.save(window.localStorage,next);renderAcceptance();showToast(`${id}: ${btn.dataset.frStatus}`,"info");}));
+    $("#fr-uat-export").addEventListener("click",()=>{try{const record=api.exportRecord(api.load(window.localStorage));triggerDownload("FinRisk_UAT_Manual_MOCK.json","application/json;charset=utf-8",JSON.stringify(record,null,2));}catch(e){showToast(e.message,"warning");}});
+    $("#fr-uat-reset").addEventListener("click",()=>{api.save(window.localStorage,{reviewer:"",records:api.blank()});renderAcceptance();showToast("Đã reset UAT.","warning");});
   }
 
   const renderers = {
