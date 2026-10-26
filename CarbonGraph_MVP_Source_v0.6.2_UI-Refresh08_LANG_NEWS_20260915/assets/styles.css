@@ -3360,3 +3360,40 @@ summary:focus-visible {
   outline-offset: 3px;
 }
 
+
+/* #11 FinRisk Decision Trace: six stages require their own responsive grid.
+   Scoped to the new trace to preserve legacy graphs and other page layouts. */
+.finrisk-trace-screen .graph-canvas-panel { min-width: 0; }
+.finrisk-trace-screen .finrisk-trace-canvas {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(185px, 1fr) 28px) minmax(185px, 1fr);
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  align-items: stretch;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.finrisk-trace-screen .graph-lane { min-width: 185px; }
+.finrisk-trace-screen .graph-lane-arrow { min-width: 28px; transform: none; }
+.finrisk-trace-screen .graph-node-card { min-width: 0; overflow-wrap: anywhere; }
+.finrisk-trace-screen .graph-node-card > strong {
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.finrisk-trace-screen .graph-node-card > small { font-size: 9px; }
+@media (max-width: 720px) {
+  .finrisk-trace-screen .finrisk-trace-canvas {
+    grid-template-columns: minmax(0, 1fr);
+    overflow-x: visible;
+  }
+  .finrisk-trace-screen .graph-lane { min-width: 0; }
+  .finrisk-trace-screen .graph-lane-arrow { transform: rotate(90deg); height: 24px; }
+}
+
+/* FinRisk #20: additive responsive guardrails; retain visual theme and ambient animations. */
+html,body{max-width:100%;} .workspace-screen,.workspace-panel,.test-center-layout,.finrisk-uat-screen{min-width:0;max-width:100%;} .finrisk-uat-screen .modern-test-case summary{min-width:0;flex-wrap:wrap;gap:8px;} .finrisk-uat-screen .modern-test-case summary strong,.finrisk-uat-screen .test-body,.finrisk-uat-screen .test-body p{overflow-wrap:anywhere;word-break:normal;} .finrisk-uat-screen .test-body textarea{width:100%;max-width:100%;box-sizing:border-box;} .finrisk-uat-screen .uat-export-bar{flex-wrap:wrap;gap:12px;} .finrisk-uat-screen .actions{flex-wrap:wrap;} .finrisk-uat-screen .screen-summary-grid>*{min-width:0;}
+@media(max-width:900px){.finrisk-uat-screen .test-center-layout{grid-template-columns:minmax(0,1fr)}.finrisk-uat-screen .reviewer-form-row{flex-wrap:wrap;}}
+@media(max-width:600px){.finrisk-uat-screen .test-center-hero{flex-direction:column;align-items:stretch;}.finrisk-uat-screen .test-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.finrisk-uat-screen .test-case summary{align-items:flex-start;}.finrisk-uat-screen .test-case summary strong{flex:1 1 55%;}.finrisk-uat-screen .test-actions .btn{flex:1 1 90px;}.finrisk-uat-screen .uat-export-bar .actions{width:100%;}.finrisk-uat-screen .uat-export-bar .btn{flex:1 1 120px;}.workspace-panel{max-width:100%;}}

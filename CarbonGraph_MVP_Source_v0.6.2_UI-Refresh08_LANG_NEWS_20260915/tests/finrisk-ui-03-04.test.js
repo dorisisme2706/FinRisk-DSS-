@@ -11,7 +11,10 @@ const graph = read("src/ambient-graph.js");
 let checks = 0;
 function check(name, expression) { assert.ok(expression, name); console.log("PASS", name); checks++; }
 check("Original two-tier marketing / workspace structure kept", /class="marketing-header"/.test(html) && /class="workspace-bar"/.test(html));
-check("Original five marketing links retained", (html.match(/data-overview-target=/g)||[]).length === 5);
+check("Original five marketing header links retained", (() => {
+  const nav = html.match(/<nav\b[^>]*id="product-nav"[^>]*>([\s\S]*?)<\/nav>/);
+  return !!nav && (nav[1].match(/data-overview-target=/g) || []).length === 5;
+})());
 check("Mobile menu controls marketing navigation", html.includes('id="product-menu-toggle"') && html.includes('aria-controls="product-nav"'));
 check("Mobile menu starts collapsed", html.includes('aria-expanded="false"'));
 check("Menu accessible via keyboard", app.includes('event.key === "Escape"') && app.includes('menuButton.focus()'));
