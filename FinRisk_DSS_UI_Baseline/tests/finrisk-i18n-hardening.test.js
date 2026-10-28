@@ -1,0 +1,14 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const i18n = fs.readFileSync(path.join(__dirname, '../src/i18n.js'), 'utf8');
+const app = fs.readFileSync(path.join(__dirname, '../src/app.js'), 'utf8');
+assert.match(i18n, /const ATTRS = \["title", "aria-label", "placeholder", "alt"\]/);
+assert.match(i18n, /trackedText = new Set\(\)/);
+assert.match(i18n, /node\.nodeValue === translated/);
+assert.match(i18n, /current !== previous\.source && current !== previous\.translated/);
+assert.match(i18n, /data-i18n-ignore/);
+assert.match(i18n, /attributeFilter: ATTRS/);
+assert.match(app, /document\.addEventListener\("cg:languagechange", sync\)/);
+assert.match(app, /"Chuyển động"/);
+console.log('PASS: i18n hardening static checks (8)');

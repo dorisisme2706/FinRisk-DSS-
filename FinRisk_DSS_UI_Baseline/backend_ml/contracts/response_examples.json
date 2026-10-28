@@ -1,0 +1,661 @@
+[
+  {
+    "status": "ok",
+    "sk_id_curr": 100007,
+    "risk_score": 0.06580698514961447,
+    "positive_class": 1,
+    "model_version": "finrisk_lgbm_h12_demo_v0.2",
+    "feature_set_version": "core4_169_baseline_v1",
+    "data_version": "finrisk_v2_20261022151614259322",
+    "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+    "calibration_status": "uncalibrated_candidate_not_selected",
+    "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+    "quality_flags": [],
+    "explanations": [
+      {
+        "feature": "ext_source_2",
+        "observed_value": 0.3227382869704046,
+        "contribution": 0.39411984466874794,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_eligible_periods",
+        "observed_value": 63.0,
+        "contribution": -0.18466875580922654,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_max_recorded_delay_days",
+        "observed_value": 12.0,
+        "contribution": 0.17291019317255887,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "previous_approved_term_mean",
+        "observed_value": 20.666666666666668,
+        "contribution": 0.17116044864359944,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_paid_by_due_sum",
+        "observed_value": 728084.925,
+        "contribution": -0.14537485929844907,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "bureau_c1_debt_nonnegative_sum",
+        "observed_value": 0.0,
+        "contribution": -0.1351720387614857,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "organization_type",
+        "observed_value": "Religion",
+        "contribution": -0.133669516087153,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_recorded_late_periods",
+        "observed_value": 16.0,
+        "contribution": 0.13350263824323702,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "flag_document_3",
+        "observed_value": 0.0,
+        "contribution": -0.10140597265603557,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "ext_source_1",
+        "observed_value": null,
+        "contribution": 0.09055122516663171,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      }
+    ],
+    "release_stage": "h13_demo_handoff_pending_review",
+    "decision_threshold": 0.14484327385366114,
+    "review_recommended": false,
+    "threshold_scope": "demo_only_pending_review",
+    "explanation_details": {
+      "version": "lightgbm_native_contrib_raw_margin_v1",
+      "method": "LightGBM native pred_contrib",
+      "scale": "raw_margin_log_odds",
+      "base_margin": -2.8589359803718417,
+      "all_feature_contributions_sum": 0.20597889946355283,
+      "displayed_contributions_sum": 0.2619532072824251,
+      "other_features_sum": -0.055974307818872276,
+      "raw_margin": -2.652957080908286,
+      "raw_base_probability": 0.06580698514961447,
+      "reconstruction_error_margin": 2.6645352591003757e-15,
+      "feature_count": 169,
+      "displayed_count": 10,
+      "number_of_trees_used": 494,
+      "explanation_is_causal": false,
+      "contribution_is_probability_point_change": false,
+      "calibrated_pipeline": false,
+      "scope": "Contributions explain the base LightGBM margin. They are not loan decisions or a guarantee of actionable causal effects."
+    },
+    "explanation_status": "ok"
+  },
+  {
+    "status": "ok",
+    "sk_id_curr": 379997,
+    "risk_score": 0.05751336121481303,
+    "positive_class": 1,
+    "model_version": "finrisk_lgbm_h12_demo_v0.2",
+    "feature_set_version": "core4_169_baseline_v1",
+    "data_version": "finrisk_v2_20261022151614259322",
+    "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+    "calibration_status": "uncalibrated_candidate_not_selected",
+    "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+    "quality_flags": [
+      "ANNUITY_MISSING",
+      "BUREAU_NOT_OBSERVED"
+    ],
+    "explanations": [
+      {
+        "feature": "ext_source_2",
+        "observed_value": 0.2672685383445533,
+        "contribution": 0.4265329195946494,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "ext_source_1",
+        "observed_value": 0.5933943314288874,
+        "contribution": -0.28032905014017595,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "amt_annuity",
+        "observed_value": null,
+        "contribution": -0.21064454667576815,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "days_employed",
+        "observed_value": -152.0,
+        "contribution": 0.1532677455611657,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "occupation_type",
+        "observed_value": "Accountants",
+        "contribution": -0.15251265994161256,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "amt_goods_price",
+        "observed_value": 1354500.0,
+        "contribution": -0.15118615494041415,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_recorded_late_periods",
+        "observed_value": 10.0,
+        "contribution": 0.1430074378455425,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "name_education_type",
+        "observed_value": "Higher education",
+        "contribution": -0.119977244063473,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_max_recorded_delay_days",
+        "observed_value": 9.0,
+        "contribution": 0.11706875294043717,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "previous_approved_term_mean",
+        "observed_value": 6.0,
+        "contribution": -0.09817119225115065,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      }
+    ],
+    "release_stage": "h13_demo_handoff_pending_review",
+    "decision_threshold": 0.14484327385366114,
+    "review_recommended": false,
+    "threshold_scope": "demo_only_pending_review",
+    "explanation_details": {
+      "version": "lightgbm_native_contrib_raw_margin_v1",
+      "method": "LightGBM native pred_contrib",
+      "scale": "raw_margin_log_odds",
+      "base_margin": -2.8589359803718417,
+      "all_feature_contributions_sum": 0.06243152726849305,
+      "displayed_contributions_sum": -0.1729439920707997,
+      "other_features_sum": 0.23537551933929274,
+      "raw_margin": -2.79650445310335,
+      "raw_base_probability": 0.05751336121481303,
+      "reconstruction_error_margin": 1.3322676295501878e-15,
+      "feature_count": 169,
+      "displayed_count": 10,
+      "number_of_trees_used": 494,
+      "explanation_is_causal": false,
+      "contribution_is_probability_point_change": false,
+      "calibrated_pipeline": false,
+      "scope": "Contributions explain the base LightGBM margin. They are not loan decisions or a guarantee of actionable causal effects."
+    },
+    "explanation_status": "ok"
+  },
+  {
+    "status": "ok",
+    "sk_id_curr": 100006,
+    "risk_score": 0.08725027752667787,
+    "positive_class": 1,
+    "model_version": "finrisk_lgbm_h12_demo_v0.2",
+    "feature_set_version": "core4_169_baseline_v1",
+    "data_version": "finrisk_v2_20261022151614259322",
+    "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+    "calibration_status": "uncalibrated_candidate_not_selected",
+    "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+    "quality_flags": [
+      "BUREAU_NOT_OBSERVED"
+    ],
+    "explanations": [
+      {
+        "feature": "ext_source_2",
+        "observed_value": 0.6504416904014653,
+        "contribution": -0.29114648979295066,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "previous_approved_term_mean",
+        "observed_value": 22.5,
+        "contribution": 0.22494248107317885,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "amt_goods_price",
+        "observed_value": 297000.0,
+        "contribution": 0.1583084797510454,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "occupation_type",
+        "observed_value": "Laborers",
+        "contribution": 0.1480846936338083,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_paid_by_due_sum",
+        "observed_value": 1007153.4150000003,
+        "contribution": -0.11996992231510503,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_max_recorded_delay_days",
+        "observed_value": 0.0,
+        "contribution": -0.11804197411044223,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "amt_credit",
+        "observed_value": 312682.5,
+        "contribution": -0.10059257507535097,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "previous_refused_count",
+        "observed_value": 1.0,
+        "contribution": 0.09917995003892448,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "ext_source_1",
+        "observed_value": null,
+        "contribution": 0.08254012702371778,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "bureau_latest_credit_day",
+        "observed_value": null,
+        "contribution": 0.0820617760531767,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      }
+    ],
+    "release_stage": "h13_demo_handoff_pending_review",
+    "decision_threshold": 0.14484327385366114,
+    "review_recommended": false,
+    "threshold_scope": "demo_only_pending_review",
+    "explanation_details": {
+      "version": "lightgbm_native_contrib_raw_margin_v1",
+      "method": "LightGBM native pred_contrib",
+      "scale": "raw_margin_log_odds",
+      "base_margin": -2.8589359803718417,
+      "all_feature_contributions_sum": 0.5112550057906642,
+      "displayed_contributions_sum": 0.16536654628000264,
+      "other_features_sum": 0.34588845951066155,
+      "raw_margin": -2.347680974581177,
+      "raw_base_probability": 0.08725027752667787,
+      "reconstruction_error_margin": 4.440892098500626e-16,
+      "feature_count": 169,
+      "displayed_count": 10,
+      "number_of_trees_used": 494,
+      "explanation_is_causal": false,
+      "contribution_is_probability_point_change": false,
+      "calibrated_pipeline": false,
+      "scope": "Contributions explain the base LightGBM margin. They are not loan decisions or a guarantee of actionable causal effects."
+    },
+    "explanation_status": "ok"
+  },
+  {
+    "status": "ok",
+    "sk_id_curr": 100035,
+    "risk_score": 0.15160322574159024,
+    "positive_class": 1,
+    "model_version": "finrisk_lgbm_h12_demo_v0.2",
+    "feature_set_version": "core4_169_baseline_v1",
+    "data_version": "finrisk_v2_20261022151614259322",
+    "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+    "calibration_status": "uncalibrated_candidate_not_selected",
+    "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+    "quality_flags": [],
+    "explanations": [
+      {
+        "feature": "previous_refused_count",
+        "observed_value": 8.0,
+        "contribution": 0.3302823574604907,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "bureau_c1_debt_nonnegative_sum",
+        "observed_value": 2054371.5,
+        "contribution": 0.25137993366175365,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_eligible_periods",
+        "observed_value": 65.0,
+        "contribution": -0.20933515224504112,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_paid_by_due_sum",
+        "observed_value": 1685143.6649999996,
+        "contribution": -0.1475930480657731,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "organization_type",
+        "observed_value": "Business Entity Type 3",
+        "contribution": 0.11612245656616148,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "ext_source_3",
+        "observed_value": 0.4101025731788671,
+        "contribution": 0.11381695325903482,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_recorded_late_periods",
+        "observed_value": 15.0,
+        "contribution": 0.10623273946507641,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_max_recorded_delay_days",
+        "observed_value": 9.0,
+        "contribution": 0.09467966087908626,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "previous_oldest_decision_day",
+        "observed_value": -2073.0,
+        "contribution": -0.09252375382041814,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "ext_source_2",
+        "observed_value": 0.479987342189869,
+        "contribution": 0.09188652615817898,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      }
+    ],
+    "release_stage": "h13_demo_handoff_pending_review",
+    "decision_threshold": 0.14484327385366114,
+    "review_recommended": true,
+    "threshold_scope": "demo_only_pending_review",
+    "explanation_details": {
+      "version": "lightgbm_native_contrib_raw_margin_v1",
+      "method": "LightGBM native pred_contrib",
+      "scale": "raw_margin_log_odds",
+      "base_margin": -2.8589359803718417,
+      "all_feature_contributions_sum": 1.1368543107963558,
+      "displayed_contributions_sum": 0.65494867331855,
+      "other_features_sum": 0.4819056374778058,
+      "raw_margin": -1.7220816695754846,
+      "raw_base_probability": 0.15160322574159024,
+      "reconstruction_error_margin": 1.3322676295501878e-15,
+      "feature_count": 169,
+      "displayed_count": 10,
+      "number_of_trees_used": 494,
+      "explanation_is_causal": false,
+      "contribution_is_probability_point_change": false,
+      "calibrated_pipeline": false,
+      "scope": "Contributions explain the base LightGBM margin. They are not loan decisions or a guarantee of actionable causal effects."
+    },
+    "explanation_status": "ok"
+  },
+  {
+    "status": "ok",
+    "sk_id_curr": 100048,
+    "risk_score": 0.2599797810722127,
+    "positive_class": 1,
+    "model_version": "finrisk_lgbm_h12_demo_v0.2",
+    "feature_set_version": "core4_169_baseline_v1",
+    "data_version": "finrisk_v2_20261022151614259322",
+    "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+    "calibration_status": "uncalibrated_candidate_not_selected",
+    "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+    "quality_flags": [],
+    "explanations": [
+      {
+        "feature": "ext_source_2",
+        "observed_value": 0.03731523556121631,
+        "contribution": 1.0915108465368544,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "bureau_c1_credit_nonnegative_sum",
+        "observed_value": 22905.0,
+        "contribution": 0.1814853215262587,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_paid_by_due_sum",
+        "observed_value": 1310072.355,
+        "contribution": -0.17981387959029713,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "ext_source_1",
+        "observed_value": null,
+        "contribution": 0.15852626341496814,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "days_employed",
+        "observed_value": -475.0,
+        "contribution": 0.14035362797347836,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "occupation_type",
+        "observed_value": "Laborers",
+        "contribution": 0.130152166870272,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "previous_approved_term_mean",
+        "observed_value": 18.0,
+        "contribution": 0.11929994011824448,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_max_recorded_delay_days",
+        "observed_value": 0.0,
+        "contribution": -0.11372193786880637,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "bureau_c1_debt_nonnegative_sum",
+        "observed_value": 0.0,
+        "contribution": -0.09585039402632341,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_latest_payment_day",
+        "observed_value": -10.0,
+        "contribution": 0.09578668279008956,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      }
+    ],
+    "release_stage": "h13_demo_handoff_pending_review",
+    "decision_threshold": 0.14484327385366114,
+    "review_recommended": true,
+    "threshold_scope": "demo_only_pending_review",
+    "explanation_details": {
+      "version": "lightgbm_native_contrib_raw_margin_v1",
+      "method": "LightGBM native pred_contrib",
+      "scale": "raw_margin_log_odds",
+      "base_margin": -2.8589359803718417,
+      "all_feature_contributions_sum": 1.8128623345562884,
+      "displayed_contributions_sum": 1.5277286377447388,
+      "other_features_sum": 0.28513369681154965,
+      "raw_margin": -1.04607364581555,
+      "raw_base_probability": 0.2599797810722127,
+      "reconstruction_error_margin": 3.3306690738754696e-15,
+      "feature_count": 169,
+      "displayed_count": 10,
+      "number_of_trees_used": 494,
+      "explanation_is_causal": false,
+      "contribution_is_probability_point_change": false,
+      "calibrated_pipeline": false,
+      "scope": "Contributions explain the base LightGBM margin. They are not loan decisions or a guarantee of actionable causal effects."
+    },
+    "explanation_status": "ok"
+  },
+  {
+    "status": "ok",
+    "sk_id_curr": 171816,
+    "risk_score": 0.14484327385366114,
+    "positive_class": 1,
+    "model_version": "finrisk_lgbm_h12_demo_v0.2",
+    "feature_set_version": "core4_169_baseline_v1",
+    "data_version": "finrisk_v2_20261022151614259322",
+    "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+    "calibration_status": "uncalibrated_candidate_not_selected",
+    "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+    "quality_flags": [],
+    "explanations": [
+      {
+        "feature": "ext_source_2",
+        "observed_value": 0.7460474932123411,
+        "contribution": -0.5768682743511587,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "ext_source_3",
+        "observed_value": 0.2940831009471255,
+        "contribution": 0.5095948941971631,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "previous_approved_term_mean",
+        "observed_value": 27.6,
+        "contribution": 0.49328032226393237,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "amt_goods_price",
+        "observed_value": 1575000.0,
+        "contribution": -0.22286856920857867,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "bureau_c1_debt_nonnegative_sum",
+        "observed_value": 837171.0,
+        "contribution": 0.19355833844311737,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "installments_eligible_periods",
+        "observed_value": 67.0,
+        "contribution": -0.18485766902967227,
+        "direction": "decreases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "organization_type",
+        "observed_value": "Business Entity Type 3",
+        "contribution": 0.10986896154434748,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "amt_annuity",
+        "observed_value": 41679.0,
+        "contribution": 0.10602895489547502,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "amt_credit",
+        "observed_value": 1575000.0,
+        "contribution": 0.10474079770604121,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      },
+      {
+        "feature": "ext_source_1",
+        "observed_value": null,
+        "contribution": 0.08712060576307401,
+        "direction": "increases_model_score",
+        "scale": "raw_margin_log_odds"
+      }
+    ],
+    "release_stage": "h13_demo_handoff_pending_review",
+    "decision_threshold": 0.14484327385366114,
+    "review_recommended": true,
+    "threshold_scope": "demo_only_pending_review",
+    "explanation_details": {
+      "version": "lightgbm_native_contrib_raw_margin_v1",
+      "method": "LightGBM native pred_contrib",
+      "scale": "raw_margin_log_odds",
+      "base_margin": -2.8589359803718417,
+      "all_feature_contributions_sum": 1.0833035106837623,
+      "displayed_contributions_sum": 0.6195983622237409,
+      "other_features_sum": 0.4637051484600214,
+      "raw_margin": -1.775632469688075,
+      "raw_base_probability": 0.14484327385366114,
+      "reconstruction_error_margin": 4.440892098500626e-15,
+      "feature_count": 169,
+      "displayed_count": 10,
+      "number_of_trees_used": 494,
+      "explanation_is_causal": false,
+      "contribution_is_probability_point_change": false,
+      "calibrated_pipeline": false,
+      "scope": "Contributions explain the base LightGBM margin. They are not loan decisions or a guarantee of actionable causal effects."
+    },
+    "explanation_status": "ok"
+  }
+]
