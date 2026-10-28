@@ -1,0 +1,1185 @@
+[
+  {
+    "feature": "name_contract_type",
+    "postgres_type": "TEXT",
+    "description": "Identification if loan is cash or revolving",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_own_car",
+    "postgres_type": "TEXT",
+    "description": "Flag if the client owns a car",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_own_realty",
+    "postgres_type": "TEXT",
+    "description": "Flag if client owns a house or flat",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "cnt_children",
+    "postgres_type": "NUMERIC",
+    "description": "Number of children the client has",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_income_total",
+    "postgres_type": "NUMERIC",
+    "description": "Income of the client",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_credit",
+    "postgres_type": "NUMERIC",
+    "description": "Credit amount of the loan",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_annuity",
+    "postgres_type": "NUMERIC",
+    "description": "Loan annuity",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_goods_price",
+    "postgres_type": "NUMERIC",
+    "description": "For consumer loans it is the price of the goods for which the loan is given",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "name_type_suite",
+    "postgres_type": "TEXT",
+    "description": "Who was accompanying client when he was applying for the loan",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "name_income_type",
+    "postgres_type": "TEXT",
+    "description": "Clients income type (businessman, working, maternity leave,…)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "name_education_type",
+    "postgres_type": "TEXT",
+    "description": "Level of highest education the client achieved",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "name_family_status",
+    "postgres_type": "TEXT",
+    "description": "Family status of the client",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "name_housing_type",
+    "postgres_type": "TEXT",
+    "description": "What is the housing situation of the client (renting, living with parents, ...)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "region_population_relative",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized population of region where client lives (higher number means the client lives in more populated region)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "days_employed",
+    "postgres_type": "INTEGER",
+    "description": "How many days before the application the person started current employment",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "days_registration",
+    "postgres_type": "NUMERIC",
+    "description": "How many days before the application did client change his registration",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "days_id_publish",
+    "postgres_type": "NUMERIC",
+    "description": "How many days before the application did client change the identity document with which he applied for the loan",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "own_car_age",
+    "postgres_type": "NUMERIC",
+    "description": "Age of client's car",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_mobil",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide mobile phone (1=YES, 0=NO)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_emp_phone",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide work phone (1=YES, 0=NO)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_work_phone",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide home phone (1=YES, 0=NO)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_cont_mobile",
+    "postgres_type": "NUMERIC",
+    "description": "Was mobile phone reachable (1=YES, 0=NO)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_phone",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide home phone (1=YES, 0=NO)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_email",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide email (1=YES, 0=NO)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "occupation_type",
+    "postgres_type": "TEXT",
+    "description": "What kind of occupation does the client have",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "cnt_fam_members",
+    "postgres_type": "NUMERIC",
+    "description": "How many family members does client have",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "region_rating_client",
+    "postgres_type": "NUMERIC",
+    "description": "Our rating of the region where client lives (1,2,3)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "region_rating_client_w_city",
+    "postgres_type": "NUMERIC",
+    "description": "Our rating of the region where client lives with taking city into account (1,2,3)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "weekday_appr_process_start",
+    "postgres_type": "TEXT",
+    "description": "On which day of the week did the client apply for the loan",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "hour_appr_process_start",
+    "postgres_type": "NUMERIC",
+    "description": "Approximately at what hour did the client apply for the loan",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "reg_region_not_live_region",
+    "postgres_type": "NUMERIC",
+    "description": "Flag if client's permanent address does not match contact address (1=different, 0=same, at region level)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "reg_region_not_work_region",
+    "postgres_type": "NUMERIC",
+    "description": "Flag if client's permanent address does not match work address (1=different, 0=same, at region level)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "live_region_not_work_region",
+    "postgres_type": "NUMERIC",
+    "description": "Flag if client's contact address does not match work address (1=different, 0=same, at region level)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "reg_city_not_live_city",
+    "postgres_type": "NUMERIC",
+    "description": "Flag if client's permanent address does not match contact address (1=different, 0=same, at city level)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "reg_city_not_work_city",
+    "postgres_type": "NUMERIC",
+    "description": "Flag if client's permanent address does not match work address (1=different, 0=same, at city level)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "live_city_not_work_city",
+    "postgres_type": "NUMERIC",
+    "description": "Flag if client's contact address does not match work address (1=different, 0=same, at city level)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "organization_type",
+    "postgres_type": "TEXT",
+    "description": "Type of organization where client works",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "ext_source_1",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized score from external data source",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "ext_source_2",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized score from external data source",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "ext_source_3",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized score from external data source",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "apartments_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "basementarea_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "years_beginexpluatation_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "years_build_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "commonarea_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "elevators_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "entrances_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "floorsmax_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "floorsmin_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "landarea_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "livingapartments_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "livingarea_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "nonlivingapartments_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "nonlivingarea_avg",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "apartments_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "basementarea_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "years_beginexpluatation_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "years_build_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "commonarea_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "elevators_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "entrances_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "floorsmax_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "floorsmin_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "landarea_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "livingapartments_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "livingarea_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "nonlivingapartments_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "nonlivingarea_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "apartments_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "basementarea_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "years_beginexpluatation_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "years_build_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "commonarea_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "elevators_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "entrances_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "floorsmax_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "floorsmin_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "landarea_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "livingapartments_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "livingarea_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "nonlivingapartments_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "nonlivingarea_medi",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "fondkapremont_mode",
+    "postgres_type": "TEXT",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "housetype_mode",
+    "postgres_type": "TEXT",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "totalarea_mode",
+    "postgres_type": "NUMERIC",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "wallsmaterial_mode",
+    "postgres_type": "TEXT",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "emergencystate_mode",
+    "postgres_type": "TEXT",
+    "description": "Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "obs_30_cnt_social_circle",
+    "postgres_type": "NUMERIC",
+    "description": "How many observation of client's social surroundings with observable 30 DPD (days past due) default",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "def_30_cnt_social_circle",
+    "postgres_type": "NUMERIC",
+    "description": "How many observation of client's social surroundings defaulted on 30 DPD (days past due) ",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "obs_60_cnt_social_circle",
+    "postgres_type": "NUMERIC",
+    "description": "How many observation of client's social surroundings with observable 60 DPD (days past due) default",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "def_60_cnt_social_circle",
+    "postgres_type": "NUMERIC",
+    "description": "How many observation of client's social surroundings defaulted on 60 (days past due) DPD",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "days_last_phone_change",
+    "postgres_type": "NUMERIC",
+    "description": "How many days before application did client change phone",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_2",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 2",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_3",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 3",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_4",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 4",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_5",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 5",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_6",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 6",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_7",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 7",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_8",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 8",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_9",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 9",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_10",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 10",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_11",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 11",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_12",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 12",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_13",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 13",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_14",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 14",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_15",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 15",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_16",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 16",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_17",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 17",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_18",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 18",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_19",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 19",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_20",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 20",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "flag_document_21",
+    "postgres_type": "NUMERIC",
+    "description": "Did client provide document 21",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_req_credit_bureau_hour",
+    "postgres_type": "NUMERIC",
+    "description": "Number of enquiries to Credit Bureau about the client one hour before application",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_req_credit_bureau_day",
+    "postgres_type": "NUMERIC",
+    "description": "Number of enquiries to Credit Bureau about the client one day before application (excluding one hour before application)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_req_credit_bureau_week",
+    "postgres_type": "NUMERIC",
+    "description": "Number of enquiries to Credit Bureau about the client one week before application (excluding one day before application)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_req_credit_bureau_mon",
+    "postgres_type": "NUMERIC",
+    "description": "Number of enquiries to Credit Bureau about the client one month before application (excluding one week before application)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_req_credit_bureau_qrt",
+    "postgres_type": "NUMERIC",
+    "description": "Number of enquiries to Credit Bureau about the client 3 month before application (excluding one month before application)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_req_credit_bureau_year",
+    "postgres_type": "NUMERIC",
+    "description": "Number of enquiries to Credit Bureau about the client one day year (excluding last 3 months before application)",
+    "origin": "application_train",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "amt_annuity_missing",
+    "postgres_type": "SMALLINT",
+    "description": "1 nếu khoản trả bị thiếu; không suy diễn khoản trả bằng 0.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "days_employed_is_placeholder",
+    "postgres_type": "SMALLINT",
+    "description": "1 nếu raw DAYS_EMPLOYED=365243.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "days_employed_missing",
+    "postgres_type": "SMALLINT",
+    "description": "1 nếu raw trống hoặc placeholder 365243.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "app_credit_to_income_raw",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "AMT_CREDIT / AMT_INCOME_TOTAL; tỷ lệ theo đơn vị gốc, không phải DTI tháng.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_history_observed",
+    "postgres_type": "SMALLINT",
+    "description": "1 nếu có ít nhất một khoản bureau vượt qua gate thời gian.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_loan_count",
+    "postgres_type": "BIGINT",
+    "description": "Số khoản bureau hợp lệ theo thời gian, mọi currency; không phải số khách hàng.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_active_count",
+    "postgres_type": "BIGINT",
+    "description": "Số khoản CREDIT_ACTIVE=Active.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_closed_count",
+    "postgres_type": "BIGINT",
+    "description": "Số khoản CREDIT_ACTIVE=Closed.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_overdue_observed_count",
+    "postgres_type": "BIGINT",
+    "description": "Số khoản có CREDIT_DAY_OVERDUE>0 ở snapshot.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_max_overdue_days",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "Max CREDIT_DAY_OVERDUE trong snapshot hợp lệ.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_oldest_credit_day",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "Min DAYS_CREDIT; âm hơn nghĩa là cũ hơn.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_latest_credit_day",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "Max DAYS_CREDIT, gần cutoff nhất.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_currency_count",
+    "postgres_type": "BIGINT",
+    "description": "Số mã tiền tệ khác nhau, không bao gồm NULL.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_c1_loan_count",
+    "postgres_type": "BIGINT",
+    "description": "Số khoản currency 1.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_other_currency_count",
+    "postgres_type": "BIGINT",
+    "description": "Số khoản không phải currency 1, kể cả thiếu mã tiền.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_c1_debt_missing_count",
+    "postgres_type": "BIGINT",
+    "description": "Số khoản currency 1 thiếu dư nợ, không điền 0.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_c1_debt_negative_count",
+    "postgres_type": "BIGINT",
+    "description": "Số khoản currency 1 có dư nợ âm, không đưa vào tổng không âm.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_c1_credit_negative_count",
+    "postgres_type": "BIGINT",
+    "description": "Số khoản currency 1 có AMT_CREDIT_SUM âm.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_c1_debt_known_nonnegative_count",
+    "postgres_type": "BIGINT",
+    "description": "Số giá trị tham gia tổng dư nợ không âm.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_c1_debt_nonnegative_sum",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "SUM dư nợ >=0 của currency 1; NULL nếu không có giá trị. Tổng có điều kiện.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_c1_credit_nonnegative_sum",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "SUM AMT_CREDIT_SUM>=0, currency 1; không gọi là nghĩa vụ thanh toán tháng.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_c1_overdue_nonnegative_sum",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "SUM AMT_CREDIT_SUM_OVERDUE>=0, currency 1.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "bureau_future_maturity_count",
+    "postgres_type": "BIGINT",
+    "description": "Số khoản có ngày đáo hạn dự kiến sau 0; khác payment tương lai.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_history_observed",
+    "postgres_type": "SMALLINT",
+    "description": "1 nếu có previous với DAYS_DECISION<=0.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_application_count",
+    "postgres_type": "BIGINT",
+    "description": "Số đơn previous với DAYS_DECISION<=0; không phải số khoản vay đã giải ngân.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_approved_count",
+    "postgres_type": "BIGINT",
+    "description": "Số đơn Approved trong quá khứ.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_refused_count",
+    "postgres_type": "BIGINT",
+    "description": "Số đơn Refused trong quá khứ.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_canceled_count",
+    "postgres_type": "BIGINT",
+    "description": "Số đơn Canceled trong quá khứ.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_unused_offer_count",
+    "postgres_type": "BIGINT",
+    "description": "Số đơn Unused offer trong quá khứ.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_latest_decision_day",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "Ngày decision gần 0 nhất trong lịch sử.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_oldest_decision_day",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "Ngày decision cũ nhất trong lịch sử.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_approved_credit_mean",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "AVG credit không âm của đơn Approved quá khứ.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_approved_credit_max",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "MAX credit không âm của đơn Approved quá khứ.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_approved_term_mean",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "AVG CNT_PAYMENT>0 của đơn Approved; term, không phải số kỳ đã trả.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "previous_credit_missing_count",
+    "postgres_type": "BIGINT",
+    "description": "Số đơn quá khứ thiếu AMT_CREDIT.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_history_observed",
+    "postgres_type": "SMALLINT",
+    "description": "1 nếu có payment DAYS_ENTRY_PAYMENT<=0.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_observed_payment_rows",
+    "postgres_type": "BIGINT",
+    "description": "Số record payment<=0; một record không đồng nghĩa một kỳ.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_observed_contracts",
+    "postgres_type": "BIGINT",
+    "description": "Số SK_ID_PREV có payment quan sát<=0.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_latest_payment_day",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "Max ngày payment đã quan sát<=0.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_observed_periods",
+    "postgres_type": "BIGINT",
+    "description": "Số nhóm (CURR,PREV,VERSION,NUMBER) hợp lệ về khoá và có payment<=0.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_ambiguous_version_periods",
+    "postgres_type": "BIGINT",
+    "description": "Số nhóm có nhiều version trên cùng CURR+PREV+NUMBER, chỉ từ payment<=0.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_duplicate_periods",
+    "postgres_type": "BIGINT",
+    "description": "Số nhóm chứa record trùng toàn bộ trường nghiệp vụ; loại khỏi metric lịch trả.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_conflicting_schedule_periods",
+    "postgres_type": "BIGINT",
+    "description": "Số nhóm có nhiều giá trị due day hoặc scheduled amount.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_eligible_periods",
+    "postgres_type": "BIGINT",
+    "description": "Số kỳ đến hạn<=0 đạt toàn bộ gate, có payment quan sát; không phải toàn bộ kỳ hợp đồng.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_recorded_late_periods",
+    "postgres_type": "BIGINT",
+    "description": "Số kỳ eligible có ít nhất một payment sau due day, trong cửa sổ<=0.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_recorded_shortfall_periods",
+    "postgres_type": "BIGINT",
+    "description": "Số kỳ eligible có recorded_paid_sum < scheduled_amount (tolerance 1e-6). Không tự gán default.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_recorded_excess_periods",
+    "postgres_type": "BIGINT",
+    "description": "Số kỳ eligible có recorded_paid_sum > scheduled_amount (tolerance 1e-6).",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_max_recorded_delay_days",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "Max(max observed payment day - due day,0) trên kỳ eligible.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_observed_scheduled_sum",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "SUM scheduled_amount đúng một lần mỗi kỳ eligible.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_observed_paid_sum",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "SUM payment đã ghi nhận<=0 trên kỳ eligible; có thể bằng 0.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  },
+  {
+    "feature": "installments_paid_by_due_sum",
+    "postgres_type": "DOUBLE PRECISION",
+    "description": "SUM payment có entry<=due và<=0 trên kỳ eligible.",
+    "origin": "deterministic aggregation",
+    "null_policy": "Giữ NULL, không điền 0; cột count/flag được định nghĩa riêng."
+  }
+]
