@@ -1,0 +1,15 @@
+"use strict";
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const root = path.resolve(__dirname, "..");
+const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
+const html = read("index.html");
+const nav = html.match(/<nav\b[^>]*id="product-nav"[^>]*>([\s\S]*?)<\/nav>/);
+assert.ok(nav, "marketing navigation exists");
+const links = [...nav[1].matchAll(/data-overview-target="([^"]+)"/g)].map(m => m[1]);
+assert.deepEqual(links, ["cg-suite", "cg-workflow", "cg-news", "cg-faq"]);
+assert.ok(!html.includes('data-overview-target="cg-compare"'));
+assert.ok(!read("src/i18n.js").includes('"So sánh": "Compare"'));
+assert.ok(read("src/app.js").includes('querySelectorAll("[data-overview-target]")'));
+console.log("PASS: four header links, no orphan comparison link, translations and navigation preserved");

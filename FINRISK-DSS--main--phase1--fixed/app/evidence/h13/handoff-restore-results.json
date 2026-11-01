@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "checks_passed": 52,
+  "checks_failed": 0,
+  "scope": "Source restored from clean ZIP; original model, split and references supplied separately; existing CORE4 outside checkout",
+  "windows": "NOT TESTED",
+  "customer_feature_values_exported": false
+}

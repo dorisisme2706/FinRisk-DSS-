@@ -1,0 +1,14 @@
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const base=path.join(__dirname,'..');const api=require('../src/finrisk-uat.js');
+const storage=()=>{const m=new Map();return {getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,v)}};
+test('12 FinRisk UAT cases, unique IDs',()=>{assert.equal(api.cases.length,12);assert.equal(new Set(api.cases.map(x=>x.id)).size,12);assert(api.cases.every(x=>x.steps&&x.expected&&x.evidence));});
+test('default results are NOT_RUN, no false PASS',()=>{const s=api.load(storage());assert.deepEqual(api.summary(s),{PASS:0,FAIL:0,NOT_RUN:12,total:12,ready:false});});
+test('record PASS/FAIL and persist',()=>{const db=storage();let s=api.load(db);s=api.update(s,'UAT-01','FAIL','Observed error');api.save(db,s);assert.equal(api.load(db).records['UAT-01'].status,'FAIL');assert.equal(api.load(db).records['UAT-01'].note,'Observed error');});
+test('invalid UAT status rejected',()=>assert.throws(()=>api.update(api.load(storage()),'UAT-01','APPROVED','')));
+test('export blocked before 12 PASS',()=>assert.throws(()=>api.exportRecord(api.load(storage()))));
+test('export blocked without reviewer',()=>{let s=api.load(storage());for(const c of api.cases)s=api.update(s,c.id,'PASS','evidence');assert.throws(()=>api.exportRecord(s));});
+test('export with all PASS and reviewer, but not leader approval',()=>{let s=api.load(storage());for(const c of api.cases)s=api.update(s,c.id,'PASS','evidence');s.reviewer='QA Tester';const r=api.exportRecord(s);assert.equal(r.cases.length,12);assert.match(r.disclaimer,/NOT LEADER APPROVAL/);});
+test('source loads UAT module before app',()=>{const h=fs.readFileSync(path.join(base,'index.html'),'utf8');assert(h.indexOf('src/finrisk-uat.js')<h.indexOf('src/app.js'));});
+test('legacy CarbonGraph catalog is not rendered in Test Center',()=>{const a=fs.readFileSync(path.join(base,'src/app.js'),'utf8');const section=a.split('function renderAcceptance() {')[1].split('const renderers =')[0];assert.match(section,/FinRiskUAT/);assert.doesNotMatch(section,/CGAcceptanceCatalog|R-006/);});
+test('responsive guardrails preserve animations',()=>{const c=fs.readFileSync(path.join(base,'assets/styles.css'),'utf8');assert.match(c,/FinRisk #20/);assert.match(c,/@media\(max-width:600px\)/);assert.match(c,/finrisk-uat-screen/);assert.match(c,/ambient/);});
+test('core FinRisk sections remain present',()=>{const a=fs.readFileSync(path.join(base,'src/app.js'),'utf8');assert.match(a,/renderOverview/);assert.match(a,/renderTrace/);assert.match(a,/renderExport/);assert.match(a,/renderAcceptance/);});
