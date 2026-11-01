@@ -1,0 +1,12 @@
+# Local configuration and private data; tracked files are not affected.
+.env
+.env.*
+*.parquet
+*.joblib
+*.7z
+*.7z.*
+*.zip
+*.pem
+*.key
+__pycache__/
+*.pyc

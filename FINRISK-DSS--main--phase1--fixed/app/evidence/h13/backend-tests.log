@@ -1,0 +1,41 @@
+test_backend_exception (__main__.ServerTests.test_backend_exception) ... 127.0.0.1 - - [01/Nov/2026 15:46:58] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 500 -
+ok
+test_error_mapping (__main__.ServerTests.test_error_mapping) ... 127.0.0.1 - - [01/Nov/2026 15:46:58] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 404 -
+127.0.0.1 - - [01/Nov/2026 15:46:59] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 403 -
+127.0.0.1 - - [01/Nov/2026 15:46:59] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 500 -
+ok
+test_invalid_ids (__main__.ServerTests.test_invalid_ids) ... 127.0.0.1 - - [01/Nov/2026 15:47:00] "GET /api/ml/score? HTTP/1.1" 400 -
+127.0.0.1 - - [01/Nov/2026 15:47:00] "GET /api/ml/score?sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [01/Nov/2026 15:47:01] "GET /api/ml/score?sk_id_curr=0 HTTP/1.1" 400 -
+127.0.0.1 - - [01/Nov/2026 15:47:01] "GET /api/ml/score?sk_id_curr=-1 HTTP/1.1" 400 -
+127.0.0.1 - - [01/Nov/2026 15:47:02] "GET /api/ml/score?sk_id_curr=true HTTP/1.1" 400 -
+127.0.0.1 - - [01/Nov/2026 15:47:02] "GET /api/ml/score?sk_id_curr=01 HTTP/1.1" 400 -
+127.0.0.1 - - [01/Nov/2026 15:47:03] "GET /api/ml/score?sk_id_curr=1.5 HTTP/1.1" 400 -
+127.0.0.1 - - [01/Nov/2026 15:47:03] "GET /api/ml/score?sk_id_curr=1&sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [01/Nov/2026 15:47:04] "GET /api/ml/score?sk_id_curr=1&sk_id_curr=2 HTTP/1.1" 400 -
+ok
+test_no_snapshot (__main__.ServerTests.test_no_snapshot) ... 127.0.0.1 - - [01/Nov/2026 15:47:04] "GET /api/ml/health HTTP/1.1" 503 -
+127.0.0.1 - - [01/Nov/2026 15:47:05] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 503 -
+ok
+test_original_model_policy_schema (__main__.ServerTests.test_original_model_policy_schema) ... ok
+test_private_files_and_head (__main__.ServerTests.test_private_files_and_head) ... 127.0.0.1 - - [01/Nov/2026 15:47:06] "GET /backend_ml/model/pipeline.joblib HTTP/1.1" 404 -
+127.0.0.1 - - [01/Nov/2026 15:47:07] "GET /backend_ml/splits/split_manifest.csv HTTP/1.1" 404 -
+127.0.0.1 - - [01/Nov/2026 15:47:07] "GET /backend_ml/model/metadata.json HTTP/1.1" 404 -
+127.0.0.1 - - [01/Nov/2026 15:47:08] "GET /backend_api/server.py HTTP/1.1" 404 -
+127.0.0.1 - - [01/Nov/2026 15:47:08] "GET /src/../backend_ml/model/metadata.json HTTP/1.1" 404 -
+127.0.0.1 - - [01/Nov/2026 15:47:09] "GET /data/feature_matrix.parquet HTTP/1.1" 404 -
+127.0.0.1 - - [01/Nov/2026 15:47:09] "HEAD /backend_ml/model/pipeline.joblib HTTP/1.1" 405 -
+ok
+test_real_split_reserved_guard_without_inference (__main__.ServerTests.test_real_split_reserved_guard_without_inference) ... ok
+test_scorer_initialized_once (__main__.ServerTests.test_scorer_initialized_once) ... 127.0.0.1 - - [01/Nov/2026 15:47:10] "GET /api/ml/health HTTP/1.1" 200 -
+127.0.0.1 - - [01/Nov/2026 15:47:10] "GET /api/ml/health HTTP/1.1" 200 -
+ok
+test_snapshot_configuration_precedence (__main__.ServerTests.test_snapshot_configuration_precedence) ... ok
+test_ui_assets (__main__.ServerTests.test_ui_assets) ... 127.0.0.1 - - [01/Nov/2026 15:47:11] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Nov/2026 15:47:11] "GET /src/app.js HTTP/1.1" 200 -
+ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 14.183s
+
+OK

@@ -1,0 +1,12 @@
+PASS 3 roadmap cards
+PASS preserves suite grid
+PASS preserves preview variants
+PASS financial wording
+PASS concept disclaimer
+PASS mock label
+PASS no emissions terminology in roadmap
+PASS news 6 cards retained
+PASS hero retained
+PASS JS syntax
+PASS node roadmap test
+PASS: #08 roadmap content and 3-card layout
