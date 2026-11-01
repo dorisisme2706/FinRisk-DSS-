@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.parse import urlsplit, parse_qs
 
 ROOT = Path(__file__).resolve().parents[1]
-BUNDLE = ROOT / "backend_ml" / "FinRisk_ML_For_GK"
+BUNDLE = ROOT / "backend_ml"
 sys.path.insert(0, str(BUNDLE / "src"))
 
 
