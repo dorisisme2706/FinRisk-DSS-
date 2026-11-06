@@ -1,0 +1,11 @@
+{
+  "task": "H18",
+  "status": "PASS_TECHNICAL_PENDING_FORMAL_GK_REVIEW",
+  "base": "FINRISK-DSS--main--phase1-fixed.zip",
+  "summary": "Integrate frozen H16 LightGBM with H18 review adapter, local API, frontend, and VI/EN without inventing credit approval or loan terms.",
+  "tests": {
+    "python_api": {"pass": 12, "fail": 0},
+    "node_full_suite": {"pass": 47, "fail": 0},
+    "real_reference_profiles": {"pass": 6, "fail": 0, "test_profiles_scored": 0}
+  }
+}

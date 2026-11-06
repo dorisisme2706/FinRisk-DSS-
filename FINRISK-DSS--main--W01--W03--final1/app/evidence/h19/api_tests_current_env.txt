@@ -1,0 +1,61 @@
+test_backend_exception (backend_api.test_server.ServerTests.test_backend_exception) ... 127.0.0.1 - - [02/Nov/2026 04:23:13] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 500 -
+ok
+test_error_mapping (backend_api.test_server.ServerTests.test_error_mapping) ... 127.0.0.1 - - [02/Nov/2026 04:23:13] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 404 -
+127.0.0.1 - - [02/Nov/2026 04:23:14] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 403 -
+127.0.0.1 - - [02/Nov/2026 04:23:14] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 500 -
+ok
+test_h18_decision_support_never_auto_approves_or_invents_terms (backend_api.test_server.ServerTests.test_h18_decision_support_never_auto_approves_or_invents_terms) ... 127.0.0.1 - - [02/Nov/2026 04:23:15] "GET /api/decision/assess?sk_id_curr=100035 HTTP/1.1" 200 -
+ok
+test_h18_health_reports_frozen_versions (backend_api.test_server.ServerTests.test_h18_health_reports_frozen_versions) ... 127.0.0.1 - - [02/Nov/2026 04:23:15] "GET /api/ml/health HTTP/1.1" 200 -
+ok
+test_invalid_ids (backend_api.test_server.ServerTests.test_invalid_ids) ... 127.0.0.1 - - [02/Nov/2026 04:23:16] "GET /api/ml/score? HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:16] "GET /api/decision/assess? HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:17] "GET /api/ml/score?sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:17] "GET /api/decision/assess?sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:18] "GET /api/ml/score?sk_id_curr=0 HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:18] "GET /api/decision/assess?sk_id_curr=0 HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:19] "GET /api/ml/score?sk_id_curr=-1 HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:19] "GET /api/decision/assess?sk_id_curr=-1 HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:20] "GET /api/ml/score?sk_id_curr=true HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:20] "GET /api/decision/assess?sk_id_curr=true HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:21] "GET /api/ml/score?sk_id_curr=01 HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:21] "GET /api/decision/assess?sk_id_curr=01 HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:22] "GET /api/ml/score?sk_id_curr=1.5 HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:22] "GET /api/decision/assess?sk_id_curr=1.5 HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:23] "GET /api/ml/score?sk_id_curr=1&sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:23] "GET /api/decision/assess?sk_id_curr=1&sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:24] "GET /api/ml/score?sk_id_curr=1&sk_id_curr=2 HTTP/1.1" 400 -
+127.0.0.1 - - [02/Nov/2026 04:23:24] "GET /api/decision/assess?sk_id_curr=1&sk_id_curr=2 HTTP/1.1" 400 -
+ok
+test_no_snapshot (backend_api.test_server.ServerTests.test_no_snapshot) ... 127.0.0.1 - - [02/Nov/2026 04:23:25] "GET /api/ml/health HTTP/1.1" 503 -
+127.0.0.1 - - [02/Nov/2026 04:23:25] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 503 -
+127.0.0.1 - - [02/Nov/2026 04:23:26] "GET /api/decision/assess?sk_id_curr=100035 HTTP/1.1" 503 -
+ok
+test_original_model_policy_schema (backend_api.test_server.ServerTests.test_original_model_policy_schema) ... /opt/pyvenv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator LabelEncoder from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/opt/pyvenv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator Pipeline from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+ok
+test_private_files_and_head (backend_api.test_server.ServerTests.test_private_files_and_head) ... 127.0.0.1 - - [02/Nov/2026 04:23:27] "GET /backend_ml/model/pipeline.joblib HTTP/1.1" 404 -
+127.0.0.1 - - [02/Nov/2026 04:23:28] "GET /backend_ml/splits/split_manifest.csv HTTP/1.1" 404 -
+127.0.0.1 - - [02/Nov/2026 04:23:28] "GET /backend_ml/model/metadata.json HTTP/1.1" 404 -
+127.0.0.1 - - [02/Nov/2026 04:23:29] "GET /backend_api/server.py HTTP/1.1" 404 -
+127.0.0.1 - - [02/Nov/2026 04:23:29] "GET /src/../backend_ml/model/metadata.json HTTP/1.1" 404 -
+127.0.0.1 - - [02/Nov/2026 04:23:30] "GET /data/feature_matrix.parquet HTTP/1.1" 404 -
+127.0.0.1 - - [02/Nov/2026 04:23:30] "HEAD /backend_ml/model/pipeline.joblib HTTP/1.1" 405 -
+ok
+test_real_split_reserved_guard_without_inference (backend_api.test_server.ServerTests.test_real_split_reserved_guard_without_inference) ... ok
+test_scorer_initialized_once (backend_api.test_server.ServerTests.test_scorer_initialized_once) ... 127.0.0.1 - - [02/Nov/2026 04:23:31] "GET /api/ml/health HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 04:23:31] "GET /api/ml/health HTTP/1.1" 200 -
+ok
+test_snapshot_configuration_precedence (backend_api.test_server.ServerTests.test_snapshot_configuration_precedence) ... ok
+test_ui_assets (backend_api.test_server.ServerTests.test_ui_assets) ... 127.0.0.1 - - [02/Nov/2026 04:23:32] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 04:23:32] "GET /src/app.js HTTP/1.1" 200 -
+ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 20.211s
+
+OK

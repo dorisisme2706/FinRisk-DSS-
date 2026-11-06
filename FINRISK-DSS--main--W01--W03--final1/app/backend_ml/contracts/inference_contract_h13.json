@@ -1,0 +1,27 @@
+{
+  "request": {
+    "sk_id_curr": "positive integer; bool/string invalid at module boundary"
+  },
+  "population": "existing snapshot profiles; demo test IDs blocked before predictor",
+  "response_examples": "response_examples.json",
+  "predictors": 169,
+  "score": "positive-class model estimate; raw_h10 retained; not a guaranteed individual PD",
+  "explanations": "Top10 absolute native LightGBM contributions, signed, raw_margin_log_odds scale",
+  "reconstruction": "base_margin + displayed_contributions_sum + other_features_sum = raw_margin; sigmoid(raw_margin)=raw_base_probability",
+  "review": "risk_score >= full-precision threshold; advisory demo only",
+  "partial_failure": "explanation_status=error leaves explanations=[] and valid score intact; never invent reasons",
+  "model_version": "finrisk_lgbm_h12_demo_v0.2",
+  "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+  "split_hash": "1992247193e6eab1d895732bc8c9350fd70fac641e1b4773ad0331a151a88417",
+  "explanation_version": "lightgbm_native_contrib_raw_margin_v1",
+  "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+  "error_codes": [
+    "INVALID_PROFILE_ID",
+    "PROFILE_NOT_FOUND",
+    "PROFILE_RESERVED_FOR_FINAL_TEST",
+    "PREDICTION_FAILED"
+  ],
+  "ui_integration_completed": false,
+  "api_server_implemented": false,
+  "formal_TK_GK_review": "NOT_RECORDED"
+}

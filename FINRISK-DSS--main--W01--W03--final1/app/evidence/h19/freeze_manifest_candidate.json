@@ -1,0 +1,367 @@
+{
+  "freeze": "M5_CANDIDATE",
+  "task": "H19",
+  "file_count": 72,
+  "files": [
+    {
+      "path": "app/assets/finrisk-logo.svg",
+      "sha256": "65800eb903bd26a96c8123c47fa43a75bd42a432af433eb9db71fb7e5d47a7f3",
+      "size": 290
+    },
+    {
+      "path": "app/assets/news/credit-data.svg",
+      "sha256": "bad671bfdc389d151a8d4355b59ce5370329ca52fb8d4e36b8af5094af856b16",
+      "size": 1050
+    },
+    {
+      "path": "app/assets/news/credit-policy.svg",
+      "sha256": "3d6aa5d1ac2d1a0310a6f6435d6b1f07793bf7a075005f76c44ed29cd80b3a00",
+      "size": 1052
+    },
+    {
+      "path": "app/assets/news/digital-savings.svg",
+      "sha256": "f2a33f84809b6163da417de865ec78fffeeb687546f694a2b8d0f96279c4b5e9",
+      "size": 879
+    },
+    {
+      "path": "app/assets/news/eu-policy.svg",
+      "sha256": "542431d4af95bea86c6db366d7d5541da5ef1e694f1b311edc252ba3d2d959b3",
+      "size": 685
+    },
+    {
+      "path": "app/assets/news/financial-access.svg",
+      "sha256": "68ab6e7e594a94fd2bac0179d55aee968692919786eb77eb2a8d97fbb189db74",
+      "size": 1052
+    },
+    {
+      "path": "app/assets/news/global-steel.svg",
+      "sha256": "4e8eac4dd3288ce28fe9f6ee55291ed23bc8d71594b80bda11d754d2a1bf62a1",
+      "size": 1033
+    },
+    {
+      "path": "app/assets/news/risk-management.svg",
+      "sha256": "078711bdfc5d17049f3262a2e472576b84405c2370149ebb22b80855a1178ba2",
+      "size": 1046
+    },
+    {
+      "path": "app/assets/news/vietnam-findex.svg",
+      "sha256": "fec4b5afdc07e6d84c2ae32cff8b314dbe2c21ea89477948e3ddc9d02d601330",
+      "size": 888
+    },
+    {
+      "path": "app/assets/news/vn-steel-cost.svg",
+      "sha256": "e99645117dcd4f5fa48d770a24017cf54e4aec40b150c029a1f461d117b8b1b6",
+      "size": 985
+    },
+    {
+      "path": "app/assets/news/vn-steel-trade.svg",
+      "sha256": "9946607257c086f902b57c6176ea86b560f3e995f27a3985032325216c0751ce",
+      "size": 892
+    },
+    {
+      "path": "app/assets/styles.css",
+      "sha256": "85c0699d0339ee7811bf025e9505b3863d267ff3adbcb19b5b3181a9e0b23368",
+      "size": 108225
+    },
+    {
+      "path": "app/backend_api/decision_engine.py",
+      "sha256": "2d29e6e23f2745f070bdcb95282dd7dd161974da103c5edf80a4e0156b98dd1f",
+      "size": 1800
+    },
+    {
+      "path": "app/backend_api/server.py",
+      "sha256": "18d7617481a9b56f7d36c309fe373b68a6c39b127c75e275d4c95db03ada4499",
+      "size": 6617
+    },
+    {
+      "path": "app/backend_api/test_server.py",
+      "sha256": "3ddf9c1dd9fd58be61cd2e09b4b275fd502f6dab734b5de4730be58ec55a6ca1",
+      "size": 8570
+    },
+    {
+      "path": "app/backend_ml/BUNDLE_MANIFEST.json",
+      "sha256": "09db79979b36513804b02efce7a1e157861a33e32ee6d227ffdc8a69f13c61bc",
+      "size": 3008
+    },
+    {
+      "path": "app/backend_ml/MODEL_CARD_H15.md",
+      "sha256": "fa8d4d97f87e01b0bfa7802366510e6fc9df6ea7da23158b953d3cd80de4dc05",
+      "size": 2506
+    },
+    {
+      "path": "app/backend_ml/README_GK_VI.md",
+      "sha256": "0abdbcdecca2e01d68f701315db14bae3040af0655d84e8a464f543b96e2b410",
+      "size": 5827
+    },
+    {
+      "path": "app/backend_ml/contracts/feature_descriptions.json",
+      "sha256": "675575a46f47395eac0777d4e124d7ac4e4e316891433a7870635e718da44c6e",
+      "size": 62061
+    },
+    {
+      "path": "app/backend_ml/contracts/inference_contract_h13.json",
+      "sha256": "35f9f4b1da98f33ec7bae0cb0318f7d005f446021cd5bbf0101b3aa689a8270d",
+      "size": 1406
+    },
+    {
+      "path": "app/backend_ml/contracts/model_features_v1.json",
+      "sha256": "b7b46afac4a0be43c3d3afa4beb11f48fc53610ee363f563d46bee90b00b6f55",
+      "size": 10477
+    },
+    {
+      "path": "app/backend_ml/contracts/response_examples.json",
+      "sha256": "fe1ebb0b4c1fd167f81f70c4367296411dd50f64fcac8a0a6bdbe4b599e1ac93",
+      "size": 24444
+    },
+    {
+      "path": "app/backend_ml/examples/expected_output_100035.json",
+      "sha256": "0f6c76946284c39d012f6a48bebf63df5d4899484b50ee1fefe51a85434e71ab",
+      "size": 3776
+    },
+    {
+      "path": "app/backend_ml/examples/input_profile_id.json",
+      "sha256": "3abb28fc4d1ccef146b20b79d819a0473b0db50a2f459c5dff9ea9732c46e2dd",
+      "size": 26
+    },
+    {
+      "path": "app/backend_ml/fresh_process_smoke_h13.json",
+      "sha256": "6a578b24c1e8c61c0ab92cbe3cf26e57bd33ccb8176e7628a9a095c410e053da",
+      "size": 27696
+    },
+    {
+      "path": "app/backend_ml/global_gain_importance.csv",
+      "sha256": "9f3eef2abb34ba82b081d82a745386a0f61502c4560c4705f0ec48064e0089b8",
+      "size": 9972
+    },
+    {
+      "path": "app/backend_ml/model/metadata.json",
+      "sha256": "36ff4c8b86f3179f12b7a0b5e5feaf47287a2c41a71b36927599985601fba267",
+      "size": 1807
+    },
+    {
+      "path": "app/backend_ml/model/pipeline.joblib",
+      "sha256": "7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34",
+      "size": 383598
+    },
+    {
+      "path": "app/backend_ml/model/requirements-lock.txt",
+      "sha256": "6c8c3189f434069d57bc691b883a6e14111003fd5efb4fe0294c2c996c84f26f",
+      "size": 227
+    },
+    {
+      "path": "app/backend_ml/model/threshold_policy.json",
+      "sha256": "ef23df8b6efd6506cb365ff176397efa2ab410f59404b7b5b0ee81fbdd33c868",
+      "size": 1050
+    },
+    {
+      "path": "app/backend_ml/predict.py",
+      "sha256": "b1786c172a0c2350859642406b322ac52b830984ac63f5b47d9e2924bb33f7de",
+      "size": 1085
+    },
+    {
+      "path": "app/backend_ml/smoke_test.py",
+      "sha256": "d67581ef83b4febdb0823ffa663bbd64c48af6ca3f00dac505ac5e9bb720d4f0",
+      "size": 2454
+    },
+    {
+      "path": "app/backend_ml/splits/split_manifest.csv",
+      "sha256": "1992247193e6eab1d895732bc8c9350fd70fac641e1b4773ad0331a151a88417",
+      "size": 4182168
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/__init__.py",
+      "sha256": "60ce68c1dc210c44ccce72c855a4e180d5812e17860fdf96c853850123adfeb0",
+      "size": 72
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/audit_groups.py",
+      "sha256": "9e22172717b7f60147dd59ec8f2ea44702d9a2c426e6a4eefb0490fc443d9a55",
+      "size": 11985
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/boosting.py",
+      "sha256": "24c1c1ec9d3ffd3757a0f613e9285bd7902cc3a743b4062dcb9873f7ab7d7d70",
+      "size": 4074
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/calibration.py",
+      "sha256": "1b288cd40e3c0d24995f1aa6c660b84e150044aa3b3181f01471cb3aa5380631",
+      "size": 4975
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/common.py",
+      "sha256": "d7269a7f0b4e73bad37c911d8af990d932f7d997b4b17ae8683e36c43c60645f",
+      "size": 2048
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/explanations.py",
+      "sha256": "e45983e0df2846763159aa92a51e21e9752c78102da452c367820abd7ff91683",
+      "size": 4794
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/inference.py",
+      "sha256": "a2caf68dd20a29e582e7783fae5d6f55e23c3ac948765cbb242f625474e4a7ac",
+      "size": 5378
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/package_h13.py",
+      "sha256": "2de1d971537dcfc2aceb254eb58789ed1f94b0552c96213af44c9b6955927526",
+      "size": 19076
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/preprocessing.py",
+      "sha256": "65e856bf785d3afece4cf166f221824ec3277f9ccf1a246a421f79200138318f",
+      "size": 3315
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/run_calibration.py",
+      "sha256": "2734ffaddd57f1cb42786666a8ec587d06dd7e09e3db38dd953d688d5a609000",
+      "size": 22124
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/splitting.py",
+      "sha256": "7f66d7ca0f64760ce84da2a0e8fd24a9e529bc90ab118debef16622b6c08518b",
+      "size": 2045
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/train_baseline.py",
+      "sha256": "fdae28f858b9b2cfe153e3d1ebd9ea6397ac94291cf1e491a794356fe009a743",
+      "size": 20262
+    },
+    {
+      "path": "app/backend_ml/src/finrisk_ml/train_lightgbm.py",
+      "sha256": "6f41cf96ccceaa2de0074713fd4ee7556a0246267086c69c0446cbc12822d70a",
+      "size": 17147
+    },
+    {
+      "path": "app/backend_ml/src/score_hk_h13.py",
+      "sha256": "877105165f0de9dc719356998048f412fc823706be5fc1b8ad91c34f2f215333",
+      "size": 2778
+    },
+    {
+      "path": "app/index.html",
+      "sha256": "866d9f0df7c3e533bf4d664ee5519e5720b98b86a2b8ac7cbae046315318f8e3",
+      "size": 6966
+    },
+    {
+      "path": "app/run_with_ml.bat",
+      "sha256": "9db50d09e878410ec48a3dec289d4ad3037b80b0141afafd27ac14a1475dd9c9",
+      "size": 317
+    },
+    {
+      "path": "app/setup_windows.bat",
+      "sha256": "f33caae3389f5b87b544db05b4646d8054f864a399cd1f2799baa25f87de33c4",
+      "size": 276
+    },
+    {
+      "path": "app/src/acceptance-catalog.js",
+      "sha256": "7a89a615de934ed4a7b5c8a4fbd45b42377a28489779b12cb9f2b0d5c179a057",
+      "size": 11854
+    },
+    {
+      "path": "app/src/acceptance-engine.js",
+      "sha256": "bb2d0b41b12a76bb5e6620e145ad1cc78e8e242b62958100ccae9f49ed7c9a8c",
+      "size": 5319
+    },
+    {
+      "path": "app/src/ambient-graph.js",
+      "sha256": "529a82e65ad17807509a0ed4c7076be243049ce0fbe179c32d8e703b47d98a0b",
+      "size": 9294
+    },
+    {
+      "path": "app/src/app.js",
+      "sha256": "a7825f960d29de5e71ec94751ba952be8db5a3c99cf67b542f08492fcf454890",
+      "size": 84126
+    },
+    {
+      "path": "app/src/claims-engine.js",
+      "sha256": "0f475a7178a4e3667d8397d6f2b108cddaa680137df47e6ff44a892ae4adb285",
+      "size": 2910
+    },
+    {
+      "path": "app/src/demo-data.js",
+      "sha256": "b6306e6ceec35eb2d448713c573427fa76f7960d2fa3e289c0b603fcb96669cb",
+      "size": 5733
+    },
+    {
+      "path": "app/src/e2e-engine.js",
+      "sha256": "9d7211e2cc3077dab314ded2d5ec6f2eef2159ef108dc65c57185b03e38173dd",
+      "size": 2846
+    },
+    {
+      "path": "app/src/finrisk-credit-report.js",
+      "sha256": "5f22d256bcaa226fa1e24bd3d4fbbd06f38d3f6cc524f2f9cf8cfc366490395f",
+      "size": 3830
+    },
+    {
+      "path": "app/src/finrisk-decision-mock.js",
+      "sha256": "fdbc942a5aac9e014a046fe4aed6373393ea22fda77ce015b678525c8f9d1c24",
+      "size": 2426
+    },
+    {
+      "path": "app/src/finrisk-decision-trace.js",
+      "sha256": "0287828dabade97c8ee4e1b19924464309f0cb1bf7b933ed0784d032d1766c65",
+      "size": 2942
+    },
+    {
+      "path": "app/src/finrisk-integration-mock.js",
+      "sha256": "6f2c950cc93ba88a42651498f5231101d168672a050c89bec5e5cb0c84a7ef19",
+      "size": 1520
+    },
+    {
+      "path": "app/src/finrisk-loan.js",
+      "sha256": "a396ba48ea792c0a45239655aaf759c393d168e44dea7f67f0be4541cefeb1b8",
+      "size": 2555
+    },
+    {
+      "path": "app/src/finrisk-uat.js",
+      "sha256": "07f41108b7d1e05776954c750cf002b5445de07e15cc226ae85866da8285534e",
+      "size": 5114
+    },
+    {
+      "path": "app/src/graph-engine.js",
+      "sha256": "2769269f0988f84b7a4d14bdff30d25b93604e6170ceed10e9465a1de1f191f6",
+      "size": 5454
+    },
+    {
+      "path": "app/src/graph-model.js",
+      "sha256": "0c19ddf7b5f5907843c82bb9c2889ca62e6f92eeeffc1d03cbf3c58b907beebd",
+      "size": 1449
+    },
+    {
+      "path": "app/src/i18n.js",
+      "sha256": "7b86b76433d68140f639f57b67f1202f104038928427d7a1c0f6630d92b5d2f0",
+      "size": 51184
+    },
+    {
+      "path": "app/src/persistence.js",
+      "sha256": "0d89a0bbfb5a6ec50982b197e4c6b120e5ac4ee741b33a2399c99d928fc36b3c",
+      "size": 3132
+    },
+    {
+      "path": "app/src/release-engine.js",
+      "sha256": "1e28968809b787bba6b97c093b98ff35684e2932f5e918839bb6585ac9ca9508",
+      "size": 1570
+    },
+    {
+      "path": "app/src/report-engine.js",
+      "sha256": "48d9b1a83d414a9f3bff127b4a4eb4ac7b0be30a5107f031be8da71f1c8c0f61",
+      "size": 10450
+    },
+    {
+      "path": "app/src/state.js",
+      "sha256": "38112aa52b21e672f869f893d2bf12352123258f47362190745c1adabf815394",
+      "size": 6856
+    },
+    {
+      "path": "app/src/validation-engine.js",
+      "sha256": "cef0acd771818c774c7e5fbf871f245038682e89990126f7bb096e48a52c535c",
+      "size": 22276
+    },
+    {
+      "path": "app/src/validation-rules.js",
+      "sha256": "f7320abce220020bc83c2db59650ad68a251aeebaeea2c0d83729b2bcba2782f",
+      "size": 5096
+    }
+  ]
+}

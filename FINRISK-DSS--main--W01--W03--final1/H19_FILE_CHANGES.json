@@ -1,0 +1,19 @@
+{
+  "base": "FinRisk_DSS_H18_Integrated_20261102.zip",
+  "added": [
+    "app/03_H19_E2E_FREEZE.cmd",
+    "app/FINRISK_H19_M5_FREEZE.md",
+    "app/qa/verify_h19.py",
+    "app/evidence/h19/api_tests_current_env.txt",
+    "app/evidence/h19/node_tests_current_env.txt",
+    "app/evidence/h19/reference_model_checks_current_env.json",
+    "app/evidence/h19/e2e_ml_checks.json",
+    "app/evidence/h19/freeze_manifest_candidate.json",
+    "H19_DELIVERY.md",
+    "H19_FILE_CHANGES.json",
+    "app/evidence/h19/canonical_current_env_attempt.json",
+    "app/evidence/h19/canonical_current_env_attempt.txt"
+  ],
+  "modified": [],
+  "deleted": []
+}

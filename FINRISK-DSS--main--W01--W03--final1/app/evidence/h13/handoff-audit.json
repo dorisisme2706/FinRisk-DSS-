@@ -1,0 +1,16 @@
+{
+  "status": "PASS_SOURCE_ZIP_WITH_BASELINE_REPOSITORY_CAVEAT",
+  "zip_entries": 118,
+  "crc": "PASS",
+  "all_entries_match_checkout": "PASS",
+  "snapshot_parquet_or_nested_archives": 0,
+  "env_or_key_files": 0,
+  "private_reference_or_split_or_model_assets": 0,
+  "credential_pattern_findings": [],
+  "scanner_scope": "Filename policies plus common private-key/token/literal-secret patterns; not proof against every possible secret",
+  "original_model_policy_css_index": "UNCHANGED",
+  "windows": "NOT TESTED",
+  "source_restore_live_qa": "52 PASS, 0 FAIL on Linux",
+  "tracked_baseline_zip": "Still tracked in base commit; contains original assets and reference feature values; requires owner decision before publishing repository/history",
+  "no_staging_or_commit": true
+}

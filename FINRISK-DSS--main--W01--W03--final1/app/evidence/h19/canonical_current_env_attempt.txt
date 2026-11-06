@@ -1,0 +1,25 @@
+/opt/pyvenv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator LabelEncoder from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/opt/pyvenv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator Pipeline from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+{
+  "status": "BLOCKED",
+  "task": "H19",
+  "reason": "CANONICAL_RUNTIME_SETUP_FAILED",
+  "error_type": "ImportError",
+  "message": "Unable to find a usable engine; tried using: 'pyarrow', 'fastparquet'.\nA suitable version of pyarrow or fastparquet is required for parquet support.\nTrying to import the above resulted in these errors:\n - Missing optional dependency 'pyarrow'. pyarrow is required for parquet support. Use pip or conda to install pyarrow.\n - Missing optional dependency 'fastparquet'. fastparquet is required for parquet support. Use pip or conda to install fastparquet.",
+  "test_profiles_scored_during_h19": 0,
+  "model_changed_after_h16": false,
+  "threshold_changed_after_h16": false,
+  "integrity": {
+    "model_hash_match": true,
+    "split_hash_match": true,
+    "policy_hash_match": true,
+    "model_version_match": true,
+    "data_version_match": true,
+    "threshold_policy_version_match": true,
+    "threshold_match": true
+  }
+}

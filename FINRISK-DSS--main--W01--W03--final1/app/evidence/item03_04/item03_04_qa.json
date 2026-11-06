@@ -1,0 +1,636 @@
+{
+  "item": "#03 and #04",
+  "checks": 68,
+  "passed": 68,
+  "failed": [],
+  "checks_detail": [
+    {
+      "check": "Desktop two-tier / brand",
+      "pass": true,
+      "details": true
+    },
+    {
+      "check": "Desktop two-tier / topVisible",
+      "pass": true,
+      "details": true
+    },
+    {
+      "check": "Desktop two-tier / secondVisible",
+      "pass": true,
+      "details": true
+    },
+    {
+      "check": "Desktop two-tier / twoTier",
+      "pass": true,
+      "details": true
+    },
+    {
+      "check": "Desktop two-tier / navVisible",
+      "pass": true,
+      "details": true
+    },
+    {
+      "check": "Desktop two-tier / menuHidden",
+      "pass": true,
+      "details": true
+    },
+    {
+      "check": "Desktop two-tier / isSticky",
+      "pass": true,
+      "details": true
+    },
+    {
+      "check": "Desktop two-tier / primaryCount",
+      "pass": true,
+      "details": 5
+    },
+    {
+      "check": "Desktop two-tier / workspaceCount",
+      "pass": true,
+      "details": 9
+    },
+    {
+      "check": "Workspace active ARIA",
+      "pass": true,
+      "details": {
+        "screen": "data",
+        "aria": "page",
+        "animation": "finrisk-screen-enter"
+      }
+    },
+    {
+      "check": "Screen change animation",
+      "pass": true,
+      "details": {
+        "screen": "data",
+        "aria": "page",
+        "animation": "finrisk-screen-enter"
+      }
+    },
+    {
+      "check": "Animation cleans up",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "No animation for same page",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "320px toggle available and menu closed",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 190,
+        "headerTop": 122,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "320px no header horizontal overflow",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 190,
+        "headerTop": 122,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "320px two-tier visible",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 190,
+        "headerTop": 122,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "320px expanded menu visible / accessible",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "visible": true,
+        "count": 5,
+        "overflow": false
+      }
+    },
+    {
+      "check": "320px Escape closes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "360px toggle available and menu closed",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 190,
+        "headerTop": 122,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "360px no header horizontal overflow",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 190,
+        "headerTop": 122,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "360px two-tier visible",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 190,
+        "headerTop": 122,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "360px expanded menu visible / accessible",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "visible": true,
+        "count": 5,
+        "overflow": false
+      }
+    },
+    {
+      "check": "360px Escape closes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "390px toggle available and menu closed",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 190,
+        "headerTop": 122,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "390px no header horizontal overflow",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 190,
+        "headerTop": 122,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "390px two-tier visible",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 190,
+        "headerTop": 122,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "390px expanded menu visible / accessible",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "visible": true,
+        "count": 5,
+        "overflow": false
+      }
+    },
+    {
+      "check": "Escape closes and restores focus",
+      "pass": true,
+      "details": {
+        "closed": true,
+        "focused": true
+      }
+    },
+    {
+      "check": "News section accessible and aligned after click",
+      "pass": true,
+      "details": {
+        "targetTop": 211.59375,
+        "headerHeight": 190,
+        "active": "cg-news",
+        "menuClosed": true,
+        "scrollY": 8610
+      }
+    },
+    {
+      "check": "430px toggle available and menu closed",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 192,
+        "headerTop": 124,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "430px no header horizontal overflow",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 192,
+        "headerTop": 124,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "430px two-tier visible",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 192,
+        "headerTop": 124,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "430px expanded menu visible / accessible",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "visible": true,
+        "count": 5,
+        "overflow": false
+      }
+    },
+    {
+      "check": "430px Escape closes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "640px toggle available and menu closed",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 187,
+        "headerTop": 119,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "640px no header horizontal overflow",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 187,
+        "headerTop": 119,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "640px two-tier visible",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 187,
+        "headerTop": 119,
+        "headerBottom": 67
+      }
+    },
+    {
+      "check": "640px expanded menu visible / accessible",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "visible": true,
+        "count": 5,
+        "overflow": false
+      }
+    },
+    {
+      "check": "640px Escape closes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "768px toggle available and menu closed",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 207,
+        "headerTop": 135,
+        "headerBottom": 71
+      }
+    },
+    {
+      "check": "768px no header horizontal overflow",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 207,
+        "headerTop": 135,
+        "headerBottom": 71
+      }
+    },
+    {
+      "check": "768px two-tier visible",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 207,
+        "headerTop": 135,
+        "headerBottom": 71
+      }
+    },
+    {
+      "check": "768px expanded menu visible / accessible",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "visible": true,
+        "count": 5,
+        "overflow": false
+      }
+    },
+    {
+      "check": "768px Escape closes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "820px toggle available and menu closed",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 207,
+        "headerTop": 135,
+        "headerBottom": 71
+      }
+    },
+    {
+      "check": "820px no header horizontal overflow",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 207,
+        "headerTop": 135,
+        "headerBottom": 71
+      }
+    },
+    {
+      "check": "820px two-tier visible",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 207,
+        "headerTop": 135,
+        "headerBottom": 71
+      }
+    },
+    {
+      "check": "820px expanded menu visible / accessible",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "visible": true,
+        "count": 5,
+        "overflow": false
+      }
+    },
+    {
+      "check": "820px Escape closes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "900px toggle available and menu closed",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 174.6875,
+        "headerTop": 102.6875,
+        "headerBottom": 71
+      }
+    },
+    {
+      "check": "900px no header horizontal overflow",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 174.6875,
+        "headerTop": 102.6875,
+        "headerBottom": 71
+      }
+    },
+    {
+      "check": "900px two-tier visible",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 174.6875,
+        "headerTop": 102.6875,
+        "headerBottom": 71
+      }
+    },
+    {
+      "check": "900px expanded menu visible / accessible",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "visible": true,
+        "count": 5,
+        "overflow": false
+      }
+    },
+    {
+      "check": "900px Escape closes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "1024px toggle available and menu closed",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 138,
+        "headerTop": 77,
+        "headerBottom": 60
+      }
+    },
+    {
+      "check": "1024px no header horizontal overflow",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 138,
+        "headerTop": 77,
+        "headerBottom": 60
+      }
+    },
+    {
+      "check": "1024px two-tier visible",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 138,
+        "headerTop": 77,
+        "headerBottom": 60
+      }
+    },
+    {
+      "check": "1024px expanded menu visible / accessible",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "visible": true,
+        "count": 5,
+        "overflow": false
+      }
+    },
+    {
+      "check": "1024px Escape closes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "1120px toggle available and menu closed",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 138,
+        "headerTop": 77,
+        "headerBottom": 60
+      }
+    },
+    {
+      "check": "1120px no header horizontal overflow",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 138,
+        "headerTop": 77,
+        "headerBottom": 60
+      }
+    },
+    {
+      "check": "1120px two-tier visible",
+      "pass": true,
+      "details": {
+        "buttonVisible": true,
+        "navHidden": true,
+        "xOverflow": false,
+        "headerHeight": 138,
+        "headerTop": 77,
+        "headerBottom": 60
+      }
+    },
+    {
+      "check": "1120px expanded menu visible / accessible",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "visible": true,
+        "count": 5,
+        "overflow": false
+      }
+    },
+    {
+      "check": "1120px Escape closes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "Desktop in-page section smooth and aligned",
+      "pass": true,
+      "details": {
+        "scrollY": 1208,
+        "active": "cg-suite",
+        "top": 156.5625,
+        "header": 138
+      }
+    },
+    {
+      "check": "Reduced-motion disables page transition, canvas and scroll",
+      "pass": true,
+      "details": {
+        "animation": "none",
+        "graphDisabled": true,
+        "behavior": "auto"
+      }
+    },
+    {
+      "check": "Animation canvas resumes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "check": "No browser page errors",
+      "pass": true,
+      "details": []
+    }
+  ],
+  "browser_errors": [],
+  "scope": "Browser-injected static frontend; not end-to-end credit application."
+}

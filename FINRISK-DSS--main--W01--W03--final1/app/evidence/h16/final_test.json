@@ -1,0 +1,48 @@
+{
+  "population": "final_test",
+  "rows": 46127,
+  "positive_count": 3724,
+  "positive_rate": 0.08073362672621241,
+  "roc_auc": 0.7770787869846776,
+  "average_precision": 0.27388575403232923,
+  "pr_auc_trapezoid": 0.27372410932504215,
+  "gini": 0.5541575739693552,
+  "ks": 0.422187995990495,
+  "brier": 0.06639646045542467,
+  "log_loss": 0.23990237619170288,
+  "locked_threshold": 0.14484327385366114,
+  "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+  "threshold_source": "validation_locked_before_test",
+  "threshold_changed_after_test": false,
+  "accuracy": 0.8463806447416914,
+  "precision": 0.2543116047939199,
+  "recall": 0.4672395273899033,
+  "f1": 0.32935831913685404,
+  "false_positive_rate": 0.12032167535315898,
+  "review_fraction": 0.14832961172415288,
+  "confusion_matrix_labels": [
+    0,
+    1
+  ],
+  "confusion_matrix": [
+    [
+      37301,
+      5102
+    ],
+    [
+      1984,
+      1740
+    ]
+  ],
+  "model_version": "finrisk_lgbm_h12_demo_v0.2",
+  "model_sha256": "7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34",
+  "data_version": "finrisk_v2_20261022151614259322",
+  "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+  "split_hash": "1992247193e6eab1d895732bc8c9350fd70fac641e1b4773ad0331a151a88417",
+  "feature_set_version": "core4_169_baseline_v1",
+  "predictor_count": 169,
+  "calibration_status": "uncalibrated_candidate_not_selected",
+  "test_scored_rows": 46127,
+  "test_opened_for_final_evaluation": true,
+  "no_post_test_tuning_policy": true
+}

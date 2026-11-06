@@ -1,0 +1,145 @@
+{
+  "status": "PASS_H16_FINAL_TEST_PENDING_FORMAL_GK_REVIEW",
+  "task": "H16",
+  "gate": "M3",
+  "completed_utc": "2026-11-02T03:46:54.242879+00:00",
+  "execution_context": "openai_working_container_from_H15_and_CORE4_handoff",
+  "precheck": {
+    "data_hash_ok": true,
+    "model_hash_ok": true,
+    "split_hash_ok": true,
+    "policy_hash_ok": true,
+    "threshold_test_used_before_h16": false,
+    "threshold_selection_population": "validation",
+    "threshold_selected_before_test": 0.14484327385366114
+  },
+  "reference_compatibility": {
+    "reference_count": 6,
+    "max_abs_error": 1.3877787807814457e-17,
+    "tolerance": 1e-12,
+    "passed": true,
+    "details": [
+      {
+        "sk_id_curr": 100007,
+        "expected": 0.06580698514961447,
+        "actual": 0.06580698514961447,
+        "abs_error": 0.0,
+        "passed": true
+      },
+      {
+        "sk_id_curr": 100035,
+        "expected": 0.15160322574159024,
+        "actual": 0.15160322574159024,
+        "abs_error": 0.0,
+        "passed": true
+      },
+      {
+        "sk_id_curr": 100048,
+        "expected": 0.2599797810722127,
+        "actual": 0.2599797810722127,
+        "abs_error": 0.0,
+        "passed": true
+      },
+      {
+        "sk_id_curr": 100006,
+        "expected": 0.08725027752667787,
+        "actual": 0.08725027752667788,
+        "abs_error": 1.3877787807814457e-17,
+        "passed": true
+      },
+      {
+        "sk_id_curr": 171816,
+        "expected": 0.14484327385366114,
+        "actual": 0.14484327385366114,
+        "abs_error": 0.0,
+        "passed": true
+      },
+      {
+        "sk_id_curr": 379997,
+        "expected": 0.05751336121481303,
+        "actual": 0.05751336121481303,
+        "abs_error": 0.0,
+        "passed": true
+      }
+    ]
+  },
+  "runtime_environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "pandas": "2.2.3",
+    "numpy": "2.3.5",
+    "sklearn": "1.8.0",
+    "lightgbm": "4.6.0",
+    "joblib": "1.5.3",
+    "load_warnings": [
+      {
+        "category": "InconsistentVersionWarning",
+        "message": "Trying to unpickle estimator LabelEncoder from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:\nhttps://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations"
+      },
+      {
+        "category": "InconsistentVersionWarning",
+        "message": "Trying to unpickle estimator Pipeline from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:\nhttps://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations"
+      }
+    ],
+    "requirements_lock_match": false,
+    "compatibility_accepted_basis": "all six locked non-test reference probabilities matched within 1e-12 before final test scoring"
+  },
+  "final_test_metrics": {
+    "population": "final_test",
+    "rows": 46127,
+    "positive_count": 3724,
+    "positive_rate": 0.08073362672621241,
+    "roc_auc": 0.7770787869846776,
+    "average_precision": 0.27388575403232923,
+    "pr_auc_trapezoid": 0.27372410932504215,
+    "gini": 0.5541575739693552,
+    "ks": 0.422187995990495,
+    "brier": 0.06639646045542467,
+    "log_loss": 0.23990237619170288,
+    "locked_threshold": 0.14484327385366114,
+    "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+    "threshold_source": "validation_locked_before_test",
+    "threshold_changed_after_test": false,
+    "accuracy": 0.8463806447416914,
+    "precision": 0.2543116047939199,
+    "recall": 0.4672395273899033,
+    "f1": 0.32935831913685404,
+    "false_positive_rate": 0.12032167535315898,
+    "review_fraction": 0.14832961172415288,
+    "confusion_matrix_labels": [
+      0,
+      1
+    ],
+    "confusion_matrix": [
+      [
+        37301,
+        5102
+      ],
+      [
+        1984,
+        1740
+      ]
+    ],
+    "model_version": "finrisk_lgbm_h12_demo_v0.2",
+    "model_sha256": "7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34",
+    "data_version": "finrisk_v2_20261022151614259322",
+    "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+    "split_hash": "1992247193e6eab1d895732bc8c9350fd70fac641e1b4773ad0331a151a88417",
+    "feature_set_version": "core4_169_baseline_v1",
+    "predictor_count": 169,
+    "calibration_status": "uncalibrated_candidate_not_selected",
+    "test_scored_rows": 46127,
+    "test_opened_for_final_evaluation": true,
+    "no_post_test_tuning_policy": true
+  },
+  "decision_after_test": {
+    "model_changed": false,
+    "feature_set_changed": false,
+    "threshold_changed": false,
+    "calibration_changed": false,
+    "retuning_allowed": false,
+    "test_may_not_be_reused_for_model_selection": true,
+    "formal_GK_review": "PENDING"
+  },
+  "next_task": "H17 only if package/integration issue; otherwise proceed H18 integration using frozen H16 model/policy"
+}

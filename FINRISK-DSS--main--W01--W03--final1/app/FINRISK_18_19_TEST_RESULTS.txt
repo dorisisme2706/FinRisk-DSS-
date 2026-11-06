@@ -1,0 +1,576 @@
+TAP version 13
+# PASS  UAT catalog has ten unique executable cases
+# PASS  every UAT case contains sample, steps, pass, fail, fix and evidence
+# PASS  catalog covers D1, D3, D4, D5 and C9 without claiming D2 numeric acceptance
+# PASS  catalog-level guardrails remain synthetic open and blocked
+# All UAT catalog tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/acceptance-catalog.test.js
+ok 1 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/acceptance-catalog.test.js
+  ---
+  duration_ms: 39.102736
+  type: 'test'
+  ...
+# PASS  new manual review starts incomplete with all cases NOT_RUN
+# PASS  one PASS cannot complete manual review
+# PASS  REVIEW_COMPLETE requires all ten cases PASS
+# PASS  manual record persists independently and rejects corrupt payload
+# PASS  manual export cannot close R-006 or approve compliance/Gate
+# PASS  unknown case or unsupported status is refused
+# All manual acceptance-engine tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/acceptance-engine.test.js
+ok 2 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/acceptance-engine.test.js
+  ---
+  duration_ms: 46.592601
+  type: 'test'
+  ...
+# PASS  T-CLM-002 blocks legacy 100% tracked claim
+# PASS  T-CLM-002 blocks legacy -0.85 kg CO2e metric
+# PASS  T-CLM-002 blocks unsupported compliance and verification claims
+# PASS  current guardrail wording passes technical legacy-claim scan
+# All VR-019 legacy-claim scanner tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/claims-engine.test.js
+ok 3 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/claims-engine.test.js
+  ---
+  duration_ms: 50.014034
+  type: 'test'
+  ...
+# PASS  C8 baseline completes the safe working flow
+# PASS  missing width is processed end-to-end without releasing numeric output
+# PASS  broken graph integrity changes C8 to REVIEW
+# PASS  R-006 closure is refused by C8 working export safety
+# All C8 local end-to-end safety tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/e2e-engine.test.js
+ok 4 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/e2e-engine.test.js
+  ---
+  duration_ms: 47.935755
+  type: 'test'
+  ...
+# PASS: 5 scoped responsive layout assertions for \#11
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-item-11-layout.test.js
+ok 5 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-item-11-layout.test.js
+  ---
+  duration_ms: 28.411833
+  type: 'test'
+  ...
+# PASS six stages
+# PASS stage order
+# PASS low status
+# PASS low score
+# PASS low six stages
+# PASS medium status
+# PASS medium score
+# PASS medium six stages
+# PASS high status
+# PASS high score
+# PASS high six stages
+# PASS missing status
+# PASS missing score
+# PASS missing six stages
+# PASS invalid input blocks
+# PASS invalid input blocks ML
+# PASS missing ML status
+# PASS MOCK source
+# PASS no side effects on scenario
+# PASS safe missing customer id
+# PASS renamed navigation
+# PASS trace module loaded
+# PASS VI EN label
+# PASS no old graph in trace render
+# TOTAL 24/24 PASS
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-item-11.test.js
+ok 6 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-item-11.test.js
+  ---
+  duration_ms: 39.430499
+  type: 'test'
+  ...
+# PASS low risk
+# PASS medium risk
+# PASS high risk
+# PASS missing ML
+# PASS invalid income
+# PASS invalid amount
+# PASS missing score
+# PASS invalid scenario
+# PASS scenario persistence
+# PASS invalid saved scenario
+# PASS loan contract
+# PASS no fetch
+# PASS assessment UI
+# PASS renamed tab
+# PASS \#09 \#10 retained
+# PASS script order
+# PASS VI EN
+# PASS MOCK label
+# 18/18 PASS
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-item-12.test.js
+ok 7 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-item-12.test.js
+  ---
+  duration_ms: 40.984345
+  type: 'test'
+  ...
+# PASS report schema and MOCK disclaimer
+# PASS application fields present
+# PASS validation PASS
+# PASS invalid application flagged
+# PASS scenario low
+# PASS scenario medium
+# PASS scenario high
+# PASS scenario missing
+# PASS JSON export parseable
+# PASS HTML standalone with disclaimer
+# PASS HTML escapes customer name
+# PASS filenames sanitized
+# PASS unsupported export blocked
+# PASS tab and script wired
+# 14/14 PASS
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-item-13.test.js
+ok 8 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-item-13.test.js
+  ---
+  duration_ms: 44.432837
+  type: 'test'
+  ...
+# PASS: \#09/\#10 18 checks (schema, valid/invalid, save/reset, integration, VI/EN)
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-items-09-10.test.js
+ok 9 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-items-09-10.test.js
+  ---
+  duration_ms: 47.601726
+  type: 'test'
+  ...
+# Subtest: 12 FinRisk UAT cases, unique IDs
+ok 10 - 12 FinRisk UAT cases, unique IDs
+  ---
+  duration_ms: 0.976342
+  type: 'test'
+  ...
+# Subtest: default results are NOT_RUN, no false PASS
+ok 11 - default results are NOT_RUN, no false PASS
+  ---
+  duration_ms: 0.977573
+  type: 'test'
+  ...
+# Subtest: record PASS/FAIL and persist
+ok 12 - record PASS/FAIL and persist
+  ---
+  duration_ms: 0.822705
+  type: 'test'
+  ...
+# Subtest: invalid UAT status rejected
+ok 13 - invalid UAT status rejected
+  ---
+  duration_ms: 0.23703
+  type: 'test'
+  ...
+# Subtest: export blocked before 12 PASS
+ok 14 - export blocked before 12 PASS
+  ---
+  duration_ms: 0.415083
+  type: 'test'
+  ...
+# Subtest: export blocked without reviewer
+ok 15 - export blocked without reviewer
+  ---
+  duration_ms: 0.221477
+  type: 'test'
+  ...
+# Subtest: export with all PASS and reviewer, but not leader approval
+ok 16 - export with all PASS and reviewer, but not leader approval
+  ---
+  duration_ms: 0.623521
+  type: 'test'
+  ...
+# Subtest: source loads UAT module before app
+ok 17 - source loads UAT module before app
+  ---
+  duration_ms: 0.175619
+  type: 'test'
+  ...
+# Subtest: legacy CarbonGraph catalog is not rendered in Test Center
+ok 18 - legacy CarbonGraph catalog is not rendered in Test Center
+  ---
+  duration_ms: 0.675948
+  type: 'test'
+  ...
+# Subtest: responsive guardrails preserve animations
+ok 19 - responsive guardrails preserve animations
+  ---
+  duration_ms: 0.782115
+  type: 'test'
+  ...
+# Subtest: core FinRisk sections remain present
+ok 20 - core FinRisk sections remain present
+  ---
+  duration_ms: 0.651642
+  type: 'test'
+  ...
+# Subtest: Navigation maps \#19 to existing evidence and \#18 to existing e2e
+ok 21 - Navigation maps \#19 to existing evidence and \#18 to existing e2e
+  ---
+  duration_ms: 1.058483
+  type: 'test'
+  ...
+# Subtest: Old CarbonGraph evidence and E2E content replaced
+ok 22 - Old CarbonGraph evidence and E2E content replaced
+  ---
+  duration_ms: 0.486859
+  type: 'test'
+  ...
+# Subtest: Integration module loaded before app
+ok 23 - Integration module loaded before app
+  ---
+  duration_ms: 0.239463
+  type: 'test'
+  ...
+# Subtest: Mock persistence and pipeline do not claim real integration
+ok 24 - Mock persistence and pipeline do not claim real integration
+  ---
+  duration_ms: 2.172208
+  type: 'test'
+  ...
+# PASS: four header links, no orphan comparison link, translations and navigation preserved
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-nav-no-compare.test.js
+ok 12 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-nav-no-compare.test.js
+  ---
+  duration_ms: 32.546338
+  type: 'test'
+  ...
+# PASS Brand palette forest preserved
+# PASS Brand palette forest-deep preserved
+# PASS Brand palette leaf preserved
+# PASS Brand palette mint preserved
+# PASS Brand palette sage preserved
+# PASS Accessible workspace labels
+# PASS Marketing gradients remain
+# PASS Canvas / graph still driven by requestAnimationFrame
+# PASS Original responsive node density preserved
+# PASS Pointer glow still supported
+# PASS Reduced-motion media changes supported
+# PASS Resizing preserves particle positions
+# All FinRisk UI \#01/\#02 preservation assertions PASS.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-01-02.test.js
+ok 13 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-01-02.test.js
+  ---
+  duration_ms: 31.662602
+  type: 'test'
+  ...
+# PASS Original two-tier marketing / workspace structure kept
+# PASS Four functional marketing header links retained
+# PASS Mobile menu controls marketing navigation
+# PASS Mobile menu starts collapsed
+# PASS Menu accessible via keyboard
+# PASS Menu closes on outside pointer
+# PASS Menu closes when breakpoint changes
+# PASS Marketing section active state accessible
+# PASS Workspace active page accessible
+# PASS Overview section scroll accounts for sticky header
+# PASS No unnecessary re-render when already in Overview
+# PASS Animation only on changed screens
+# PASS Animation removed on completion
+# PASS Short animation styled
+# PASS Reduced motion respected
+# PASS Tablet/mobile marketing links available when toggled
+# PASS Approved palette retained
+# PASS Approved canvas animation unchanged
+# PASS News retained
+# PASS Roadmap retained
+# All 20 UI \#03 / \#04 static checks PASS.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-03-04.test.js
+ok 14 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-03-04.test.js
+  ---
+  duration_ms: 35.797584
+  type: 'test'
+  ...
+# PASS FinRisk hero heading
+# PASS FinRisk overview
+# PASS CTA to application
+# PASS CTA to trace
+# PASS Dashboard section
+# PASS Dashboard CSS
+# PASS Demo disclosure in source
+# PASS Existing theme stylesheet
+# 8 static checks passed; browser behavior NOT tested
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-05-06.test.js
+ok 15 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-05-06.test.js
+  ---
+  duration_ms: 40.324024
+  type: 'test'
+  ...
+# PASS News section retained
+# PASS Finance heading
+# PASS 6 news cards
+# PASS All cards have source
+# PASS All cards have image
+# PASS All links secure
+# PASS No CBAM in News
+# PASS Image files exist
+# PASS Two new cards have source links
+# PASS Previous dashboard intact
+# PASS Roadmap intact
+# 11/11 PASS
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-07.test.js
+ok 16 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-07.test.js
+  ---
+  duration_ms: 39.942952
+  type: 'test'
+  ...
+# PASS: \#08 roadmap content and 3-card layout
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-08.test.js
+ok 17 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-08.test.js
+  ---
+  duration_ms: 43.21608
+  type: 'test'
+  ...
+# PASS Footer exists
+# PASS FinRisk brand
+# PASS No legacy CBAM in footer
+# PASS Four footer columns
+# PASS News anchor
+# PASS Roadmap anchor
+# PASS FAQ anchor
+# PASS Mock label
+# PASS Financial disclaimer
+# PASS No invented contact
+# PASS Footer responsive rules retained
+# PASS Existing animation canvas retained
+# 12/12 PASS
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-14.test.js
+ok 18 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-14.test.js
+  ---
+  duration_ms: 39.642583
+  type: 'test'
+  ...
+# PASS VI/EN toggle exists
+# PASS Language storage persists
+# PASS Saved language restored
+# PASS HTML lang synchronized
+# PASS Hero translations
+# PASS Dashboard translations
+# PASS News translations
+# PASS Roadmap translations
+# PASS Footer translations
+# PASS Translation on dynamic DOM
+# PASS VI restoration supported
+# PASS Existing 6 news cards
+# PASS Existing 3 roadmap cards
+# PASS Ambient animation retained
+# PASS No backend integration added
+# 15/15 PASS
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-15.test.js
+ok 19 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-15.test.js
+  ---
+  duration_ms: 37.780787
+  type: 'test'
+  ...
+# PASS No visible \#16 demo section
+# PASS No demo feedback buttons
+# PASS No demo binding
+# PASS No feedback demo CSS
+# PASS Shared toast retained
+# PASS FinRisk default toast title
+# PASS Toast error style
+# PASS Toast dismiss button
+# PASS Loading button helper
+# PASS Busy action helper
+# PASS Busy button disabled
+# PASS Busy button reenabled
+# PASS Existing VI/EN translations
+# PASS Six news cards preserved
+# PASS Three roadmap cards preserved
+# 15/15 PASS
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-16.test.js
+ok 20 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-16.test.js
+  ---
+  duration_ms: 32.013301
+  type: 'test'
+  ...
+# PASS Required file: assets/styles.css
+# PASS Required file: src/app.js
+# PASS Required file: src/ambient-graph.js
+# PASS Required file: src/i18n.js
+# PASS Required file: src/state.js
+# PASS Required file: src/validation-engine.js
+# PASS Required file: src/graph-engine.js
+# PASS Required file: src/release-engine.js
+# PASS Required file: src/report-engine.js
+# PASS Required file: src/persistence.js
+# PASS Required file: qa/responsive_qa.py
+# PASS Script exists: src/demo-data.js
+# PASS Script exists: src/validation-rules.js
+# PASS Script exists: src/validation-engine.js
+# PASS Script exists: src/graph-model.js
+# PASS Script exists: src/graph-engine.js
+# PASS Script exists: src/release-engine.js
+# PASS Script exists: src/report-engine.js
+# PASS Script exists: src/e2e-engine.js
+# PASS Script exists: src/acceptance-catalog.js
+# PASS Script exists: src/acceptance-engine.js
+# PASS Script exists: src/persistence.js
+# PASS Script exists: src/state.js
+# PASS Script exists: src/ambient-graph.js
+# PASS Script exists: src/finrisk-loan.js
+# PASS Script exists: src/finrisk-decision-mock.js
+# PASS Script exists: src/finrisk-decision-trace.js
+# PASS Script exists: src/finrisk-credit-report.js
+# PASS Script exists: src/finrisk-uat.js
+# PASS Script exists: src/finrisk-integration-mock.js
+# PASS Script exists: src/app.js
+# PASS Script exists: src/i18n.js
+# PASS Stylesheet exists: assets/styles.css
+# PASS FinRisk news asset retained: credit-policy.svg
+# PASS FinRisk news asset retained: risk-management.svg
+# PASS FinRisk news asset retained: financial-access.svg
+# PASS FinRisk news asset retained: credit-data.svg
+# PASS FinRisk news asset retained: digital-savings.svg
+# PASS FinRisk news asset retained: vietnam-findex.svg
+# PASS Workspace screen preserved: overview
+# PASS Workspace screen preserved: data
+# PASS Workspace screen preserved: evidence
+# PASS Workspace screen preserved: validation
+# PASS Workspace screen preserved: trace
+# PASS Workspace screen preserved: result
+# PASS Workspace screen preserved: export
+# PASS Workspace screen preserved: e2e
+# PASS Workspace screen preserved: acceptance
+# PASS Mobile overflow fixes scoped to <=640
+# PASS Long technical titles wrap
+# PASS Forest palette unchanged
+# PASS Ambient engine not removed
+# PASS Roadmap retained
+# PASS News retained
+# PASS Selected mobile workspace tab kept visible
+# All 55 FinRisk UI \#20 static assertions PASS.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-20.test.js
+ok 21 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/finrisk-ui-20.test.js
+  ---
+  duration_ms: 50.472376
+  type: 'test'
+  ...
+# PASS  D1 baseline scope and schema guardrails are testable
+# PASS  D2 non-numeric reconciliation keeps candidate and real classification separate
+# PASS  D3 negative input becomes MISSING instead of zero or accepted
+# PASS  D4 trace has complete core relations and no orphan edge
+# PASS  D4 working export preserves trace while redacting numeric emissions
+# All formal D1-D4 boundary tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/formal-d1-d4.test.js
+ok 22 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/formal-d1-d4.test.js
+  ---
+  duration_ms: 38.381971
+  type: 'test'
+  ...
+# PASS  baseline dynamic graph has PASS integrity
+# PASS  working batch identity replaces baseline batch node
+# PASS  working HRC lot identity rebuilds CONSUMES and IS_LOT_OF edges
+# PASS  validation issues become graph nodes linked to their rule
+# PASS  blank batch causes graph REVIEW instead of fabricating an identity
+# All C5 graph-engine tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/graph-engine.test.js
+ok 23 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/graph-engine.test.js
+  ---
+  duration_ms: 39.250523
+  type: 'test'
+  ...
+# PASS  persistence stores only editable working fields
+# PASS  saved working fields restore onto trusted baseline
+# PASS  clear removes persisted working state
+# PASS  v0.6 restores the v0.5 working-state key for continuity
+# All local persistence tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/persistence.test.js
+ok 24 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/persistence.test.js
+  ---
+  duration_ms: 50.322629
+  type: 'test'
+  ...
+# PASS  initial pipeline derives validation, graph and release
+# PASS  changing batch rebuilds dynamic graph in same transaction
+# PASS  missing width propagates Input -> Validation -> Graph -> Release
+# PASS  working state reaches C7 export with numeric result excluded
+# PASS  C8 confirms technical flow without claiming compliance acceptance
+# All v0.6 end-to-end derived-state tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/pipeline.test.js
+ok 25 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/pipeline.test.js
+  ---
+  duration_ms: 43.343724
+  type: 'test'
+  ...
+# PASS  synthetic baseline is always BLOCKED and MASKED
+# PASS  validation release blockers appear in release reasons
+# PASS  graph REVIEW becomes an explicit release blocker
+# PASS  C6 never invents numeric emissions
+# All C6 release-engine tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/release-engine.test.js
+ok 26 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/release-engine.test.js
+  ---
+  duration_ms: 37.253579
+  type: 'test'
+  ...
+# PASS  C7 report is explicitly working-only and synthetic
+# PASS  C7 report keeps R-006 open and numeric output excluded
+# PASS  candidate CN8 remains separate from real CN8
+# PASS  HTML export contains guardrails and no emission unit/value field
+# PASS  JSON export excludes release numericValue and SEE value
+# PASS  validation issues propagate into the working report
+# PASS  C7 fails closed if R-006 is not OPEN
+# PASS  download filenames are trace-based and local-safe
+# All C7 working-export tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/report-engine.test.js
+ok 27 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/report-engine.test.js
+  ---
+  duration_ms: 47.874054
+  type: 'test'
+  ...
+# PASS  normalizeId uppercases and removes unsupported characters
+# PASS  blank numeric input remains null and never becomes zero
+# PASS  origin is normalized to ISO2 working format
+# PASS  data_origin cannot be changed through C2 input patch
+# PASS  batch identity changes are stored in working state
+# PASS  C3 automatically reclassifies baseline-compatible width change
+# PASS  blank width is stored as null and C3 removes candidate
+# PASS  pickled input is reclassified by C3
+# PASS  reset restores synthetic baseline and revalidates
+# All C2/C3 state integration tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/state.test.js
+ok 28 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/state.test.js
+  ---
+  duration_ms: 52.843352
+  type: 'test'
+  ...
+# PASS  T-VAL-001 rejects missing or duplicate official identifiers
+# PASS  T-VAL-002 blocks values outside the locked MVP scope
+# PASS  T-VAL-003 blocks blank or different finished product CN
+# PASS  T-VAL-004 rejects invalid, reversed or out-of-2026 periods
+# PASS  T-VAL-005 rejects invalid optional numeric inputs without converting blanks to zero
+# PASS  T-EVD-001 downgrades ACCEPTED evidence without reviewer approval
+# PASS  T-EVD-002 blocks a selected factor with incomplete source metadata
+# PASS  T-TRACE-001 requires trace ID and calculation version when numeric is attempted
+# PASS  T-DATA-001 keeps synthetic dataset REVIEW until assumptions and approval are complete
+# All expanded VR-001–VR-016 fail-closed tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/validation-coverage.test.js
+ok 29 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/validation-coverage.test.js
+  ---
+  duration_ms: 47.711764
+  type: 'test'
+  ...
+# PASS  baseline synthetic branch returns candidate 72083800
+# PASS  missing width creates blocker and removes candidate
+# PASS  pickled branch returns candidate 72082600
+# PASS  coated branch remains REVIEW and does not invent CN8
+# PASS  width below 600 is explicitly unsupported instead of guessed
+# PASS  thickness outside tested branch stays REVIEW
+# PASS  invalid origin produces validation error
+# PASS  baseline governance keeps release blocked
+# All C3 validation-engine tests passed.
+# Subtest: /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/validation-engine.test.js
+ok 30 - /mnt/data/finrisk18_19_work/FinRisk_DSS_UI_Baseline/tests/validation-engine.test.js
+  ---
+  duration_ms: 39.55964
+  type: 'test'
+  ...
+1..43
+# tests 43
+# suites 0
+# pass 43
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 467.523805
+
