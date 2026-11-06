@@ -1,0 +1,27 @@
+{
+  "status": "PASS_REFERENCE_E2E_PENDING_CANONICAL_PARQUET_TARGET_RUN",
+  "task": "H19",
+  "node_regression": {
+    "passed": 47,
+    "failed": 0
+  },
+  "api_unit_guard": {
+    "passed": 12,
+    "failed": 0
+  },
+  "real_model_reference": {
+    "passed": 6,
+    "failed": 0,
+    "max_abs_error": 1.3877787807814457e-17,
+    "test_profiles_scored": 0
+  },
+  "canonical_parquet_runtime_current_env": {
+    "status": "BLOCKED",
+    "reason": "pyarrow_not_installed_and_network_unavailable"
+  },
+  "model_version": "finrisk_lgbm_h12_demo_v0.2",
+  "data_version": "finrisk_v2_20261022151614259322",
+  "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+  "m5_final_pass_requires": "03_H19_E2E_FREEZE.cmd on target .venv + canonical Parquet snapshot",
+  "model_or_threshold_changes": false
+}

@@ -1,0 +1,88 @@
+{
+  "status": "PASS",
+  "task": "H18",
+  "reference_count": 6,
+  "test_profiles_scored": 0,
+  "model_version": "finrisk_lgbm_h12_demo_v0.2",
+  "data_version": "finrisk_v2_20261022151614259322",
+  "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+  "h16_release_stage": "h16_final_test_evaluated_pending_formal_GK_review",
+  "results": [
+    {
+      "sk_id_curr": 100007,
+      "split": "validation",
+      "expected": 0.06580698514961447,
+      "actual": 0.06580698514961447,
+      "abs_error": 0.0,
+      "score_match": true,
+      "review_match": true,
+      "decision_signal": "NO_REVIEW_SIGNAL",
+      "automatic_credit_decision": false,
+      "terms_all_null": true
+    },
+    {
+      "sk_id_curr": 100035,
+      "split": "validation",
+      "expected": 0.15160322574159024,
+      "actual": 0.15160322574159024,
+      "abs_error": 0.0,
+      "score_match": true,
+      "review_match": true,
+      "decision_signal": "MANUAL_REVIEW_RECOMMENDED",
+      "automatic_credit_decision": false,
+      "terms_all_null": true
+    },
+    {
+      "sk_id_curr": 100048,
+      "split": "validation",
+      "expected": 0.2599797810722127,
+      "actual": 0.2599797810722127,
+      "abs_error": 0.0,
+      "score_match": true,
+      "review_match": true,
+      "decision_signal": "MANUAL_REVIEW_RECOMMENDED",
+      "automatic_credit_decision": false,
+      "terms_all_null": true
+    },
+    {
+      "sk_id_curr": 100006,
+      "split": "validation",
+      "expected": 0.08725027752667787,
+      "actual": 0.08725027752667788,
+      "abs_error": 1.3877787807814457e-17,
+      "score_match": true,
+      "review_match": true,
+      "decision_signal": "NO_REVIEW_SIGNAL",
+      "automatic_credit_decision": false,
+      "terms_all_null": true
+    },
+    {
+      "sk_id_curr": 171816,
+      "split": "validation",
+      "expected": 0.14484327385366114,
+      "actual": 0.14484327385366114,
+      "abs_error": 0.0,
+      "score_match": true,
+      "review_match": true,
+      "decision_signal": "MANUAL_REVIEW_RECOMMENDED",
+      "automatic_credit_decision": false,
+      "terms_all_null": true
+    },
+    {
+      "sk_id_curr": 379997,
+      "split": "validation",
+      "expected": 0.05751336121481303,
+      "actual": 0.05751336121481303,
+      "abs_error": 0.0,
+      "score_match": true,
+      "review_match": true,
+      "decision_signal": "NO_REVIEW_SIGNAL",
+      "automatic_credit_decision": false,
+      "terms_all_null": true
+    }
+  ],
+  "runtime_warnings": [
+    "Trying to unpickle estimator LabelEncoder from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:\nhttps://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations",
+    "Trying to unpickle estimator Pipeline from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:\nhttps://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations"
+  ]
+}

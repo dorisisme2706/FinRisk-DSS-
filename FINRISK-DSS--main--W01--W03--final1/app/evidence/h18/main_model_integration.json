@@ -1,0 +1,61 @@
+{
+  "status": "PASS_TECHNICAL_PENDING_FORMAL_GK_REVIEW",
+  "task": "H18",
+  "base_source": "FINRISK-DSS--main--phase1-fixed.zip",
+  "completed_utc": "2026-11-02T04:16:18.773300+00:00",
+  "integration_flow": "CORE4 snapshot -> frozen H16 LightGBM -> ProfileScorer -> H18 review adapter -> local API -> frontend",
+  "frozen_assets": {
+    "model_version": "finrisk_lgbm_h12_demo_v0.2",
+    "model_sha256": "7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34",
+    "model_sha256_verified": true,
+    "feature_set_version": "core4_169_baseline_v1",
+    "predictor_count": 169,
+    "data_version": "finrisk_v2_20261022151614259322",
+    "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+    "split_hash": "1992247193e6eab1d895732bc8c9350fd70fac641e1b4773ad0331a151a88417",
+    "split_hash_verified": true,
+    "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+    "threshold": 0.14484327385366114,
+    "threshold_policy_hash_verified": true,
+    "h16_release_stage": "h16_final_test_evaluated_pending_formal_GK_review",
+    "post_test_tuning": false
+  },
+  "api": {
+    "health": "GET /api/ml/health",
+    "score": "GET /api/ml/score?sk_id_curr=<id>",
+    "decision_support": "GET /api/decision/assess?sk_id_curr=<id>",
+    "automatic_credit_decision": false,
+    "business_policy_status": "NOT_APPROVED",
+    "loan_terms_generated": false
+  },
+  "qa": {
+    "python_api_tests": {
+      "passed": 12,
+      "failed": 0
+    },
+    "node_full_suite": {
+      "passed": 47,
+      "failed": 0
+    },
+    "h18_real_reference_qa": {
+      "passed": true,
+      "reference_count": 6,
+      "test_profiles_scored": 0
+    },
+    "reference_max_abs_error": 1.3877787807814457e-17
+  },
+  "guardrails": {
+    "reserved_test_runtime_guard_preserved": true,
+    "test_profiles_scored_in_h18": 0,
+    "amount_term_changes_model_score": false,
+    "approval_rejection_not_invented": true,
+    "amt_annuity_not_relabelled_as_verified_monthly_debt": true
+  },
+  "limitations": [
+    "Canonical Parquet runtime was not re-executed in this container because pyarrow is unavailable; product code still requires Parquet and validates its SHA256.",
+    "Real H18 reference QA used the equivalent CORE4 CSV.gz representation only for six locked non-test reference profiles; scores matched within 1e-12.",
+    "Formal GK review is still pending.",
+    "PostgreSQL is not required for this H18 profile-ID demo path.",
+    "Loan amount/term/interest/monthly payment remain outside the frozen ML score and are not produced by the H18 review adapter."
+  ]
+}

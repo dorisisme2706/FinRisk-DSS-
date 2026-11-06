@@ -1,0 +1,27 @@
+PASS six stages
+PASS stage order
+PASS low status
+PASS low score
+PASS low six stages
+PASS medium status
+PASS medium score
+PASS medium six stages
+PASS high status
+PASS high score
+PASS high six stages
+PASS missing status
+PASS missing score
+PASS missing six stages
+PASS invalid input blocks
+PASS invalid input blocks ML
+PASS missing ML status
+PASS MOCK source
+PASS no side effects on scenario
+PASS safe missing customer id
+PASS renamed navigation
+PASS trace module loaded
+PASS VI EN label
+PASS no old graph in trace render
+TOTAL 24/24 PASS
+
+Node.js automated source tests only; browser QA not executed.

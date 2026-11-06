@@ -1,0 +1,42 @@
+{
+  "base": "FINRISK-DSS--main--phase1-fixed.zip",
+  "added": [
+    "H18_CHANGES.json",
+    "H18_DELIVERY.md",
+    "H18_FILE_CHANGES.json",
+    "app/FINRISK_H18_INTEGRATION.md",
+    "app/backend_api/decision_engine.py",
+    "app/backend_ml/MODEL_CARD_H15.md",
+    "app/backend_ml/contracts/response_examples.json",
+    "app/backend_ml/examples/expected_output_100035.json",
+    "app/backend_ml/examples/input_profile_id.json",
+    "app/backend_ml/fresh_process_smoke_h13.json",
+    "app/backend_ml/model/pipeline.joblib",
+    "app/backend_ml/predict.py",
+    "app/backend_ml/smoke_test.py",
+    "app/backend_ml/splits/split_manifest.csv",
+    "app/evidence/h16/H16_BAO_CAO_M3.md",
+    "app/evidence/h16/final_test.json",
+    "app/evidence/h16/h16_run_summary.json",
+    "app/evidence/h16/release_metadata_h16.json",
+    "app/evidence/h18/main_model_integration.json",
+    "app/evidence/h18/real_reference_results.json",
+    "app/qa/h18_real_reference_qa.py",
+    "app/qa/verify_h18.py",
+    "app/tests/finrisk-h18-integration.test.js"
+  ],
+  "modified": [
+    "README.md",
+    "WINDOWS_RUN.md",
+    "app/backend_api/server.py",
+    "app/backend_api/test_server.py",
+    "app/backend_ml/BUNDLE_MANIFEST.json",
+    "app/backend_ml/contracts/inference_contract_h13.json",
+    "app/backend_ml/src/finrisk_ml/inference.py",
+    "app/backend_ml/src/score_hk_h13.py",
+    "app/setup_windows.bat",
+    "app/src/app.js",
+    "app/src/i18n.js"
+  ],
+  "deleted": []
+}

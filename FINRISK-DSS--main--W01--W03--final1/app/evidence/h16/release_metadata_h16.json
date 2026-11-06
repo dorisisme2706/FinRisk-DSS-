@@ -1,0 +1,21 @@
+{
+  "release_stage": "h16_final_test_evaluated_pending_formal_GK_review",
+  "model_version": "finrisk_lgbm_h12_demo_v0.2",
+  "model_sha256": "7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34",
+  "feature_set_version": "core4_169_baseline_v1",
+  "predictor_count": 169,
+  "data_version": "finrisk_v2_20261022151614259322",
+  "data_hash": "a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0",
+  "split_hash": "1992247193e6eab1d895732bc8c9350fd70fac641e1b4773ad0331a151a88417",
+  "threshold_policy_version": "finrisk_demo_f1_validation_v1",
+  "locked_threshold": 0.14484327385366114,
+  "calibration_status": "uncalibrated_candidate_not_selected",
+  "final_test_opened": true,
+  "final_test_scored_rows": 46127,
+  "model_changed_after_test": false,
+  "feature_set_changed_after_test": false,
+  "threshold_changed_after_test": false,
+  "calibration_changed_after_test": false,
+  "retuning_after_test_prohibited": true,
+  "formal_GK_review": "PENDING"
+}

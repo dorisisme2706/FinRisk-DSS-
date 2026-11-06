@@ -1,0 +1,19 @@
+{
+  "status": "BLOCKED",
+  "task": "H19",
+  "reason": "CANONICAL_RUNTIME_SETUP_FAILED",
+  "error_type": "ImportError",
+  "message": "Unable to find a usable engine; tried using: 'pyarrow', 'fastparquet'.\nA suitable version of pyarrow or fastparquet is required for parquet support.\nTrying to import the above resulted in these errors:\n - Missing optional dependency 'pyarrow'. pyarrow is required for parquet support. Use pip or conda to install pyarrow.\n - Missing optional dependency 'fastparquet'. fastparquet is required for parquet support. Use pip or conda to install fastparquet.",
+  "test_profiles_scored_during_h19": 0,
+  "model_changed_after_h16": false,
+  "threshold_changed_after_h16": false,
+  "integrity": {
+    "model_hash_match": true,
+    "split_hash_match": true,
+    "policy_hash_match": true,
+    "model_version_match": true,
+    "data_version_match": true,
+    "threshold_policy_version_match": true,
+    "threshold_match": true
+  }
+}
