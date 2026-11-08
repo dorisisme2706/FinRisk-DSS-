@@ -20,6 +20,7 @@ H16_RELEASE = ROOT / "evidence" / "h16" / "release_metadata_h16.json"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(BUNDLE / "src"))
 
+from chat_service import ChatError, ChatService, MAX_BODY
 from decision_engine import build_decision_support, DECISION_SUPPORT_VERSION
 
 
@@ -143,15 +144,24 @@ def build_customer_profile(scorer, profile_id):
     }, 200)
 
 
-def make_handler(scorer, setup_error):
+def make_handler(scorer, setup_error, chat=None):
     release_meta = read_json(H16_RELEASE)
+    chat = chat or ChatService(scorer)
 
     class Handler(SimpleHTTPRequestHandler):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, directory=str(ROOT), **kwargs)
 
+        def setup(self):
+            super().setup()
+            self.connection.settimeout(40)
+
         def do_GET(self):
             path = urlsplit(self.path)
+            if path.path == "/api/chat/health":
+                health = chat.health()
+                return self.send_json(200 if health["status"] == "configured_unverified" else 503, health)
+
             if path.path == "/api/customer/profile":
                 profile_id = parse_profile_id(path.query)
                 if profile_id is None:
@@ -221,6 +231,43 @@ def make_handler(scorer, setup_error):
             self.send_response(405)
             self.end_headers()
 
+        def do_POST(self):
+            if urlsplit(self.path).path != "/api/chat":
+                return self.send_json(404, {"status": "error", "code": "NOT_FOUND"})
+            allowed_hosts = {
+                f"127.0.0.1:{self.server.server_port}",
+                f"localhost:{self.server.server_port}",
+            }
+            if self.headers.get("Host", "").lower() not in allowed_hosts:
+                return self.send_json(403, {"status": "error", "code": "INVALID_HOST"})
+            origin = self.headers.get("Origin")
+            allowed_origins = {"http://" + host for host in allowed_hosts}
+            if (origin and origin not in allowed_origins) or self.headers.get("Sec-Fetch-Site") == "cross-site":
+                return self.send_json(403, {"status": "error", "code": "INVALID_ORIGIN"})
+            try:
+                if self.headers.get("Transfer-Encoding"):
+                    raise ChatError(400, "INVALID_REQUEST")
+                if self.headers.get_content_type() != "application/json":
+                    raise ChatError(415, "JSON_REQUIRED")
+                length = self.headers.get("Content-Length", "")
+                if not length.isascii() or not length.isdecimal():
+                    raise ChatError(411, "LENGTH_REQUIRED")
+                length = int(length)
+                if length > MAX_BODY:
+                    raise ChatError(413, "REQUEST_TOO_LARGE")
+                payload = json.loads(self.rfile.read(length).decode("utf-8"))
+                return self.send_json(200, chat.reply(payload))
+            except ChatError as exc:
+                payload = {"status": "error", "code": exc.code}
+                if exc.message:
+                    payload["message"] = exc.message
+                return self.send_json(exc.http_status, payload)
+            except (UnicodeError, ValueError):
+                return self.send_json(400, {"status": "error", "code": "INVALID_JSON"})
+            except Exception:
+                print("CHAT_FAILED for a local chat request:\n" + traceback.format_exc(), file=sys.stderr)
+                return self.send_json(500, {"status": "error", "code": "CHAT_FAILED"})
+
         def send_json(self, status, payload):
             data = json.dumps(payload, ensure_ascii=False, allow_nan=False).encode("utf-8")
             self.send_response(status)
@@ -228,6 +275,8 @@ def make_handler(scorer, setup_error):
             self.send_header("Cache-Control", "no-store")
             self.send_header("X-Content-Type-Options", "nosniff")
             self.send_header("Content-Length", str(len(data)))
+            if status == 429:
+                self.send_header("Retry-After", "30")
             self.end_headers()
             self.wfile.write(data)
     return Handler
@@ -254,6 +303,7 @@ def main():
         print("WARNING: network access enabled and the API has no authentication. "
               "Use only on a trusted private network; never expose it to the internet.", file=sys.stderr)
     print("ML:", "READY" if scorer else "UNAVAILABLE - " + error)
+    print("CHAT:", ChatService(scorer).health()["status"], "(provider not yet verified)")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
