@@ -1,0 +1,11 @@
+CORE4 snapshot hash check — 2026-11-06
+
+Snapshot archive: FinRisk_Handoff_Core4_20261024_131647_427684_ae11ca.zip
+Extracted member: data/feature_matrix.parquet
+Observed SHA-256:
+a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0
+Expected metadata SHA-256:
+a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0
+Result: MATCH
+
+Runtime caveat: parquet could not be loaded in this environment because pyarrow is not installed. No CSV fallback was introduced into the product code.

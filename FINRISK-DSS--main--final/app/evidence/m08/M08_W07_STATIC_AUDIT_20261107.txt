@@ -1,0 +1,29 @@
+W07 Overall QA: PASS
+Static checks: 25/25 PASS; 0 FAIL
+Protected H16 files: 36/36 MATCH
+Runtime compatibility: strict gate is wired into Windows setup, W07 QA, API tests, full test runner, H19 freeze and ML launcher; execute in target .venv.
+PASS | 13 workspace routes are registered once | Detected 13 unique routes: ['overview', 'customer', 'data', 'simulation', 'decision', 'reports', 'evidence', 'validation', 'trace', 'result', 'export', 'e2e', 'acceptance']
+PASS | Every workspace route resolves to a renderer | Routes=13; renderers=13; missing=[]
+PASS | W04-W06 modules load before app.js | Required modules=['src/finrisk-simulation.js', 'src/finrisk-decision-engine.js', 'src/finrisk-report-history.js']; app.js index=22
+PASS | W02 CORE4 profile allowlist is exactly 38 read-only fields | Allowlisted fields=38; read_only projection present=True
+PASS | W02 Test partition is blocked by the backend | build_customer_profile checks split == 'test' and returns HTTP 403
+PASS | W04 supports both repayment methods and 0% scenarios | Annuity, equal-principal and zero-interest code paths are present
+PASS | W04 remains independent from ML/API scoring | Simulation module contains no fetch() call
+PASS | W05 fails closed on unapproved lending policy and loan terms | H18 validator preserves NOT_APPROVED, automatic=false and null terms
+PASS | W05 tab has its VI/EN label mapping | Bộ máy hỗ trợ quyết định ↔ Decision Engine
+PASS | W06 calls W02 before H18 and stops on profile failure | Profile fetch index=24251; H18 fetch index=24890; profile failure guard=True
+PASS | W06 history is explicit, browser-local and capped at 50 | Storage key, explicit save API and MAX_RECORDS=50 are present
+PASS | W06 exports JSON/HTML and retains non-decision disclaimers | JSON/HTML export code and business guardrails are present
+PASS | W02/W04/W05/W06 navigation has VI/EN mappings | All four workspace label pairs exist
+PASS | W02/W04/W05/W06 include mobile/tablet/desktop responsive rules | Scoped screen styles plus 900/720/600/560px media rules found
+PASS | API binds to loopback by default and warns on network bind | Default host 127.0.0.1; warning documents no authentication
+PASS | API does not serve model/data/backend source files as public assets | Static handler only exposes index.html, src and assets
+PASS | Frozen model metadata versions match the pinned requirements lock | Compared 6 model runtime packages against 13 locked packages
+PASS | Windows setup creates a locked CPython 3.14 environment and runs preflight | Setup selects Python 3.14, installs binary wheels from the frozen lock and runs the environment gate
+PASS | Strict runtime preflight validates interpreter, packages, Parquet and model unpickle | Dedicated W07 environment gate checks Python 3.14, Windows x64, all pins, pip graph, PyArrow round-trip and sklearn warnings
+PASS | Runtime gate fails closed before model unpickle or incomplete snapshot validation | Model unpickle requires all interpreter/package/pip prerequisites; missing PyArrow cannot pass snapshot header check
+PASS | W07 QA/API/ML/test/H19 launchers block mismatched environments | Each runner invokes the strict gate before Node/API/model/H19 work
+PASS | Full regression runner cannot silently skip the Python environment gate | run_tests.bat stops when .venv is missing or incompatible
+PASS | H16 model package and H16 evidence match the W06 freeze manifest | Verified 36/36 protected files
+PASS | Source package ignores generated caches/venvs and excludes raw CORE4 snapshot | Required ignore rules present=True; raw feature_matrix.parquet files=0
+PASS | W01-W07 and backend regression suites are present | All required regression suites found

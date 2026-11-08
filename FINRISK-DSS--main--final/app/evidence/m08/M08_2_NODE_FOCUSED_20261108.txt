@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: M08.2 proposes 12 app-owned entities
+ok 1 - M08.2 proposes 12 app-owned entities
+  ---
+  duration_ms: 1.337418
+  type: 'test'
+  ...
+# Subtest: M08.2 keeps CORE4 and H16 outside the application DB
+ok 2 - M08.2 keeps CORE4 and H16 outside the application DB
+  ---
+  duration_ms: 1.074309
+  type: 'test'
+  ...
+# Subtest: Form \#09 application fields are distinguished from CORE4 ID
+ok 3 - Form \#09 application fields are distinguished from CORE4 ID
+  ---
+  duration_ms: 0.321986
+  type: 'test'
+  ...
+# Subtest: Applicant PII contract uses ciphertext and keeps encryption keys outside source/database
+ok 4 - Applicant PII contract uses ciphertext and keeps encryption keys outside source/database
+  ---
+  duration_ms: 0.275278
+  type: 'test'
+  ...
+# Subtest: H18 remains a support signal, never a credit decision
+ok 5 - H18 remains a support signal, never a credit decision
+  ---
+  duration_ms: 0.26348
+  type: 'test'
+  ...
+# Subtest: Financial validation is explicitly input-quality only
+ok 6 - Financial validation is explicitly input-quality only
+  ---
+  duration_ms: 0.407573
+  type: 'test'
+  ...
+# Subtest: W04 scenario storage is hypothetical and isolated
+ok 7 - W04 scenario storage is hypothetical and isolated
+  ---
+  duration_ms: 0.235849
+  type: 'test'
+  ...
+# Subtest: Rule registry cannot execute or be approved in this proposal
+ok 8 - Rule registry cannot execute or be approved in this proposal
+  ---
+  duration_ms: 0.205314
+  type: 'test'
+  ...
+# Subtest: RLS and append-only audit design are present
+ok 9 - RLS and append-only audit design are present
+  ---
+  duration_ms: 1.1022
+  type: 'test'
+  ...
+# Subtest: Credentials are placeholders and DB driver does not alter H16 lock
+ok 10 - Credentials are placeholders and DB driver does not alter H16 lock
+  ---
+  duration_ms: 0.468954
+  type: 'test'
+  ...
+# Subtest: M08.2 API contract is draft and secured
+ok 11 - M08.2 API contract is draft and secured
+  ---
+  duration_ms: 0.171504
+  type: 'test'
+  ...
+# Subtest: Runtime grants keep H18 and validation snapshots immutable
+ok 12 - Runtime grants keep H18 and validation snapshots immutable
+  ---
+  duration_ms: 0.210301
+  type: 'test'
+  ...
+# Subtest: RLS helper functions have explicit runtime grants and app_users is not exposed
+ok 13 - RLS helper functions have explicit runtime grants and app_users is not exposed
+  ---
+  duration_ms: 0.144393
+  type: 'test'
+  ...
+# Subtest: JSON forbidden keys are rejected recursively regardless of letter case
+ok 14 - JSON forbidden keys are rejected recursively regardless of letter case
+  ---
+  duration_ms: 0.279413
+  type: 'test'
+  ...
+# Subtest: SQL setup keeps database login principals separate from NOLOGIN groups
+ok 15 - SQL setup keeps database login principals separate from NOLOGIN groups
+  ---
+  duration_ms: 0.286354
+  type: 'test'
+  ...
+# Subtest: Default ACL and database CONNECT are restricted from PUBLIC
+ok 16 - Default ACL and database CONNECT are restricted from PUBLIC
+  ---
+  duration_ms: 0.148609
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 55.373035

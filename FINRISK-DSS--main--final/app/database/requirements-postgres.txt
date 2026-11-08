@@ -1,0 +1,3 @@
+# Separate from backend_ml/model/requirements-lock.txt.
+# Install only when M08.3 PostgreSQL adapter is implemented/approved.
+psycopg[binary]==3.3.6

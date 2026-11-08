@@ -1,0 +1,26 @@
+FinRisk DSS — W02 Customer Profile QA
+Date: 2026-11-06
+Base: FinRisk_DSS_H19_M5_Candidate_W01_W03_1.zip
+
+Frontend regression:
+- node --check src/app.js: PASS
+- node --check src/i18n.js: PASS
+- node --test tests/*.test.js: 58 PASS / 0 FAIL
+- W02 targeted tests: 4 PASS
+- W01/W03 targeted regression tests: 7 PASS
+
+Backend API regression:
+- python -m unittest backend_api.test_server -v: 17 PASS / 0 FAIL
+- W02 endpoint covers positive integer validation, unavailable snapshot, not-found IDs,
+  final-test split block (403), allowlisted response fields, read-only contract and NULL handling.
+- Existing H18 endpoint, private-file guards, policy/model/schema integrity tests also pass.
+
+Live data limitation:
+- CORE4 feature_matrix.parquet SHA-256 was checked against backend_ml/model/metadata.json and matches.
+- ProfileScorer could not be initialized in this execution environment because pyarrow is not installed.
+- Therefore a real CORE4 profile response and browser rendering against the user's Windows snapshot are NOT claimed as PASS.
+
+Frozen-scope integrity:
+- backend_ml/ unchanged from the W01/W03 input archive.
+- evidence/h16/ unchanged from the W01/W03 input archive.
+- index.html unchanged.

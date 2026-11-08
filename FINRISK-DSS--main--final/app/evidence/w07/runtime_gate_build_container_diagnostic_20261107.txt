@@ -1,0 +1,20 @@
+BUILD-CONTAINER DIAGNOSTIC ONLY — NOT WINDOWS RELEASE EVIDENCE
+Build sandbox is Linux/Python 3.13.5; it does not match CPython 3.14/Windows x64 or the 13-package H16 lock. A FAIL result is expected here and confirms fail-closed behavior. The runtime gate does not unpickle the model when any interpreter, OS, package, pip or model-hash prerequisite fails. This file is not a Windows acceptance artifact.
+Exit code: 1
+==============================================================================
+
+W07 Runtime Compatibility Gate: FAIL
+Checks: 3/10 PASS; 7 FAIL
+Python: 3.13.5 (expected 3.14)
+Locked package count: 13; mismatches: 11
+pip check: FAIL
+FAIL | CPython minor version matches frozen model metadata | Expected CPython (3, 14); running cpython 3.13.5
+PASS | Python interpreter is 64-bit | Pointer width: 64-bit
+FAIL | Runtime operating system is Windows | Platform: linux; expected win32
+PASS | Frozen model versions agree with the requirements lock | Compared 6 metadata package versions with 13 locked packages
+FAIL | Every installed package matches the exact requirements lock | joblib: expected 1.6.0, installed 1.5.3; lightgbm: expected 4.7.0, installed 4.6.0; narwhals: expected 2.27.1, installed 2.21.2; numpy: expected 2.5.4, installed 2.3.5; pandas: expected 3.1.0, installed 2.2.3; pyarrow: expected 26.0.0, installed None; python-dateutil: expected 3.0.0, installed 2.9.0.post0; scikit-learn: expected 1.9.1, installed 1.8.0; scipy: expected 1.18.1, installed 1.17.0; threadpoolctl: expected 3.7.0, installed 3.6.0; tzdata: expected 2026.5, installed 2026.2
+FAIL | pip dependency graph is consistent | moviepy 2.2.1 has requirement pillow<12.0,>=9.2.0, but you have pillow 12.3.0.
+FAIL | All model runtime libraries import successfully | ModuleNotFoundError: No module named 'pyarrow'
+FAIL | PyArrow Parquet read/write works | Skipped because a required runtime library failed to import
+PASS | Frozen H16 pipeline SHA-256 matches metadata | Expected 7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34; actual 7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34
+FAIL | H16 pipeline unpickles without scikit-learn version warnings | Skipped because package imports or model hash failed

@@ -1,0 +1,2 @@
+# Optional browser-only QA dependency; do not add this to the frozen ML runtime lock.
+playwright>=1.50,<2
