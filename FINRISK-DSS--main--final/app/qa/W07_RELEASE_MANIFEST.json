@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "release": "FinRisk DSS W07 overall QA",
+  "baseline": "FinRisk_DSS_W06_Reports_History_20261107.zip",
+  "created_at": "2026-11-07",
+  "purpose": "Byte-level freeze guard for the H16 model package and H16 evidence across W07 QA.",
+  "protected_paths": [
+    "backend_ml",
+    "evidence/h16"
+  ],
+  "protected_files": [
+    {
+      "path": "backend_ml/BUNDLE_MANIFEST.json",
+      "sha256": "09db79979b36513804b02efce7a1e157861a33e32ee6d227ffdc8a69f13c61bc",
+      "size_bytes": 3008
+    },
+    {
+      "path": "backend_ml/MODEL_CARD_H15.md",
+      "sha256": "fa8d4d97f87e01b0bfa7802366510e6fc9df6ea7da23158b953d3cd80de4dc05",
+      "size_bytes": 2506
+    },
+    {
+      "path": "backend_ml/README_GK_VI.md",
+      "sha256": "0abdbcdecca2e01d68f701315db14bae3040af0655d84e8a464f543b96e2b410",
+      "size_bytes": 5827
+    },
+    {
+      "path": "backend_ml/contracts/feature_descriptions.json",
+      "sha256": "675575a46f47395eac0777d4e124d7ac4e4e316891433a7870635e718da44c6e",
+      "size_bytes": 62061
+    },
+    {
+      "path": "backend_ml/contracts/inference_contract_h13.json",
+      "sha256": "35f9f4b1da98f33ec7bae0cb0318f7d005f446021cd5bbf0101b3aa689a8270d",
+      "size_bytes": 1406
+    },
+    {
+      "path": "backend_ml/contracts/model_features_v1.json",
+      "sha256": "b7b46afac4a0be43c3d3afa4beb11f48fc53610ee363f563d46bee90b00b6f55",
+      "size_bytes": 10477
+    },
+    {
+      "path": "backend_ml/contracts/response_examples.json",
+      "sha256": "fe1ebb0b4c1fd167f81f70c4367296411dd50f64fcac8a0a6bdbe4b599e1ac93",
+      "size_bytes": 24444
+    },
+    {
+      "path": "backend_ml/examples/expected_output_100035.json",
+      "sha256": "0f6c76946284c39d012f6a48bebf63df5d4899484b50ee1fefe51a85434e71ab",
+      "size_bytes": 3776
+    },
+    {
+      "path": "backend_ml/examples/input_profile_id.json",
+      "sha256": "3abb28fc4d1ccef146b20b79d819a0473b0db50a2f459c5dff9ea9732c46e2dd",
+      "size_bytes": 26
+    },
+    {
+      "path": "backend_ml/fresh_process_smoke_h13.json",
+      "sha256": "6a578b24c1e8c61c0ab92cbe3cf26e57bd33ccb8176e7628a9a095c410e053da",
+      "size_bytes": 27696
+    },
+    {
+      "path": "backend_ml/global_gain_importance.csv",
+      "sha256": "9f3eef2abb34ba82b081d82a745386a0f61502c4560c4705f0ec48064e0089b8",
+      "size_bytes": 9972
+    },
+    {
+      "path": "backend_ml/model/metadata.json",
+      "sha256": "36ff4c8b86f3179f12b7a0b5e5feaf47287a2c41a71b36927599985601fba267",
+      "size_bytes": 1807
+    },
+    {
+      "path": "backend_ml/model/pipeline.joblib",
+      "sha256": "7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34",
+      "size_bytes": 383598
+    },
+    {
+      "path": "backend_ml/model/requirements-lock.txt",
+      "sha256": "6c8c3189f434069d57bc691b883a6e14111003fd5efb4fe0294c2c996c84f26f",
+      "size_bytes": 227
+    },
+    {
+      "path": "backend_ml/model/threshold_policy.json",
+      "sha256": "ef23df8b6efd6506cb365ff176397efa2ab410f59404b7b5b0ee81fbdd33c868",
+      "size_bytes": 1050
+    },
+    {
+      "path": "backend_ml/predict.py",
+      "sha256": "b1786c172a0c2350859642406b322ac52b830984ac63f5b47d9e2924bb33f7de",
+      "size_bytes": 1085
+    },
+    {
+      "path": "backend_ml/smoke_test.py",
+      "sha256": "d67581ef83b4febdb0823ffa663bbd64c48af6ca3f00dac505ac5e9bb720d4f0",
+      "size_bytes": 2454
+    },
+    {
+      "path": "backend_ml/splits/split_manifest.csv",
+      "sha256": "1992247193e6eab1d895732bc8c9350fd70fac641e1b4773ad0331a151a88417",
+      "size_bytes": 4182168
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/__init__.py",
+      "sha256": "60ce68c1dc210c44ccce72c855a4e180d5812e17860fdf96c853850123adfeb0",
+      "size_bytes": 72
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/audit_groups.py",
+      "sha256": "9e22172717b7f60147dd59ec8f2ea44702d9a2c426e6a4eefb0490fc443d9a55",
+      "size_bytes": 11985
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/boosting.py",
+      "sha256": "24c1c1ec9d3ffd3757a0f613e9285bd7902cc3a743b4062dcb9873f7ab7d7d70",
+      "size_bytes": 4074
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/calibration.py",
+      "sha256": "1b288cd40e3c0d24995f1aa6c660b84e150044aa3b3181f01471cb3aa5380631",
+      "size_bytes": 4975
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/common.py",
+      "sha256": "d7269a7f0b4e73bad37c911d8af990d932f7d997b4b17ae8683e36c43c60645f",
+      "size_bytes": 2048
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/explanations.py",
+      "sha256": "e45983e0df2846763159aa92a51e21e9752c78102da452c367820abd7ff91683",
+      "size_bytes": 4794
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/inference.py",
+      "sha256": "a2caf68dd20a29e582e7783fae5d6f55e23c3ac948765cbb242f625474e4a7ac",
+      "size_bytes": 5378
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/package_h13.py",
+      "sha256": "2de1d971537dcfc2aceb254eb58789ed1f94b0552c96213af44c9b6955927526",
+      "size_bytes": 19076
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/preprocessing.py",
+      "sha256": "65e856bf785d3afece4cf166f221824ec3277f9ccf1a246a421f79200138318f",
+      "size_bytes": 3315
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/run_calibration.py",
+      "sha256": "2734ffaddd57f1cb42786666a8ec587d06dd7e09e3db38dd953d688d5a609000",
+      "size_bytes": 22124
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/splitting.py",
+      "sha256": "7f66d7ca0f64760ce84da2a0e8fd24a9e529bc90ab118debef16622b6c08518b",
+      "size_bytes": 2045
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/train_baseline.py",
+      "sha256": "fdae28f858b9b2cfe153e3d1ebd9ea6397ac94291cf1e491a794356fe009a743",
+      "size_bytes": 20262
+    },
+    {
+      "path": "backend_ml/src/finrisk_ml/train_lightgbm.py",
+      "sha256": "6f41cf96ccceaa2de0074713fd4ee7556a0246267086c69c0446cbc12822d70a",
+      "size_bytes": 17147
+    },
+    {
+      "path": "backend_ml/src/score_hk_h13.py",
+      "sha256": "877105165f0de9dc719356998048f412fc823706be5fc1b8ad91c34f2f215333",
+      "size_bytes": 2778
+    },
+    {
+      "path": "evidence/h16/H16_BAO_CAO_M3.md",
+      "sha256": "a3dc47c8e625e0b6f0caccc2a40b4acd37edb5230bebedc74d428f3868cb3f5f",
+      "size_bytes": 4081
+    },
+    {
+      "path": "evidence/h16/final_test.json",
+      "sha256": "3bf5a8099c23cf12cfc08dbcf4c92192ab05e62d91514f7b780aef2c445538a2",
+      "size_bytes": 1535
+    },
+    {
+      "path": "evidence/h16/h16_run_summary.json",
+      "sha256": "0225774665f8a36f25ab885eef017e16d27e3bada0c6f2ac26b2e22caeeab1eb",
+      "size_bytes": 5030
+    },
+    {
+      "path": "evidence/h16/release_metadata_h16.json",
+      "sha256": "872cad3ef363ce50e2ab62d04ed4220e189c6ee2e0096002dd1c5f81442a0402",
+      "size_bytes": 978
+    }
+  ],
+  "protected_file_count": 36
+}

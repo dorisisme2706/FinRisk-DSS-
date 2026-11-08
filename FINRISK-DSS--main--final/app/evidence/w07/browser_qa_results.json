@@ -1,0 +1,763 @@
+{
+  "schema_version": 1,
+  "suite": "W07 browser DOM/layout QA",
+  "generated_at_utc": "2026-11-07T13:51:54.587864+00:00",
+  "browser": {
+    "engine": "Chromium",
+    "version": "144.0.7559.96"
+  },
+  "screens": [
+    "overview",
+    "customer",
+    "data",
+    "simulation",
+    "decision",
+    "reports",
+    "evidence",
+    "validation",
+    "trace",
+    "result",
+    "export",
+    "e2e",
+    "acceptance"
+  ],
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844
+    },
+    {
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "width": 1440,
+      "height": 900
+    }
+  ],
+  "screen_checks": 39,
+  "screen_passed": 39,
+  "language_checks": 4,
+  "language_passed": 4,
+  "navigation_button_count": 13,
+  "page_errors": [],
+  "failures": [],
+  "details": [
+    {
+      "viewport": "390x844",
+      "screen": "overview",
+      "status": "PASS",
+      "metrics": {
+        "screen": "overview",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "customer",
+      "status": "PASS",
+      "metrics": {
+        "screen": "customer",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "data",
+      "status": "PASS",
+      "metrics": {
+        "screen": "data",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "simulation",
+      "status": "PASS",
+      "metrics": {
+        "screen": "simulation",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "decision",
+      "status": "PASS",
+      "metrics": {
+        "screen": "decision",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "reports",
+      "status": "PASS",
+      "metrics": {
+        "screen": "reports",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "evidence",
+      "status": "PASS",
+      "metrics": {
+        "screen": "evidence",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "validation",
+      "status": "PASS",
+      "metrics": {
+        "screen": "validation",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "trace",
+      "status": "PASS",
+      "metrics": {
+        "screen": "trace",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "result",
+      "status": "PASS",
+      "metrics": {
+        "screen": "result",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "export",
+      "status": "PASS",
+      "metrics": {
+        "screen": "export",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "e2e",
+      "status": "PASS",
+      "metrics": {
+        "screen": "e2e",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "390x844",
+      "screen": "acceptance",
+      "status": "PASS",
+      "metrics": {
+        "screen": "acceptance",
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "overview",
+      "status": "PASS",
+      "metrics": {
+        "screen": "overview",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "customer",
+      "status": "PASS",
+      "metrics": {
+        "screen": "customer",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "data",
+      "status": "PASS",
+      "metrics": {
+        "screen": "data",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "simulation",
+      "status": "PASS",
+      "metrics": {
+        "screen": "simulation",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "decision",
+      "status": "PASS",
+      "metrics": {
+        "screen": "decision",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "reports",
+      "status": "PASS",
+      "metrics": {
+        "screen": "reports",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "evidence",
+      "status": "PASS",
+      "metrics": {
+        "screen": "evidence",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "validation",
+      "status": "PASS",
+      "metrics": {
+        "screen": "validation",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "trace",
+      "status": "PASS",
+      "metrics": {
+        "screen": "trace",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "result",
+      "status": "PASS",
+      "metrics": {
+        "screen": "result",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "export",
+      "status": "PASS",
+      "metrics": {
+        "screen": "export",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "e2e",
+      "status": "PASS",
+      "metrics": {
+        "screen": "e2e",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "acceptance",
+      "status": "PASS",
+      "metrics": {
+        "screen": "acceptance",
+        "documentWidth": 768,
+        "viewportWidth": 768,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "overview",
+      "status": "PASS",
+      "metrics": {
+        "screen": "overview",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "customer",
+      "status": "PASS",
+      "metrics": {
+        "screen": "customer",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "data",
+      "status": "PASS",
+      "metrics": {
+        "screen": "data",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "simulation",
+      "status": "PASS",
+      "metrics": {
+        "screen": "simulation",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "decision",
+      "status": "PASS",
+      "metrics": {
+        "screen": "decision",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "reports",
+      "status": "PASS",
+      "metrics": {
+        "screen": "reports",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "evidence",
+      "status": "PASS",
+      "metrics": {
+        "screen": "evidence",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "validation",
+      "status": "PASS",
+      "metrics": {
+        "screen": "validation",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "trace",
+      "status": "PASS",
+      "metrics": {
+        "screen": "trace",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "result",
+      "status": "PASS",
+      "metrics": {
+        "screen": "result",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "export",
+      "status": "PASS",
+      "metrics": {
+        "screen": "export",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "e2e",
+      "status": "PASS",
+      "metrics": {
+        "screen": "e2e",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "screen": "acceptance",
+      "status": "PASS",
+      "metrics": {
+        "screen": "acceptance",
+        "documentWidth": 1440,
+        "viewportWidth": 1440,
+        "navCount": 13,
+        "activeCount": 1,
+        "activeVisible": true,
+        "hasTitle": true,
+        "hasContent": true,
+        "hasHeader": true,
+        "hasFooter": true
+      }
+    }
+  ],
+  "language_details": [
+    {
+      "check": "W05 English label",
+      "expected": "Decision Engine",
+      "actual": "Decision Engine",
+      "status": "PASS"
+    },
+    {
+      "check": "W06 English label",
+      "expected": "Reports & history",
+      "actual": "Reports & history",
+      "status": "PASS"
+    },
+    {
+      "check": "W05 Vietnamese label",
+      "expected": "Bộ máy hỗ trợ quyết định",
+      "actual": "Bộ máy hỗ trợ quyết định",
+      "status": "PASS"
+    },
+    {
+      "check": "W06 Vietnamese label",
+      "expected": "Báo cáo & lịch sử",
+      "actual": "Báo cáo & lịch sử",
+      "status": "PASS"
+    }
+  ],
+  "script_order": [
+    "src/demo-data.js",
+    "src/validation-rules.js",
+    "src/validation-engine.js",
+    "src/graph-model.js",
+    "src/graph-engine.js",
+    "src/release-engine.js",
+    "src/report-engine.js",
+    "src/e2e-engine.js",
+    "src/acceptance-catalog.js",
+    "src/acceptance-engine.js",
+    "src/persistence.js",
+    "src/state.js",
+    "src/ambient-graph.js",
+    "src/finrisk-loan.js",
+    "src/finrisk-simulation.js",
+    "src/finrisk-decision-mock.js",
+    "src/finrisk-decision-trace.js",
+    "src/finrisk-decision-engine.js",
+    "src/finrisk-credit-report.js",
+    "src/finrisk-report-history.js",
+    "src/finrisk-uat.js",
+    "src/finrisk-integration-mock.js",
+    "src/app.js",
+    "src/i18n.js"
+  ],
+  "scope_note": "Uses the actual app HTML/CSS/JS with in-memory browser storage. Verifies routing, rendering, VI/EN labels, and document horizontal overflow. Does not call live APIs or validate CORE4 inference."
+}

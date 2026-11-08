@@ -1,0 +1,2 @@
+PENDING TARGET WINDOWS RUNTIME — NOT YET RELEASE EVIDENCE
+This file is intentionally a placeholder. app/run_w07_qa.bat will overwrite it with the Python API test output only after the strict CPython 3.14 / package-lock / model-load gate passes.

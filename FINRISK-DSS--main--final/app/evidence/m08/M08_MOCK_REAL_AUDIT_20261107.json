@@ -1,0 +1,327 @@
+{
+  "schema_version": 1,
+  "audit_id": "FINRISK_M08_1_MOCK_REAL_AUDIT_20261107",
+  "baseline_archive": "FinRisk_DSS_W07_Setup_Batch_Fix_20261107.zip",
+  "workspace_screen_count": 13,
+  "screens": [
+    {
+      "id": "overview",
+      "label_vi": "Tổng quan",
+      "description": "Dashboard",
+      "icon": "dashboard"
+    },
+    {
+      "id": "customer",
+      "label_vi": "Hồ sơ khách hàng",
+      "description": "CORE4 · READ ONLY",
+      "icon": "database"
+    },
+    {
+      "id": "data",
+      "label_vi": "Hồ sơ vay",
+      "description": "Nhập hồ sơ MOCK",
+      "icon": "database"
+    },
+    {
+      "id": "simulation",
+      "label_vi": "Mô phỏng khoản vay",
+      "description": "W04 · Kịch bản trả nợ",
+      "icon": "calculator"
+    },
+    {
+      "id": "decision",
+      "label_vi": "Bộ máy hỗ trợ quyết định",
+      "description": "W05 · Hỗ trợ quyết định",
+      "icon": "network"
+    },
+    {
+      "id": "reports",
+      "label_vi": "Báo cáo & lịch sử",
+      "description": "W06 · Báo cáo CORE4/H18",
+      "icon": "file-check"
+    },
+    {
+      "id": "evidence",
+      "label_vi": "Quản lý dữ liệu",
+      "description": "PostgreSQL · MOCK",
+      "icon": "database"
+    },
+    {
+      "id": "validation",
+      "label_vi": "Kiểm tra tài chính",
+      "description": "Kiểm tra hồ sơ",
+      "icon": "shield-check"
+    },
+    {
+      "id": "trace",
+      "label_vi": "Giải thích quyết định",
+      "description": "Luồng đánh giá",
+      "icon": "network"
+    },
+    {
+      "id": "result",
+      "label_vi": "Đánh giá tín dụng",
+      "description": "Kết quả MOCK",
+      "icon": "lock"
+    },
+    {
+      "id": "export",
+      "label_vi": "Báo cáo tín dụng",
+      "description": "HTML / JSON",
+      "icon": "download"
+    },
+    {
+      "id": "e2e",
+      "label_vi": "End-to-End",
+      "description": "FinRisk pipeline · MOCK",
+      "icon": "route"
+    },
+    {
+      "id": "acceptance",
+      "label_vi": "Test Center",
+      "description": "Manual UAT",
+      "icon": "flask"
+    }
+  ],
+  "renderers": [
+    "overview",
+    "customer",
+    "data",
+    "simulation",
+    "decision",
+    "reports",
+    "evidence",
+    "validation",
+    "trace",
+    "result",
+    "export",
+    "e2e",
+    "acceptance"
+  ],
+  "api_routes": [
+    {
+      "method": "GET",
+      "path": "/api/ml/health",
+      "purpose": "H18 health and model/data metadata"
+    },
+    {
+      "method": "GET",
+      "path": "/api/customer/profile?sk_id_curr=<id>",
+      "purpose": "W02 read-only allowlisted CORE4 profile"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ml/score?sk_id_curr=<id>",
+      "purpose": "H16 model score without decision-support wrapper"
+    },
+    {
+      "method": "GET",
+      "path": "/api/decision/assess?sk_id_curr=<id>",
+      "purpose": "H18 review signal and decision-support contract"
+    }
+  ],
+  "api_route_source_checks_pass": true,
+  "api_write_route_present": false,
+  "postgres_driver_detected_in_local_server": false,
+  "sql_migration_files": [],
+  "sql_design_proposal_files": [
+    "database/proposals/001_app_schema_draft.sql",
+    "database/proposals/002_create_roles_draft.sql",
+    "database/proposals/003_grants_draft.sql"
+  ],
+  "migrations_directories": [],
+  "browser_storage_keys": {
+    "loan_application_mock": "finrisk.loan.application.mock.v1",
+    "decision_scenario_mock": "finrisk.decision.mock.scenario.v1",
+    "integration_records_mock": "finrisk.integration.records.mock.v1",
+    "integration_last_run_mock": "finrisk.integration.last-run.mock.v1",
+    "uat_manual": "finrisk.uat.v1",
+    "report_history_local": "finrisk.w06.report-history.v1",
+    "language_preference": "finrisk-language",
+    "motion_preference": "CG_UI_MOTION_ENABLED",
+    "legacy_ui_state": "carbongraph.mvp.v0.6.working-state",
+    "legacy_acceptance": "carbongraph.acceptance.v0.6"
+  },
+  "customer_profile": {
+    "source": "CORE4 snapshot via GET /api/customer/profile",
+    "read_only": true,
+    "allowlist_groups": {
+      "customer_context": [
+        "name_contract_type",
+        "name_income_type",
+        "name_education_type",
+        "name_family_status",
+        "name_housing_type",
+        "flag_own_car",
+        "flag_own_realty",
+        "cnt_children",
+        "cnt_fam_members",
+        "organization_type"
+      ],
+      "financial_snapshot": [
+        "amt_income_total",
+        "amt_credit",
+        "amt_annuity",
+        "amt_goods_price",
+        "app_credit_to_income_raw",
+        "ext_source_1",
+        "ext_source_2",
+        "ext_source_3"
+      ],
+      "bureau_history": [
+        "bureau_history_observed",
+        "bureau_loan_count",
+        "bureau_active_count",
+        "bureau_closed_count",
+        "bureau_overdue_observed_count",
+        "bureau_max_overdue_days",
+        "bureau_currency_count"
+      ],
+      "previous_applications": [
+        "previous_history_observed",
+        "previous_application_count",
+        "previous_approved_count",
+        "previous_refused_count",
+        "previous_canceled_count"
+      ],
+      "installment_history": [
+        "installments_history_observed",
+        "installments_observed_payment_rows",
+        "installments_observed_contracts",
+        "installments_observed_periods",
+        "installments_eligible_periods",
+        "installments_recorded_late_periods",
+        "installments_recorded_shortfall_periods",
+        "installments_max_recorded_delay_days"
+      ]
+    },
+    "allowlisted_field_count": 38,
+    "test_split_blocked_by_server": true
+  },
+  "loan_application_mock": {
+    "module": "src/finrisk-loan.js",
+    "storage_key": "finrisk.loan.application.mock.v1",
+    "fields": [
+      "customer_id",
+      "full_name",
+      "age",
+      "monthly_income",
+      "monthly_expenses",
+      "existing_monthly_debt",
+      "loan_amount",
+      "loan_term_months",
+      "loan_purpose"
+    ],
+    "default_example_contains_synthetic_name": true,
+    "api_persistence": false,
+    "validation_policy_status": "MOCK input validation only"
+  },
+  "loan_application_to_h16_feature_mapping": {
+    "loan_form_field_count": 9,
+    "h16_feature_count": 169,
+    "shared_field_count": 0,
+    "shared_fields": [],
+    "conclusion": "No direct field-name overlap. The loan form cannot be sent to H16 as a profile; a governed feature construction/data contract is required and must not be guessed."
+  },
+  "loan_simulation": {
+    "module": "src/finrisk-simulation.js",
+    "calculation_location": "browser JavaScript",
+    "api_calls": "none in simulation module",
+    "inputs_seeded_from": "Loan Application #09 MOCK localStorage",
+    "interest_rate": "user-entered hypothetical assumption; not an approved product rate"
+  },
+  "real_ml_and_decision_support": {
+    "W03_W05_source": "CORE4 snapshot + H16 LightGBM + H18 API",
+    "decision_adapter": "backend_api/decision_engine.py",
+    "decision_guardrail": {
+      "automatic_credit_decision": false,
+      "business_policy_status": "NOT_APPROVED",
+      "loan_terms_generated": false
+    }
+  },
+  "reports_history": {
+    "source": "W02 CORE4 profile + H18 decision/assess",
+    "storage": "browser localStorage only",
+    "storage_key": "finrisk.w06.report-history.v1",
+    "maximum_records": 50,
+    "user_action_required_to_save": "explicit Save to browser history",
+    "exports": [
+      "JSON",
+      "HTML"
+    ],
+    "central_database_sync": false
+  },
+  "mock_screens": {
+    "overview": "Hard-coded DEMO/MOCK dashboard and hero metrics; no API-backed aggregates.",
+    "data": "Loan application #09; browser localStorage; no API/DB.",
+    "evidence": "#19 PostgreSQL readiness UI; FinRiskIntegrationMock; localStorage; backend OFFLINE.",
+    "validation": "#10 validation of #09 form using FinRiskLoan.validate; illustrative input constraints, not credit policy.",
+    "trace": "Legacy #11 trace reads #09 localStorage and FinRiskDecisionMock; MOCK.",
+    "result": "#12 FinRiskDecisionMock scenarios; APPROVE/REVIEW/REJECT are explicitly MOCK labels.",
+    "export": "#13 finrisk.credit-report.v1-mock; local report from #09/#10/#12.",
+    "e2e": "#18 FinRiskIntegrationMock; browser simulation only; no DB/ML/API execution.",
+    "acceptance": "Manual UAT stored in localStorage; not a leader signature or centralized QA record."
+  },
+  "known_inconsistencies": [
+    "Marketing/footer copy still calls the whole application Local UI Demo / NO LIVE BACKEND although W02/W03/W05/W06 now use live CORE4/H18 paths.",
+    "Navigation contains legacy mock Trace/Result/Export/End-to-End tabs alongside real W05/W06 features; their labels/disclaimers must remain unambiguous.",
+    "M08.2 contains draft SQL design proposals only; no active migration, PostgreSQL driver or database write API is present yet.",
+    "Legacy UI persistence and UAT keys retain CarbonGraph naming; cleanup needs a migration/compatibility plan before removal."
+  ],
+  "audit_conclusion": "W01-W07 is a mixed REAL/MOCK local academic prototype. W02/W03/W05/W06 have read-only/live CORE4-H18 functions; multiple legacy modules remain browser-local MOCK. M08.2 has draft SQL proposals only; PostgreSQL persistence and authentication are not implemented.",
+  "audit_checks": [
+    {
+      "name": "13 workspace screens parsed",
+      "status": "PASS"
+    },
+    {
+      "name": "all 13 screen renderers mapped",
+      "status": "PASS"
+    },
+    {
+      "name": "W02 read-only allowlist is 38 fields",
+      "status": "PASS"
+    },
+    {
+      "name": "Loan form has no direct overlap with the 169 H16 features",
+      "status": "PASS"
+    },
+    {
+      "name": "current API routes are verified",
+      "status": "PASS"
+    },
+    {
+      "name": "no POST write route in current server",
+      "status": "PASS"
+    },
+    {
+      "name": "no PostgreSQL database driver in current server",
+      "status": "PASS"
+    },
+    {
+      "name": "no active SQL migrations in current source",
+      "status": "PASS"
+    },
+    {
+      "name": "draft SQL proposals remain separate from active migrations",
+      "status": "PASS"
+    },
+    {
+      "name": "W06 history is local and capped at 50",
+      "status": "PASS"
+    },
+    {
+      "name": "W04 calculator is browser-local",
+      "status": "PASS"
+    },
+    {
+      "name": "W05 policy guardrails preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "W06 reports validate profile before H18",
+      "status": "PASS"
+    }
+  ],
+  "audit_status": "PASS"
+}

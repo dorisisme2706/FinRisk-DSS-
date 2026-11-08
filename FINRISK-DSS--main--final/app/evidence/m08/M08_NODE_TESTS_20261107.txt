@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: M08.1 audit inventories every workspace route and renderer
+ok 1 - M08.1 audit inventories every workspace route and renderer
+  ---
+  duration_ms: 1.249339
+  type: 'test'
+  ...
+# Subtest: M08.1 audit verifies 38 read-only CORE4 fields and zero direct loan-form feature overlap
+ok 2 - M08.1 audit verifies 38 read-only CORE4 fields and zero direct loan-form feature overlap
+  ---
+  duration_ms: 0.11281
+  type: 'test'
+  ...
+# Subtest: M08.1 audit records no current PostgreSQL write implementation
+ok 3 - M08.1 audit records no current PostgreSQL write implementation
+  ---
+  duration_ms: 0.092379
+  type: 'test'
+  ...
+# Subtest: M08.1 audit preserves local-only W06 history and explicit mock inventory
+ok 4 - M08.1 audit preserves local-only W06 history and explicit mock inventory
+  ---
+  duration_ms: 0.174612
+  type: 'test'
+  ...
+# Subtest: M08 freeze manifest records the accepted W07 baseline and protected scope
+ok 5 - M08 freeze manifest records the accepted W07 baseline and protected scope
+  ---
+  duration_ms: 1.909813
+  type: 'test'
+  ...
+# Subtest: all frozen model, H16/H18 evidence and decision adapter files retain their SHA-256
+ok 6 - all frozen model, H16/H18 evidence and decision adapter files retain their SHA-256
+  ---
+  duration_ms: 7.763107
+  type: 'test'
+  ...
+# Subtest: H16 feature contract remains ordered at 169 predictors
+ok 7 - H16 feature contract remains ordered at 169 predictors
+  ---
+  duration_ms: 0.448985
+  type: 'test'
+  ...
+# Subtest: H16 threshold and calibration remain frozen and non-approving
+ok 8 - H16 threshold and calibration remain frozen and non-approving
+  ---
+  duration_ms: 0.357458
+  type: 'test'
+  ...
+# Subtest: H18 decision support does not issue credit decisions or loan terms
+ok 9 - H18 decision support does not issue credit decisions or loan terms
+  ---
+  duration_ms: 0.236846
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 111.678462

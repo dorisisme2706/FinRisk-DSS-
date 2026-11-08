@@ -1,0 +1,23 @@
+M08.2 Database Design Audit: PASS
+Checks: 19/19 PASS; 0 FAIL
+PostgreSQL live server tested: NO
+Schema SQL applied: NO (design review only)
+PASS | 12 proposed application tables declared | missing=
+PASS | Loan application contract maps form #09 | Reference, encrypted name and requested terms are present
+PASS | H16/H18 governance constraints declared | 169 count metadata only; no TARGET/feature matrix; H18 NOT_APPROVED/no-auto-decision
+PASS | Applicant identity and name are protected | Encrypted name; identity lookup exposes only user_id/status
+PASS | PII ciphertext envelope has a minimum payload and external key version | AES-GCM nonce/tag envelope proposal; key material remains outside database/source
+PASS | Business rule registry is non-executable | DRAFT/NOT_APPROVED/RETIRED only; is_executable=false
+PASS | Audit event append-only permission model | Runtime group has no UPDATE/DELETE/TRUNCATE
+PASS | RLS owner-scope policies are present | RLS-enabled tables=8
+PASS | Draft SQL is non-destructive and has no hard-coded password | No DROP/TRUNCATE; only placeholder connection data
+PASS | PostgreSQL driver is isolated from frozen H16 lock | Psycopg is a separate M08.3 adapter dependency
+PASS | 39 protected H16/H18 files still match | 39/39 MATCH
+PASS | Technical role creation is separate from database grants | Role bootstrap and schema grants are separate ordered scripts
+PASS | Future write API contract requires authentication | Draft-only API; bearer auth required
+PASS | Runtime table grants follow least privilege | H18 and validation snapshots immutable; report archive-only; scenario soft-delete only
+PASS | RLS and identity helper execute rights are explicit | Runtime can resolve a verified identity without direct app_users SELECT
+PASS | Owner and actor identity are bound in RLS insert/update checks | Application owner/creator/editor and validation executor must match transaction actor
+PASS | JSON forbidden-key guard is recursive and case-insensitive | Upper/lower-case variants of restricted keys are rejected
+PASS | Database setup distinguishes LOGIN principals from NOLOGIN groups | Example login roles and interactive password setup are documented
+PASS | Future objects and database connection default are restricted | Public table/function grants and PUBLIC database CONNECT are revoked

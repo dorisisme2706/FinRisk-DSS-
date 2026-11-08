@@ -1,0 +1,107 @@
+{
+  "schema_version": 2,
+  "audit_id": "FINRISK_M08_2_DESIGN_AUDIT_20261108",
+  "status": "PASS",
+  "checks_passed": 19,
+  "checks_total": 19,
+  "checks_failed": 0,
+  "postgres_server_tested": false,
+  "sql_applied": false,
+  "checks": [
+    {
+      "name": "12 proposed application tables declared",
+      "status": "PASS",
+      "detail": "missing="
+    },
+    {
+      "name": "Loan application contract maps form #09",
+      "status": "PASS",
+      "detail": "Reference, encrypted name and requested terms are present"
+    },
+    {
+      "name": "H16/H18 governance constraints declared",
+      "status": "PASS",
+      "detail": "169 count metadata only; no TARGET/feature matrix; H18 NOT_APPROVED/no-auto-decision"
+    },
+    {
+      "name": "Applicant identity and name are protected",
+      "status": "PASS",
+      "detail": "Encrypted name; identity lookup exposes only user_id/status"
+    },
+    {
+      "name": "PII ciphertext envelope has a minimum payload and external key version",
+      "status": "PASS",
+      "detail": "AES-GCM nonce/tag envelope proposal; key material remains outside database/source"
+    },
+    {
+      "name": "Business rule registry is non-executable",
+      "status": "PASS",
+      "detail": "DRAFT/NOT_APPROVED/RETIRED only; is_executable=false"
+    },
+    {
+      "name": "Audit event append-only permission model",
+      "status": "PASS",
+      "detail": "Runtime group has no UPDATE/DELETE/TRUNCATE"
+    },
+    {
+      "name": "RLS owner-scope policies are present",
+      "status": "PASS",
+      "detail": "RLS-enabled tables=8"
+    },
+    {
+      "name": "Draft SQL is non-destructive and has no hard-coded password",
+      "status": "PASS",
+      "detail": "No DROP/TRUNCATE; only placeholder connection data"
+    },
+    {
+      "name": "PostgreSQL driver is isolated from frozen H16 lock",
+      "status": "PASS",
+      "detail": "Psycopg is a separate M08.3 adapter dependency"
+    },
+    {
+      "name": "39 protected H16/H18 files still match",
+      "status": "PASS",
+      "detail": "39/39 MATCH"
+    },
+    {
+      "name": "Technical role creation is separate from database grants",
+      "status": "PASS",
+      "detail": "Role bootstrap and schema grants are separate ordered scripts"
+    },
+    {
+      "name": "Future write API contract requires authentication",
+      "status": "PASS",
+      "detail": "Draft-only API; bearer auth required"
+    },
+    {
+      "name": "Runtime table grants follow least privilege",
+      "status": "PASS",
+      "detail": "H18 and validation snapshots immutable; report archive-only; scenario soft-delete only"
+    },
+    {
+      "name": "RLS and identity helper execute rights are explicit",
+      "status": "PASS",
+      "detail": "Runtime can resolve a verified identity without direct app_users SELECT"
+    },
+    {
+      "name": "Owner and actor identity are bound in RLS insert/update checks",
+      "status": "PASS",
+      "detail": "Application owner/creator/editor and validation executor must match transaction actor"
+    },
+    {
+      "name": "JSON forbidden-key guard is recursive and case-insensitive",
+      "status": "PASS",
+      "detail": "Upper/lower-case variants of restricted keys are rejected"
+    },
+    {
+      "name": "Database setup distinguishes LOGIN principals from NOLOGIN groups",
+      "status": "PASS",
+      "detail": "Example login roles and interactive password setup are documented"
+    },
+    {
+      "name": "Future objects and database connection default are restricted",
+      "status": "PASS",
+      "detail": "Public table/function grants and PUBLIC database CONNECT are revoked"
+    }
+  ]
+}

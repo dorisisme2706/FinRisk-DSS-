@@ -1,0 +1,93 @@
+DIAGNOSTIC ONLY — build container Python 3.13 / scikit-learn 1.8.0 does not match the frozen CPython 3.14 / scikit-learn 1.9.1 runtime.
+This log is not target-Windows release evidence. W07 strict runtime gate must pass in the Windows .venv before considering API evidence release-valid.
+
+test_backend_exception (backend_api.test_server.ServerTests.test_backend_exception) ... PREDICTION_FAILED for a profile request:
+Traceback (most recent call last):
+  File "/mnt/data/m08_work/FINRISK-DSS--main/app/backend_api/server.py", line 193, in do_GET
+    result = scorer.score(profile_id)
+  File "/usr/lib/python3.13/unittest/mock.py", line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/unittest/mock.py", line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/unittest/mock.py", line 1228, in _execute_mock_call
+    raise effect
+RuntimeError: private path
+
+127.0.0.1 - - [07/Nov/2026 15:33:03] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 500 -
+ok
+test_customer_profile_endpoint_returns_only_allowlisted_read_only_fields (backend_api.test_server.ServerTests.test_customer_profile_endpoint_returns_only_allowlisted_read_only_fields) ... 127.0.0.1 - - [07/Nov/2026 15:33:04] "GET /api/customer/profile?sk_id_curr=100035 HTTP/1.1" 200 -
+ok
+test_customer_profile_not_found_and_reserved_test_guard (backend_api.test_server.ServerTests.test_customer_profile_not_found_and_reserved_test_guard) ... 127.0.0.1 - - [07/Nov/2026 15:33:04] "GET /api/customer/profile?sk_id_curr=999999 HTTP/1.1" 404 -
+127.0.0.1 - - [07/Nov/2026 15:33:05] "GET /api/customer/profile?sk_id_curr=100009 HTTP/1.1" 403 -
+ok
+test_customer_profile_requires_valid_id_and_ready_snapshot (backend_api.test_server.ServerTests.test_customer_profile_requires_valid_id_and_ready_snapshot) ... 127.0.0.1 - - [07/Nov/2026 15:33:05] "GET /api/customer/profile? HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:06] "GET /api/customer/profile?sk_id_curr=0 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:06] "GET /api/customer/profile?sk_id_curr=01 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:07] "GET /api/customer/profile?sk_id_curr=1.5 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:07] "GET /api/customer/profile?sk_id_curr=100035 HTTP/1.1" 503 -
+ok
+test_error_mapping (backend_api.test_server.ServerTests.test_error_mapping) ... 127.0.0.1 - - [07/Nov/2026 15:33:08] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 404 -
+127.0.0.1 - - [07/Nov/2026 15:33:08] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 403 -
+127.0.0.1 - - [07/Nov/2026 15:33:09] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 500 -
+ok
+test_h18_decision_support_never_auto_approves_or_invents_terms (backend_api.test_server.ServerTests.test_h18_decision_support_never_auto_approves_or_invents_terms) ... 127.0.0.1 - - [07/Nov/2026 15:33:09] "GET /api/decision/assess?sk_id_curr=100035 HTTP/1.1" 200 -
+ok
+test_h18_health_reports_frozen_versions (backend_api.test_server.ServerTests.test_h18_health_reports_frozen_versions) ... 127.0.0.1 - - [07/Nov/2026 15:33:10] "GET /api/ml/health HTTP/1.1" 200 -
+ok
+test_h18_no_review_signal_is_not_approval (backend_api.test_server.ServerTests.test_h18_no_review_signal_is_not_approval) ... 127.0.0.1 - - [07/Nov/2026 15:33:10] "GET /api/decision/assess?sk_id_curr=100035 HTTP/1.1" 200 -
+ok
+test_host_defaults_to_loopback_and_is_configurable (backend_api.test_server.ServerTests.test_host_defaults_to_loopback_and_is_configurable) ... ok
+test_invalid_ids (backend_api.test_server.ServerTests.test_invalid_ids) ... 127.0.0.1 - - [07/Nov/2026 15:33:11] "GET /api/ml/score? HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:11] "GET /api/decision/assess? HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:12] "GET /api/ml/score?sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:12] "GET /api/decision/assess?sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:13] "GET /api/ml/score?sk_id_curr=0 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:13] "GET /api/decision/assess?sk_id_curr=0 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:14] "GET /api/ml/score?sk_id_curr=-1 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:14] "GET /api/decision/assess?sk_id_curr=-1 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:15] "GET /api/ml/score?sk_id_curr=true HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:15] "GET /api/decision/assess?sk_id_curr=true HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:16] "GET /api/ml/score?sk_id_curr=01 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:16] "GET /api/decision/assess?sk_id_curr=01 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:17] "GET /api/ml/score?sk_id_curr=1.5 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:17] "GET /api/decision/assess?sk_id_curr=1.5 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:18] "GET /api/ml/score?sk_id_curr=1&sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:18] "GET /api/decision/assess?sk_id_curr=1&sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:19] "GET /api/ml/score?sk_id_curr=1&sk_id_curr=2 HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 15:33:19] "GET /api/decision/assess?sk_id_curr=1&sk_id_curr=2 HTTP/1.1" 400 -
+ok
+test_no_snapshot (backend_api.test_server.ServerTests.test_no_snapshot) ... 127.0.0.1 - - [07/Nov/2026 15:33:20] "GET /api/ml/health HTTP/1.1" 503 -
+127.0.0.1 - - [07/Nov/2026 15:33:20] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 503 -
+127.0.0.1 - - [07/Nov/2026 15:33:21] "GET /api/decision/assess?sk_id_curr=100035 HTTP/1.1" 503 -
+ok
+test_original_model_policy_schema (backend_api.test_server.ServerTests.test_original_model_policy_schema) ... /opt/pyvenv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator LabelEncoder from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/opt/pyvenv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator Pipeline from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+ok
+test_prediction_failure_is_logged_server_side_only (backend_api.test_server.ServerTests.test_prediction_failure_is_logged_server_side_only) ... ok
+test_private_files_and_head (backend_api.test_server.ServerTests.test_private_files_and_head) ... 127.0.0.1 - - [07/Nov/2026 15:33:23] "GET /backend_ml/model/pipeline.joblib HTTP/1.1" 404 -
+127.0.0.1 - - [07/Nov/2026 15:33:23] "GET /backend_ml/splits/split_manifest.csv HTTP/1.1" 404 -
+127.0.0.1 - - [07/Nov/2026 15:33:24] "GET /backend_ml/model/metadata.json HTTP/1.1" 404 -
+127.0.0.1 - - [07/Nov/2026 15:33:24] "GET /backend_api/server.py HTTP/1.1" 404 -
+127.0.0.1 - - [07/Nov/2026 15:33:25] "GET /src/../backend_ml/model/metadata.json HTTP/1.1" 404 -
+127.0.0.1 - - [07/Nov/2026 15:33:25] "GET /data/feature_matrix.parquet HTTP/1.1" 404 -
+127.0.0.1 - - [07/Nov/2026 15:33:26] "HEAD /backend_ml/model/pipeline.joblib HTTP/1.1" 405 -
+ok
+test_real_split_reserved_guard_without_inference (backend_api.test_server.ServerTests.test_real_split_reserved_guard_without_inference) ... ok
+test_scorer_initialized_once (backend_api.test_server.ServerTests.test_scorer_initialized_once) ... 127.0.0.1 - - [07/Nov/2026 15:33:26] "GET /api/ml/health HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 15:33:27] "GET /api/ml/health HTTP/1.1" 200 -
+ok
+test_snapshot_configuration_precedence (backend_api.test_server.ServerTests.test_snapshot_configuration_precedence) ... ok
+test_ui_assets (backend_api.test_server.ServerTests.test_ui_assets) ... 127.0.0.1 - - [07/Nov/2026 15:33:27] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 15:33:28] "GET /src/app.js HTTP/1.1" 200 -
+ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 25.270s
+
+OK

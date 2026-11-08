@@ -1,0 +1,10 @@
+M08 Core Freeze Verification: PASS
+Checks: 8/8 PASS; 0 FAIL
+PASS | Manifest protected-file count | declared=39; listed=39
+PASS | Protected files SHA-256 and size | 39/39 MATCH
+PASS | 169-feature ordered contract | order=169 unique=169; numeric=154; categorical=15; order_sha256=782078170a2e89b0d210cc1cff1959d1880872768f22c2885f978b0a4416753e
+PASS | Frozen H16 model identity | model=finrisk_lgbm_h12_demo_v0.2; sha256=7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34; features=169/169
+PASS | Frozen threshold and no-approval policy | threshold=0.14484327385366114; version=finrisk_demo_f1_validation_v1; automatic_decision=False
+PASS | Frozen calibration and post-test governance | calibration=uncalibrated_candidate_not_selected; method=logistic_recalibration_on_logit_OOF; formal_GK_review=PENDING
+PASS | Frozen data and split metadata | data_version=finrisk_v2_20261022151614259322; data_hash=a86250a18e4bf23789176759a145b69562cc5caf072665c7b131b98c2232abc0; split_hash=1992247193e6eab1d895732bc8c9350fd70fac641e1b4773ad0331a151a88417
+PASS | H18 decision-support guardrails | No automatic approval/rejection; no generated loan terms; scenario cannot alter model score.
