@@ -31,7 +31,7 @@ class DatabaseConfigTests(unittest.TestCase):
                          (False, "DB_NAME_MISSING"))
 
     def test_health_is_closed_when_database_is_not_configured(self):
-        with patch.dict(os.environ, {}, clear=True):
+        with patch.dict(os.environ, {}, clear=True), patch.object(db, "load_local_env"):
             self.assertEqual(db.database_health(),
                              {"status": "unavailable", "code": "DB_NOT_CONFIGURED"})
 

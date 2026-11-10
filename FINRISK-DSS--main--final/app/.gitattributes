@@ -1,0 +1,5 @@
+# Keep frozen Python, Markdown, JSON and CSV artifacts byte-stable on Windows.
+*.py   text eol=lf
+*.md   text eol=lf
+*.json text eol=lf
+*.csv  text eol=lf
