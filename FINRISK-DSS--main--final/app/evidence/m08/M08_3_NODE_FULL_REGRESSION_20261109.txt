@@ -1,0 +1,1065 @@
+TAP version 13
+# PASS  UAT catalog has ten unique executable cases
+# PASS  every UAT case contains sample, steps, pass, fail, fix and evidence
+# PASS  catalog covers D1, D3, D4, D5 and C9 without claiming D2 numeric acceptance
+# PASS  catalog-level guardrails remain synthetic open and blocked
+# All UAT catalog tests passed.
+# Subtest: tests/acceptance-catalog.test.js
+ok 1 - tests/acceptance-catalog.test.js
+  ---
+  duration_ms: 34.051942
+  type: 'test'
+  ...
+# PASS  new manual review starts incomplete with all cases NOT_RUN
+# PASS  one PASS cannot complete manual review
+# PASS  REVIEW_COMPLETE requires all ten cases PASS
+# PASS  manual record persists independently and rejects corrupt payload
+# PASS  manual export cannot close R-006 or approve compliance/Gate
+# PASS  unknown case or unsupported status is refused
+# All manual acceptance-engine tests passed.
+# Subtest: tests/acceptance-engine.test.js
+ok 2 - tests/acceptance-engine.test.js
+  ---
+  duration_ms: 77.225316
+  type: 'test'
+  ...
+# PASS  T-CLM-002 blocks legacy 100% tracked claim
+# PASS  T-CLM-002 blocks legacy -0.85 kg CO2e metric
+# PASS  T-CLM-002 blocks unsupported compliance and verification claims
+# PASS  current guardrail wording passes technical legacy-claim scan
+# All VR-019 legacy-claim scanner tests passed.
+# Subtest: tests/claims-engine.test.js
+ok 3 - tests/claims-engine.test.js
+  ---
+  duration_ms: 39.583139
+  type: 'test'
+  ...
+# PASS  C8 baseline completes the safe working flow
+# PASS  missing width is processed end-to-end without releasing numeric output
+# PASS  broken graph integrity changes C8 to REVIEW
+# PASS  R-006 closure is refused by C8 working export safety
+# All C8 local end-to-end safety tests passed.
+# Subtest: tests/e2e-engine.test.js
+ok 4 - tests/e2e-engine.test.js
+  ---
+  duration_ms: 42.817658
+  type: 'test'
+  ...
+# Subtest: H18 frontend calls real decision-support endpoint and keeps H16 separation
+ok 5 - H18 frontend calls real decision-support endpoint and keeps H16 separation
+  ---
+  duration_ms: 1.482432
+  type: 'test'
+  ...
+# Subtest: H18 i18n contains VI and EN decision-support messages
+ok 6 - H18 i18n contains VI and EN decision-support messages
+  ---
+  duration_ms: 0.592104
+  type: 'test'
+  ...
+# Subtest: H18 backend includes frozen model and H16 evidence
+ok 7 - H18 backend includes frozen model and H16 evidence
+  ---
+  duration_ms: 0.286097
+  type: 'test'
+  ...
+# PASS: i18n hardening static checks (8)
+# Subtest: tests/finrisk-i18n-hardening.test.js
+ok 6 - tests/finrisk-i18n-hardening.test.js
+  ---
+  duration_ms: 28.254267
+  type: 'test'
+  ...
+# PASS: 5 scoped responsive layout assertions for \#11
+# Subtest: tests/finrisk-item-11-layout.test.js
+ok 7 - tests/finrisk-item-11-layout.test.js
+  ---
+  duration_ms: 27.942352
+  type: 'test'
+  ...
+# PASS six stages
+# PASS stage order
+# PASS low status
+# PASS low score
+# PASS low six stages
+# PASS medium status
+# PASS medium score
+# PASS medium six stages
+# PASS high status
+# PASS high score
+# PASS high six stages
+# PASS missing status
+# PASS missing score
+# PASS missing six stages
+# PASS invalid input blocks
+# PASS invalid input blocks ML
+# PASS missing ML status
+# PASS MOCK source
+# PASS no side effects on scenario
+# PASS safe missing customer id
+# PASS renamed navigation
+# PASS trace module loaded
+# PASS VI EN label
+# PASS no old graph in trace render
+# TOTAL 24/24 PASS
+# Subtest: tests/finrisk-item-11.test.js
+ok 8 - tests/finrisk-item-11.test.js
+  ---
+  duration_ms: 35.065385
+  type: 'test'
+  ...
+# PASS low risk
+# PASS medium risk
+# PASS high risk
+# PASS missing ML
+# PASS invalid income
+# PASS invalid amount
+# PASS missing score
+# PASS invalid scenario
+# PASS scenario persistence
+# PASS invalid saved scenario
+# PASS loan contract
+# PASS no fetch
+# PASS assessment UI
+# PASS renamed tab
+# PASS \#09 \#10 retained
+# PASS script order
+# PASS VI EN
+# PASS MOCK label
+# 18/18 PASS
+# Subtest: tests/finrisk-item-12.test.js
+ok 9 - tests/finrisk-item-12.test.js
+  ---
+  duration_ms: 43.566867
+  type: 'test'
+  ...
+# PASS report schema and MOCK disclaimer
+# PASS application fields present
+# PASS validation PASS
+# PASS invalid application flagged
+# PASS scenario low
+# PASS scenario medium
+# PASS scenario high
+# PASS scenario missing
+# PASS JSON export parseable
+# PASS HTML standalone with disclaimer
+# PASS HTML escapes customer name
+# PASS filenames sanitized
+# PASS unsupported export blocked
+# PASS tab and script wired
+# 14/14 PASS
+# Subtest: tests/finrisk-item-13.test.js
+ok 10 - tests/finrisk-item-13.test.js
+  ---
+  duration_ms: 33.600393
+  type: 'test'
+  ...
+# PASS: \#09/\#10 18 checks (schema, valid/invalid, save/reset, integration, VI/EN)
+# Subtest: tests/finrisk-items-09-10.test.js
+ok 11 - tests/finrisk-items-09-10.test.js
+  ---
+  duration_ms: 31.384941
+  type: 'test'
+  ...
+# Subtest: 12 FinRisk UAT cases, unique IDs
+ok 14 - 12 FinRisk UAT cases, unique IDs
+  ---
+  duration_ms: 1.1117
+  type: 'test'
+  ...
+# Subtest: default results are NOT_RUN, no false PASS
+ok 15 - default results are NOT_RUN, no false PASS
+  ---
+  duration_ms: 1.002356
+  type: 'test'
+  ...
+# Subtest: record PASS/FAIL and persist
+ok 16 - record PASS/FAIL and persist
+  ---
+  duration_ms: 0.697672
+  type: 'test'
+  ...
+# Subtest: invalid UAT status rejected
+ok 17 - invalid UAT status rejected
+  ---
+  duration_ms: 0.314479
+  type: 'test'
+  ...
+# Subtest: export blocked before 12 PASS
+ok 18 - export blocked before 12 PASS
+  ---
+  duration_ms: 0.368269
+  type: 'test'
+  ...
+# Subtest: export blocked without reviewer
+ok 19 - export blocked without reviewer
+  ---
+  duration_ms: 0.197204
+  type: 'test'
+  ...
+# Subtest: export with all PASS and reviewer, but not leader approval
+ok 20 - export with all PASS and reviewer, but not leader approval
+  ---
+  duration_ms: 0.299277
+  type: 'test'
+  ...
+# Subtest: source loads UAT module before app
+ok 21 - source loads UAT module before app
+  ---
+  duration_ms: 0.216684
+  type: 'test'
+  ...
+# Subtest: legacy CarbonGraph catalog is not rendered in Test Center
+ok 22 - legacy CarbonGraph catalog is not rendered in Test Center
+  ---
+  duration_ms: 0.993243
+  type: 'test'
+  ...
+# Subtest: responsive guardrails preserve animations
+ok 23 - responsive guardrails preserve animations
+  ---
+  duration_ms: 0.680236
+  type: 'test'
+  ...
+# Subtest: core FinRisk sections remain present
+ok 24 - core FinRisk sections remain present
+  ---
+  duration_ms: 0.827015
+  type: 'test'
+  ...
+# Subtest: Navigation maps \#19 to existing evidence and \#18 to existing e2e
+ok 25 - Navigation maps \#19 to existing evidence and \#18 to existing e2e
+  ---
+  duration_ms: 0.664913
+  type: 'test'
+  ...
+# Subtest: Old CarbonGraph evidence and E2E content replaced
+ok 26 - Old CarbonGraph evidence and E2E content replaced
+  ---
+  duration_ms: 0.625163
+  type: 'test'
+  ...
+# Subtest: Integration module loaded before app
+ok 27 - Integration module loaded before app
+  ---
+  duration_ms: 0.221721
+  type: 'test'
+  ...
+# Subtest: Mock persistence and pipeline do not claim real integration
+ok 28 - Mock persistence and pipeline do not claim real integration
+  ---
+  duration_ms: 1.949871
+  type: 'test'
+  ...
+# Subtest: M08.1 audit inventories every workspace route and renderer
+ok 29 - M08.1 audit inventories every workspace route and renderer
+  ---
+  duration_ms: 1.701109
+  type: 'test'
+  ...
+# Subtest: M08.1 audit verifies 38 read-only CORE4 fields and zero direct loan-form feature overlap
+ok 30 - M08.1 audit verifies 38 read-only CORE4 fields and zero direct loan-form feature overlap
+  ---
+  duration_ms: 0.112368
+  type: 'test'
+  ...
+# Subtest: M08.1 audit records no current PostgreSQL write implementation
+ok 31 - M08.1 audit records no current PostgreSQL write implementation
+  ---
+  duration_ms: 0.152748
+  type: 'test'
+  ...
+# Subtest: M08.1 distinguishes M08.2 SQL design proposals from active database migrations
+ok 32 - M08.1 distinguishes M08.2 SQL design proposals from active database migrations
+  ---
+  duration_ms: 0.138186
+  type: 'test'
+  ...
+# Subtest: M08.1 audit preserves local-only W06 history and explicit mock inventory
+ok 33 - M08.1 audit preserves local-only W06 history and explicit mock inventory
+  ---
+  duration_ms: 0.212167
+  type: 'test'
+  ...
+# Subtest: M08.2 proposes 12 app-owned entities
+ok 34 - M08.2 proposes 12 app-owned entities
+  ---
+  duration_ms: 1.704645
+  type: 'test'
+  ...
+# Subtest: M08.2 keeps CORE4 and H16 outside the application DB
+ok 35 - M08.2 keeps CORE4 and H16 outside the application DB
+  ---
+  duration_ms: 1.287552
+  type: 'test'
+  ...
+# Subtest: Form \#09 application fields are distinguished from CORE4 ID
+ok 36 - Form \#09 application fields are distinguished from CORE4 ID
+  ---
+  duration_ms: 0.38215
+  type: 'test'
+  ...
+# Subtest: Applicant PII contract uses ciphertext and keeps encryption keys outside source/database
+ok 37 - Applicant PII contract uses ciphertext and keeps encryption keys outside source/database
+  ---
+  duration_ms: 0.275251
+  type: 'test'
+  ...
+# Subtest: H18 remains a support signal, never a credit decision
+ok 38 - H18 remains a support signal, never a credit decision
+  ---
+  duration_ms: 0.351294
+  type: 'test'
+  ...
+# Subtest: Financial validation is explicitly input-quality only
+ok 39 - Financial validation is explicitly input-quality only
+  ---
+  duration_ms: 0.185757
+  type: 'test'
+  ...
+# Subtest: W04 scenario storage is hypothetical and isolated
+ok 40 - W04 scenario storage is hypothetical and isolated
+  ---
+  duration_ms: 0.223244
+  type: 'test'
+  ...
+# Subtest: Rule registry cannot execute or be approved in this proposal
+ok 41 - Rule registry cannot execute or be approved in this proposal
+  ---
+  duration_ms: 0.169563
+  type: 'test'
+  ...
+# Subtest: RLS and append-only audit design are present
+ok 42 - RLS and append-only audit design are present
+  ---
+  duration_ms: 0.975686
+  type: 'test'
+  ...
+# Subtest: Credentials are placeholders and DB driver does not alter H16 lock
+ok 43 - Credentials are placeholders and DB driver does not alter H16 lock
+  ---
+  duration_ms: 0.4487
+  type: 'test'
+  ...
+# Subtest: M08.2 API contract is draft and secured
+ok 44 - M08.2 API contract is draft and secured
+  ---
+  duration_ms: 0.172948
+  type: 'test'
+  ...
+# Subtest: Runtime grants keep H18 and validation snapshots immutable
+ok 45 - Runtime grants keep H18 and validation snapshots immutable
+  ---
+  duration_ms: 0.175772
+  type: 'test'
+  ...
+# Subtest: RLS helper functions have explicit runtime grants and app_users is not exposed
+ok 46 - RLS helper functions have explicit runtime grants and app_users is not exposed
+  ---
+  duration_ms: 0.360047
+  type: 'test'
+  ...
+# Subtest: JSON forbidden keys are rejected recursively regardless of letter case
+ok 47 - JSON forbidden keys are rejected recursively regardless of letter case
+  ---
+  duration_ms: 0.162192
+  type: 'test'
+  ...
+# Subtest: SQL setup keeps database login principals separate from NOLOGIN groups
+ok 48 - SQL setup keeps database login principals separate from NOLOGIN groups
+  ---
+  duration_ms: 0.118717
+  type: 'test'
+  ...
+# Subtest: Default ACL and database CONNECT are restricted from PUBLIC
+ok 49 - Default ACL and database CONNECT are restricted from PUBLIC
+  ---
+  duration_ms: 0.274109
+  type: 'test'
+  ...
+# Subtest: M08 freeze manifest records the accepted W07 baseline and protected scope
+ok 50 - M08 freeze manifest records the accepted W07 baseline and protected scope
+  ---
+  duration_ms: 2.379912
+  type: 'test'
+  ...
+# Subtest: all frozen model, H16/H18 evidence and decision adapter files retain their SHA-256
+ok 51 - all frozen model, H16/H18 evidence and decision adapter files retain their SHA-256
+  ---
+  duration_ms: 8.29995
+  type: 'test'
+  ...
+# Subtest: H16 feature contract remains ordered at 169 predictors
+ok 52 - H16 feature contract remains ordered at 169 predictors
+  ---
+  duration_ms: 0.412035
+  type: 'test'
+  ...
+# Subtest: H16 threshold and calibration remain frozen and non-approving
+ok 53 - H16 threshold and calibration remain frozen and non-approving
+  ---
+  duration_ms: 0.240158
+  type: 'test'
+  ...
+# Subtest: H18 decision support does not issue credit decisions or loan terms
+ok 54 - H18 decision support does not issue credit decisions or loan terms
+  ---
+  duration_ms: 0.172067
+  type: 'test'
+  ...
+# PASS: four header links, no orphan comparison link, translations and navigation preserved
+# Subtest: tests/finrisk-nav-no-compare.test.js
+ok 17 - tests/finrisk-nav-no-compare.test.js
+  ---
+  duration_ms: 38.066461
+  type: 'test'
+  ...
+# PASS Brand palette forest preserved
+# PASS Brand palette forest-deep preserved
+# PASS Brand palette leaf preserved
+# PASS Brand palette mint preserved
+# PASS Brand palette sage preserved
+# PASS Accessible workspace labels
+# PASS Marketing gradients remain
+# PASS Canvas / graph still driven by requestAnimationFrame
+# PASS Original responsive node density preserved
+# PASS Pointer glow still supported
+# PASS Reduced-motion media changes supported
+# PASS Resizing preserves particle positions
+# All FinRisk UI \#01/\#02 preservation assertions PASS.
+# Subtest: tests/finrisk-ui-01-02.test.js
+ok 18 - tests/finrisk-ui-01-02.test.js
+  ---
+  duration_ms: 31.922423
+  type: 'test'
+  ...
+# PASS Original two-tier marketing / workspace structure kept
+# PASS Four functional marketing header links retained
+# PASS Mobile menu controls marketing navigation
+# PASS Mobile menu starts collapsed
+# PASS Menu accessible via keyboard
+# PASS Menu closes on outside pointer
+# PASS Menu closes when breakpoint changes
+# PASS Marketing section active state accessible
+# PASS Workspace active page accessible
+# PASS Overview section scroll accounts for sticky header
+# PASS No unnecessary re-render when already in Overview
+# PASS Animation only on changed screens
+# PASS Animation removed on completion
+# PASS Short animation styled
+# PASS Reduced motion respected
+# PASS Tablet/mobile marketing links available when toggled
+# PASS Approved palette retained
+# PASS Approved canvas animation unchanged
+# PASS News retained
+# PASS Roadmap retained
+# All 20 UI \#03 / \#04 static checks PASS.
+# Subtest: tests/finrisk-ui-03-04.test.js
+ok 19 - tests/finrisk-ui-03-04.test.js
+  ---
+  duration_ms: 33.93665
+  type: 'test'
+  ...
+# PASS FinRisk hero heading
+# PASS FinRisk overview
+# PASS CTA to application
+# PASS CTA to trace
+# PASS Dashboard section
+# PASS Dashboard CSS
+# PASS Demo disclosure in source
+# PASS Existing theme stylesheet
+# 8 static checks passed; browser behavior NOT tested
+# Subtest: tests/finrisk-ui-05-06.test.js
+ok 20 - tests/finrisk-ui-05-06.test.js
+  ---
+  duration_ms: 31.61173
+  type: 'test'
+  ...
+# PASS News section retained
+# PASS Finance heading
+# PASS 6 news cards
+# PASS All cards have source
+# PASS All cards have image
+# PASS All links secure
+# PASS No CBAM in News
+# PASS Image files exist
+# PASS Two new cards have source links
+# PASS Previous dashboard intact
+# PASS Roadmap intact
+# 11/11 PASS
+# Subtest: tests/finrisk-ui-07.test.js
+ok 21 - tests/finrisk-ui-07.test.js
+  ---
+  duration_ms: 36.185758
+  type: 'test'
+  ...
+# PASS: \#08 roadmap content and 3-card layout
+# Subtest: tests/finrisk-ui-08.test.js
+ok 22 - tests/finrisk-ui-08.test.js
+  ---
+  duration_ms: 33.455792
+  type: 'test'
+  ...
+# PASS Footer exists
+# PASS FinRisk brand
+# PASS No legacy CBAM in footer
+# PASS Four footer columns
+# PASS News anchor
+# PASS Roadmap anchor
+# PASS FAQ anchor
+# PASS Mock label
+# PASS Financial disclaimer
+# PASS No invented contact
+# PASS Footer responsive rules retained
+# PASS Existing animation canvas retained
+# 12/12 PASS
+# Subtest: tests/finrisk-ui-14.test.js
+ok 23 - tests/finrisk-ui-14.test.js
+  ---
+  duration_ms: 35.819482
+  type: 'test'
+  ...
+# PASS VI/EN toggle exists
+# PASS Language storage persists
+# PASS Saved language restored
+# PASS HTML lang synchronized
+# PASS Hero translations
+# PASS Dashboard translations
+# PASS News translations
+# PASS Roadmap translations
+# PASS Footer translations
+# PASS Translation on dynamic DOM
+# PASS VI restoration supported
+# PASS Existing 6 news cards
+# PASS Existing 3 roadmap cards
+# PASS Ambient animation retained
+# PASS No backend integration added
+# 15/15 PASS
+# Subtest: tests/finrisk-ui-15.test.js
+ok 24 - tests/finrisk-ui-15.test.js
+  ---
+  duration_ms: 30.527681
+  type: 'test'
+  ...
+# PASS No visible \#16 demo section
+# PASS No demo feedback buttons
+# PASS No demo binding
+# PASS No feedback demo CSS
+# PASS Shared toast retained
+# PASS FinRisk default toast title
+# PASS Toast error style
+# PASS Toast dismiss button
+# PASS Loading button helper
+# PASS Busy action helper
+# PASS Busy button disabled
+# PASS Busy button reenabled
+# PASS Existing VI/EN translations
+# PASS Six news cards preserved
+# PASS Three roadmap cards preserved
+# 15/15 PASS
+# Subtest: tests/finrisk-ui-16.test.js
+ok 25 - tests/finrisk-ui-16.test.js
+  ---
+  duration_ms: 37.008721
+  type: 'test'
+  ...
+# PASS Required file: assets/styles.css
+# PASS Required file: src/app.js
+# PASS Required file: src/ambient-graph.js
+# PASS Required file: src/i18n.js
+# PASS Required file: src/state.js
+# PASS Required file: src/validation-engine.js
+# PASS Required file: src/graph-engine.js
+# PASS Required file: src/release-engine.js
+# PASS Required file: src/report-engine.js
+# PASS Required file: src/persistence.js
+# PASS Required file: qa/responsive_qa.py
+# PASS Script exists: src/demo-data.js
+# PASS Script exists: src/validation-rules.js
+# PASS Script exists: src/validation-engine.js
+# PASS Script exists: src/graph-model.js
+# PASS Script exists: src/graph-engine.js
+# PASS Script exists: src/release-engine.js
+# PASS Script exists: src/report-engine.js
+# PASS Script exists: src/e2e-engine.js
+# PASS Script exists: src/acceptance-catalog.js
+# PASS Script exists: src/acceptance-engine.js
+# PASS Script exists: src/persistence.js
+# PASS Script exists: src/state.js
+# PASS Script exists: src/ambient-graph.js
+# PASS Script exists: src/finrisk-loan.js
+# PASS Script exists: src/finrisk-simulation.js
+# PASS Script exists: src/finrisk-decision-mock.js
+# PASS Script exists: src/finrisk-decision-trace.js
+# PASS Script exists: src/finrisk-decision-engine.js
+# PASS Script exists: src/finrisk-credit-report.js
+# PASS Script exists: src/finrisk-report-history.js
+# PASS Script exists: src/finrisk-uat.js
+# PASS Script exists: src/finrisk-integration-mock.js
+# PASS Script exists: src/app.js
+# PASS Script exists: src/i18n.js
+# PASS Stylesheet exists: assets/styles.css
+# PASS FinRisk news asset retained: credit-policy.svg
+# PASS FinRisk news asset retained: risk-management.svg
+# PASS FinRisk news asset retained: financial-access.svg
+# PASS FinRisk news asset retained: credit-data.svg
+# PASS FinRisk news asset retained: digital-savings.svg
+# PASS FinRisk news asset retained: vietnam-findex.svg
+# PASS Workspace screen preserved: overview
+# PASS Workspace screen preserved: data
+# PASS Workspace screen preserved: evidence
+# PASS Workspace screen preserved: validation
+# PASS Workspace screen preserved: trace
+# PASS Workspace screen preserved: result
+# PASS Workspace screen preserved: export
+# PASS Workspace screen preserved: e2e
+# PASS Workspace screen preserved: acceptance
+# PASS Mobile overflow fixes scoped to <=640
+# PASS Long technical titles wrap
+# PASS Forest palette unchanged
+# PASS Ambient engine not removed
+# PASS Roadmap retained
+# PASS News retained
+# PASS Selected mobile workspace tab kept visible
+# All 58 FinRisk UI \#20 static assertions PASS.
+# Subtest: tests/finrisk-ui-20.test.js
+ok 26 - tests/finrisk-ui-20.test.js
+  ---
+  duration_ms: 37.16561
+  type: 'test'
+  ...
+# Subtest: W03 live ML panel shows calibration, threshold scope, quality-flag text and log-odds breakdown
+ok 65 - W03 live ML panel shows calibration, threshold scope, quality-flag text and log-odds breakdown
+  ---
+  duration_ms: 1.747479
+  type: 'test'
+  ...
+# Subtest: W03 does not invent Low/Medium/High risk levels or loan terms in the live ML panel
+ok 66 - W03 does not invent Low/Medium/High risk levels or loan terms in the live ML panel
+  ---
+  duration_ms: 1.23917
+  type: 'test'
+  ...
+# Subtest: W03 margin decomposition validator accepts a consistent decomposition and rejects others
+ok 67 - W03 margin decomposition validator accepts a consistent decomposition and rejects others
+  ---
+  duration_ms: 1.103767
+  type: 'test'
+  ...
+# Subtest: W03 i18n: every new key has VI and EN text
+ok 68 - W03 i18n: every new key has VI and EN text
+  ---
+  duration_ms: 1.863082
+  type: 'test'
+  ...
+# Subtest: W01 legacy CarbonGraph/CBAM translation lines are gone from i18n
+ok 69 - W01 legacy CarbonGraph/CBAM translation lines are gone from i18n
+  ---
+  duration_ms: 0.619104
+  type: 'test'
+  ...
+# Subtest: W01 responsive rules for the live ML panel exist and the launcher exposes an optional host
+ok 70 - W01 responsive rules for the live ML panel exist and the launcher exposes an optional host
+  ---
+  duration_ms: 0.727897
+  type: 'test'
+  ...
+# Subtest: W01 polish: no double parentheses, natural English policy wording, edit button aligned
+ok 71 - W01 polish: no double parentheses, natural English policy wording, edit button aligned
+  ---
+  duration_ms: 2.246784
+  type: 'test'
+  ...
+# Subtest: W02 customer profile is a separate, navigable workspace screen
+ok 72 - W02 customer profile is a separate, navigable workspace screen
+  ---
+  duration_ms: 1.817493
+  type: 'test'
+  ...
+# Subtest: W02 uses the read-only CORE4 profile endpoint and validates its response contract
+ok 73 - W02 uses the read-only CORE4 profile endpoint and validates its response contract
+  ---
+  duration_ms: 0.849999
+  type: 'test'
+  ...
+# Subtest: W02 displays the five documented CORE4 profile groups without inventing personal identity fields
+ok 74 - W02 displays the five documented CORE4 profile groups without inventing personal identity fields
+  ---
+  duration_ms: 0.792223
+  type: 'test'
+  ...
+# Subtest: W02 additive responsive styles and bilingual labels are present
+ok 75 - W02 additive responsive styles and bilingual labels are present
+  ---
+  duration_ms: 2.704788
+  type: 'test'
+  ...
+# Subtest: W04 annuity schedule supports a zero-interest scenario
+ok 76 - W04 annuity schedule supports a zero-interest scenario
+  ---
+  duration_ms: 1.133021
+  type: 'test'
+  ...
+# Subtest: W04 annuity schedule returns a level scheduled payment for a positive rate
+ok 77 - W04 annuity schedule returns a level scheduled payment for a positive rate
+  ---
+  duration_ms: 0.359376
+  type: 'test'
+  ...
+# Subtest: W04 equal-principal schedule keeps principal constant and installments decline
+ok 78 - W04 equal-principal schedule keeps principal constant and installments decline
+  ---
+  duration_ms: 0.252007
+  type: 'test'
+  ...
+# Subtest: W04 amortization schedule closes the balance and reconciles principal, interest and repayment
+ok 79 - W04 amortization schedule closes the balance and reconciles principal, interest and repayment
+  ---
+  duration_ms: 1.307752
+  type: 'test'
+  ...
+# Subtest: W04 validates all input boundaries and rejects unknown repayment methods
+ok 80 - W04 validates all input boundaries and rejects unknown repayment methods
+  ---
+  duration_ms: 0.648298
+  type: 'test'
+  ...
+# Subtest: W04 reference cash flow is arithmetic only and does not emit a pass/fail decision
+ok 81 - W04 reference cash flow is arithmetic only and does not emit a pass/fail decision
+  ---
+  duration_ms: 0.162122
+  type: 'test'
+  ...
+# Subtest: W04 is registered as a separate screen and loads its local-only simulation engine
+ok 82 - W04 is registered as a separate screen and loads its local-only simulation engine
+  ---
+  duration_ms: 1.031329
+  type: 'test'
+  ...
+# Subtest: W04 has explicit VI/EN copy and responsive rules for mobile, tablet and desktop layouts
+ok 83 - W04 has explicit VI/EN copy and responsive rules for mobile, tablet and desktop layouts
+  ---
+  duration_ms: 1.001054
+  type: 'test'
+  ...
+# Subtest: W05 is a separate navigation route and uses the real H18 decision-assess endpoint
+ok 84 - W05 is a separate navigation route and uses the real H18 decision-assess endpoint
+  ---
+  duration_ms: 2.534974
+  type: 'test'
+  ...
+# Subtest: W05 trace never emits an approval/rejection decision or loan terms
+ok 85 - W05 trace never emits an approval/rejection decision or loan terms
+  ---
+  duration_ms: 1.356825
+  type: 'test'
+  ...
+# Subtest: W05 validates policy boundary, threshold comparison and H18 metadata
+ok 86 - W05 validates policy boundary, threshold comparison and H18 metadata
+  ---
+  duration_ms: 0.273728
+  type: 'test'
+  ...
+# Subtest: W05 renders business guardrails and VI/EN translation keys
+ok 87 - W05 renders business guardrails and VI/EN translation keys
+  ---
+  duration_ms: 1.250056
+  type: 'test'
+  ...
+# Subtest: W05 keeps final lending decision and history unissued/unwritten
+ok 88 - W05 keeps final lending decision and history unissued/unwritten
+  ---
+  duration_ms: 1.679387
+  type: 'test'
+  ...
+# Subtest: W06 report is built only from matching read-only CORE4 profile and valid H18 response
+ok 89 - W06 report is built only from matching read-only CORE4 profile and valid H18 response
+  ---
+  duration_ms: 2.482346
+  type: 'test'
+  ...
+# Subtest: W06 rejects forbidden or unexpected CORE4 profile fields
+ok 90 - W06 rejects forbidden or unexpected CORE4 profile fields
+  ---
+  duration_ms: 0.582579
+  type: 'test'
+  ...
+# Subtest: W06 rejects mismatched IDs, test-reserved profiles and altered H18 policy signals
+ok 91 - W06 rejects mismatched IDs, test-reserved profiles and altered H18 policy signals
+  ---
+  duration_ms: 0.297804
+  type: 'test'
+  ...
+# Subtest: W06 supports NO_REVIEW_SIGNAL without interpreting it as approval
+ok 92 - W06 supports NO_REVIEW_SIGNAL without interpreting it as approval
+  ---
+  duration_ms: 0.666265
+  type: 'test'
+  ...
+# Subtest: W06 history is explicit browser-local storage, bounded to 50 and supports remove/clear
+ok 93 - W06 history is explicit browser-local storage, bounded to 50 and supports remove/clear
+  ---
+  duration_ms: 41.456616
+  type: 'test'
+  ...
+# Subtest: W06 does not write history until explicit save and protects invalid local records
+ok 94 - W06 does not write history until explicit save and protects invalid local records
+  ---
+  duration_ms: 0.298976
+  type: 'test'
+  ...
+# Subtest: W06 exports escaped HTML and complete structured JSON with safe file names
+ok 95 - W06 exports escaped HTML and complete structured JSON with safe file names
+  ---
+  duration_ms: 16.888751
+  type: 'test'
+  ...
+# Subtest: W06 is a separate VI/EN workspace screen using CORE4 and H18 endpoints
+ok 96 - W06 is a separate VI/EN workspace screen using CORE4 and H18 endpoints
+  ---
+  duration_ms: 2.225051
+  type: 'test'
+  ...
+# Subtest: W06 adds mobile, tablet and desktop responsive layouts without changing the frozen ML bundle
+ok 97 - W06 adds mobile, tablet and desktop responsive layouts without changing the frozen ML bundle
+  ---
+  duration_ms: 0.668768
+  type: 'test'
+  ...
+# Subtest: W07: navigation contains the six W01-W06 workspaces and retains legacy demo screens
+ok 98 - W07: navigation contains the six W01-W06 workspaces and retains legacy demo screens
+  ---
+  duration_ms: 1.322705
+  type: 'test'
+  ...
+# Subtest: W07: every navigation screen has a renderer
+ok 99 - W07: every navigation screen has a renderer
+  ---
+  duration_ms: 0.435761
+  type: 'test'
+  ...
+# Subtest: W07: all W02-W06 browser modules load before app initialization
+ok 100 - W07: all W02-W06 browser modules load before app initialization
+  ---
+  duration_ms: 0.734476
+  type: 'test'
+  ...
+# Subtest: W07: W02 exposes exactly 38 CORE4 fields through a read-only allowlist
+ok 101 - W07: W02 exposes exactly 38 CORE4 fields through a read-only allowlist
+  ---
+  duration_ms: 0.561709
+  type: 'test'
+  ...
+# Subtest: W07: W04 supports both repayment methods and a zero-interest case without backend inference
+ok 102 - W07: W04 supports both repayment methods and a zero-interest case without backend inference
+  ---
+  duration_ms: 0.202953
+  type: 'test'
+  ...
+# Subtest: W07: W05 validates H18 signals and fails closed on unapproved policy or generated loan terms
+ok 103 - W07: W05 validates H18 signals and fails closed on unapproved policy or generated loan terms
+  ---
+  duration_ms: 0.27431
+  type: 'test'
+  ...
+# Subtest: W07: W05 tab label has the approved VI/EN translation pair
+ok 104 - W07: W05 tab label has the approved VI/EN translation pair
+  ---
+  duration_ms: 0.149973
+  type: 'test'
+  ...
+# Subtest: W07: W06 reads the W02 profile before requesting the H18 assessment
+ok 105 - W07: W06 reads the W02 profile before requesting the H18 assessment
+  ---
+  duration_ms: 0.161602
+  type: 'test'
+  ...
+# Subtest: W07: W06 history is browser-local, explicit-save, and bounded to 50 records
+ok 106 - W07: W06 history is browser-local, explicit-save, and bounded to 50 records
+  ---
+  duration_ms: 0.432135
+  type: 'test'
+  ...
+# Subtest: W07: W06 export supports JSON and escaped HTML with explicit non-decision guardrails
+ok 107 - W07: W06 export supports JSON and escaped HTML with explicit non-decision guardrails
+  ---
+  duration_ms: 0.486487
+  type: 'test'
+  ...
+# Subtest: W07: W06 and W02 navigation labels have VI/EN translations
+ok 108 - W07: W06 and W02 navigation labels have VI/EN translations
+  ---
+  duration_ms: 0.271646
+  type: 'test'
+  ...
+# Subtest: W07: W02/W04/W05/W06 have scoped responsive rules for mobile and tablet widths
+ok 109 - W07: W02/W04/W05/W06 have scoped responsive rules for mobile and tablet widths
+  ---
+  duration_ms: 0.419366
+  type: 'test'
+  ...
+# Subtest: W07: backend binds to loopback by default and warns when network binding is enabled
+ok 110 - W07: backend binds to loopback by default and warns when network binding is enabled
+  ---
+  duration_ms: 0.160169
+  type: 'test'
+  ...
+# Subtest: W07: Windows setup selects CPython 3.14 and safely backs up an incompatible virtual environment
+ok 111 - W07: Windows setup selects CPython 3.14 and safely backs up an incompatible virtual environment
+  ---
+  duration_ms: 0.074311
+  type: 'test'
+  ...
+# Subtest: W07: environment compatibility gate checks all lock pins and blocks sklearn version warnings
+ok 112 - W07: environment compatibility gate checks all lock pins and blocks sklearn version warnings
+  ---
+  duration_ms: 0.079138
+  type: 'test'
+  ...
+# Subtest: W07: ML, API, full-test and H19 launchers require the strict runtime preflight
+ok 113 - W07: ML, API, full-test and H19 launchers require the strict runtime preflight
+  ---
+  duration_ms: 0.098066
+  type: 'test'
+  ...
+# Subtest: W07: full regression runner fails instead of silently skipping the Python gate
+ok 114 - W07: full regression runner fails instead of silently skipping the Python gate
+  ---
+  duration_ms: 0.083245
+  type: 'test'
+  ...
+# Subtest: W07: setup_windows.bat does not use unescaped parentheses in the IF-block launcher error
+ok 115 - W07: setup_windows.bat does not use unescaped parentheses in the IF-block launcher error
+  ---
+  duration_ms: 0.090495
+  type: 'test'
+  ...
+# PASS  D1 baseline scope and schema guardrails are testable
+# PASS  D2 non-numeric reconciliation keeps candidate and real classification separate
+# PASS  D3 negative input becomes MISSING instead of zero or accepted
+# PASS  D4 trace has complete core relations and no orphan edge
+# PASS  D4 working export preserves trace while redacting numeric emissions
+# All formal D1-D4 boundary tests passed.
+# Subtest: tests/formal-d1-d4.test.js
+ok 33 - tests/formal-d1-d4.test.js
+  ---
+  duration_ms: 38.954224
+  type: 'test'
+  ...
+# PASS  baseline dynamic graph has PASS integrity
+# PASS  working batch identity replaces baseline batch node
+# PASS  working HRC lot identity rebuilds CONSUMES and IS_LOT_OF edges
+# PASS  validation issues become graph nodes linked to their rule
+# PASS  blank batch causes graph REVIEW instead of fabricating an identity
+# All C5 graph-engine tests passed.
+# Subtest: tests/graph-engine.test.js
+ok 34 - tests/graph-engine.test.js
+  ---
+  duration_ms: 33.934137
+  type: 'test'
+  ...
+# PASS  persistence stores only editable working fields
+# PASS  saved working fields restore onto trusted baseline
+# PASS  clear removes persisted working state
+# PASS  v0.6 restores the v0.5 working-state key for continuity
+# All local persistence tests passed.
+# Subtest: tests/persistence.test.js
+ok 35 - tests/persistence.test.js
+  ---
+  duration_ms: 33.069631
+  type: 'test'
+  ...
+# PASS  initial pipeline derives validation, graph and release
+# PASS  changing batch rebuilds dynamic graph in same transaction
+# PASS  missing width propagates Input -> Validation -> Graph -> Release
+# PASS  working state reaches C7 export with numeric result excluded
+# PASS  C8 confirms technical flow without claiming compliance acceptance
+# All v0.6 end-to-end derived-state tests passed.
+# Subtest: tests/pipeline.test.js
+ok 36 - tests/pipeline.test.js
+  ---
+  duration_ms: 40.938142
+  type: 'test'
+  ...
+# PASS  synthetic baseline is always BLOCKED and MASKED
+# PASS  validation release blockers appear in release reasons
+# PASS  graph REVIEW becomes an explicit release blocker
+# PASS  C6 never invents numeric emissions
+# All C6 release-engine tests passed.
+# Subtest: tests/release-engine.test.js
+ok 37 - tests/release-engine.test.js
+  ---
+  duration_ms: 34.93516
+  type: 'test'
+  ...
+# PASS  C7 report is explicitly working-only and synthetic
+# PASS  C7 report keeps R-006 open and numeric output excluded
+# PASS  candidate CN8 remains separate from real CN8
+# PASS  HTML export contains guardrails and no emission unit/value field
+# PASS  JSON export excludes release numericValue and SEE value
+# PASS  validation issues propagate into the working report
+# PASS  C7 fails closed if R-006 is not OPEN
+# PASS  download filenames are trace-based and local-safe
+# All C7 working-export tests passed.
+# Subtest: tests/report-engine.test.js
+ok 38 - tests/report-engine.test.js
+  ---
+  duration_ms: 48.681021
+  type: 'test'
+  ...
+# PASS  normalizeId uppercases and removes unsupported characters
+# PASS  blank numeric input remains null and never becomes zero
+# PASS  origin is normalized to ISO2 working format
+# PASS  data_origin cannot be changed through C2 input patch
+# PASS  batch identity changes are stored in working state
+# PASS  C3 automatically reclassifies baseline-compatible width change
+# PASS  blank width is stored as null and C3 removes candidate
+# PASS  pickled input is reclassified by C3
+# PASS  reset restores synthetic baseline and revalidates
+# All C2/C3 state integration tests passed.
+# Subtest: tests/state.test.js
+ok 39 - tests/state.test.js
+  ---
+  duration_ms: 36.656047
+  type: 'test'
+  ...
+# PASS  T-VAL-001 rejects missing or duplicate official identifiers
+# PASS  T-VAL-002 blocks values outside the locked MVP scope
+# PASS  T-VAL-003 blocks blank or different finished product CN
+# PASS  T-VAL-004 rejects invalid, reversed or out-of-2026 periods
+# PASS  T-VAL-005 rejects invalid optional numeric inputs without converting blanks to zero
+# PASS  T-EVD-001 downgrades ACCEPTED evidence without reviewer approval
+# PASS  T-EVD-002 blocks a selected factor with incomplete source metadata
+# PASS  T-TRACE-001 requires trace ID and calculation version when numeric is attempted
+# PASS  T-DATA-001 keeps synthetic dataset REVIEW until assumptions and approval are complete
+# All expanded VR-001–VR-016 fail-closed tests passed.
+# Subtest: tests/validation-coverage.test.js
+ok 40 - tests/validation-coverage.test.js
+  ---
+  duration_ms: 41.910574
+  type: 'test'
+  ...
+# PASS  baseline synthetic branch returns candidate 72083800
+# PASS  missing width creates blocker and removes candidate
+# PASS  pickled branch returns candidate 72082600
+# PASS  coated branch remains REVIEW and does not invent CN8
+# PASS  width below 600 is explicitly unsupported instead of guessed
+# PASS  thickness outside tested branch stays REVIEW
+# PASS  invalid origin produces validation error
+# PASS  baseline governance keeps release blocked
+# All C3 validation-engine tests passed.
+# Subtest: tests/validation-engine.test.js
+ok 41 - tests/validation-engine.test.js
+  ---
+  duration_ms: 35.68041
+  type: 'test'
+  ...
+1..124
+# tests 124
+# suites 0
+# pass 124
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1807.121203

@@ -1,0 +1,71 @@
+{
+  "audit_id": "FINRISK_M08_3_POSTGRES_FOUNDATION_20261109",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "two ordered versioned migrations exist",
+      "status": "PASS"
+    },
+    {
+      "name": "migration runner validates SHA-256 checksums",
+      "status": "PASS"
+    },
+    {
+      "name": "migration runner serializes execution with advisory transaction lock",
+      "status": "PASS"
+    },
+    {
+      "name": "migration runner enforces PostgreSQL 16-18",
+      "status": "PASS"
+    },
+    {
+      "name": "database URLs are restricted to loopback",
+      "status": "PASS"
+    },
+    {
+      "name": "health endpoint does not expose connection details",
+      "status": "PASS"
+    },
+    {
+      "name": "caller-settable actor GUC removed",
+      "status": "PASS"
+    },
+    {
+      "name": "caller-parameterized SECURITY DEFINER resolver removed",
+      "status": "PASS"
+    },
+    {
+      "name": "RLS actor context fails closed until trusted auth exists",
+      "status": "PASS"
+    },
+    {
+      "name": "H16 model lock remains separate",
+      "status": "PASS"
+    },
+    {
+      "name": "migration SQL contains no H16 artifacts or destructive table operations",
+      "status": "PASS"
+    },
+    {
+      "name": "runtime health reads migration version without table-wide SELECT",
+      "status": "PASS"
+    },
+    {
+      "name": "write API remains closed pending trusted authentication",
+      "status": "PASS"
+    }
+  ],
+  "migration_files": [
+    {
+      "name": "0001_initial_schema.sql",
+      "sha256": "f80659267ed3b8845d992837c5099c9c983e03bd453170679cda057fd11b28a0"
+    },
+    {
+      "name": "0002_runtime_grants.sql",
+      "sha256": "0b73b2f877fb6b9cf2ed442d6440184a600f9f0abeea7ae906cfec439ed54013"
+    }
+  ],
+  "live_database_tested": false,
+  "authentication_integrated": false,
+  "write_api_enabled": false
+}

@@ -50,10 +50,10 @@ See `M08_2_ERD_20261108.md`. The draft physical SQL is in `database/proposals/00
 
 ## 5. Identity and ownership
 
-- `app_users` maps an external verified identity (`identity_provider`, `identity_subject`) to an internal UUID. No password, email, phone or access token is stored in this table. Runtime identity resolution is through a narrow SECURITY DEFINER function; the runtime role has no direct SELECT on this table.
+- `app_users` is the planned mapping from an external verified identity (`identity_provider`, `identity_subject`) to an internal UUID. No password, email, phone or access token is stored in this table. M08.3 removes the caller-parameterized SECURITY DEFINER resolver; a trusted authentication adapter must establish identity before any runtime lookup is enabled.
 - Roles are `VIEWER`, `LOAN_OFFICER`, `REVIEWER`, `AUDITOR`, `ADMIN`, `QA`.
 - The API derives `owner_user_id`, `created_by`, `updated_by` and other actor fields from a verified session/token. It must never accept an owner ID or actor ID from the request body as authority. The draft SQL constrains inserted actor fields to the transaction-local verified actor context.
-- `finrisk.user_id` is a transaction-local DB context used by row-level security (RLS). The API may set it only after verifying the principal. A custom GUC/RLS policy is defense-in-depth, not a substitute for authentication.
+- M08.3 `current_actor_id()` currently returns NULL (fail-closed). A caller-settable custom GUC is not accepted as identity proof. RLS remains defense-in-depth and will be enabled for application data only after a trusted actor-context mechanism is integrated.
 - M08.3 must implement/choose authentication before opening write APIs. Until then, the existing local UI/API remains read-only for CORE4/H18.
 
 ## 6. H18 assessment record contract

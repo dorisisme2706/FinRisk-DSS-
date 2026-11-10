@@ -1,0 +1,74 @@
+PREDICTION_FAILED for a profile request:
+Traceback (most recent call last):
+  File "/mnt/data/FinRisk_M08_3_work/FINRISK-DSS--main/app/backend_api/server.py", line 200, in do_GET
+    result = scorer.score(profile_id)
+  File "/usr/lib/python3.13/unittest/mock.py", line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/unittest/mock.py", line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/unittest/mock.py", line 1228, in _execute_mock_call
+    raise effect
+RuntimeError: private path
+
+127.0.0.1 - - [09/Nov/2026 12:00:46] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 500 -
+127.0.0.1 - - [09/Nov/2026 12:00:46] "GET /api/customer/profile?sk_id_curr=100035 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 12:00:47] "GET /api/customer/profile?sk_id_curr=999999 HTTP/1.1" 404 -
+127.0.0.1 - - [09/Nov/2026 12:00:47] "GET /api/customer/profile?sk_id_curr=100009 HTTP/1.1" 403 -
+127.0.0.1 - - [09/Nov/2026 12:00:48] "GET /api/customer/profile? HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:48] "GET /api/customer/profile?sk_id_curr=0 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:49] "GET /api/customer/profile?sk_id_curr=01 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:49] "GET /api/customer/profile?sk_id_curr=1.5 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:50] "GET /api/customer/profile?sk_id_curr=100035 HTTP/1.1" 503 -
+127.0.0.1 - - [09/Nov/2026 12:00:50] "GET /api/db/health HTTP/1.1" 503 -
+127.0.0.1 - - [09/Nov/2026 12:00:51] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 404 -
+127.0.0.1 - - [09/Nov/2026 12:00:51] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 403 -
+127.0.0.1 - - [09/Nov/2026 12:00:52] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 500 -
+127.0.0.1 - - [09/Nov/2026 12:00:52] "GET /api/decision/assess?sk_id_curr=100035 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 12:00:53] "GET /api/ml/health HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 12:00:53] "GET /api/decision/assess?sk_id_curr=100035 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 12:00:54] "GET /api/ml/score? HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:54] "GET /api/decision/assess? HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:55] "GET /api/ml/score?sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:55] "GET /api/decision/assess?sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:56] "GET /api/ml/score?sk_id_curr=0 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:56] "GET /api/decision/assess?sk_id_curr=0 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:57] "GET /api/ml/score?sk_id_curr=-1 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:57] "GET /api/decision/assess?sk_id_curr=-1 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:58] "GET /api/ml/score?sk_id_curr=true HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:58] "GET /api/decision/assess?sk_id_curr=true HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:59] "GET /api/ml/score?sk_id_curr=01 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:00:59] "GET /api/decision/assess?sk_id_curr=01 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:01:00] "GET /api/ml/score?sk_id_curr=1.5 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:01:00] "GET /api/decision/assess?sk_id_curr=1.5 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:01:01] "GET /api/ml/score?sk_id_curr=1&sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:01:01] "GET /api/decision/assess?sk_id_curr=1&sk_id_curr= HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:01:02] "GET /api/ml/score?sk_id_curr=1&sk_id_curr=2 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:01:02] "GET /api/decision/assess?sk_id_curr=1&sk_id_curr=2 HTTP/1.1" 400 -
+127.0.0.1 - - [09/Nov/2026 12:01:03] "GET /api/ml/health HTTP/1.1" 503 -
+127.0.0.1 - - [09/Nov/2026 12:01:03] "GET /api/ml/score?sk_id_curr=100035 HTTP/1.1" 503 -
+127.0.0.1 - - [09/Nov/2026 12:01:04] "GET /api/decision/assess?sk_id_curr=100035 HTTP/1.1" 503 -
+/opt/pyvenv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator LabelEncoder from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/opt/pyvenv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator Pipeline from version 1.9.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+127.0.0.1 - - [09/Nov/2026 12:01:06] "GET /backend_ml/model/pipeline.joblib HTTP/1.1" 404 -
+127.0.0.1 - - [09/Nov/2026 12:01:06] "GET /backend_ml/splits/split_manifest.csv HTTP/1.1" 404 -
+127.0.0.1 - - [09/Nov/2026 12:01:07] "GET /backend_ml/model/metadata.json HTTP/1.1" 404 -
+127.0.0.1 - - [09/Nov/2026 12:01:07] "GET /backend_api/server.py HTTP/1.1" 404 -
+127.0.0.1 - - [09/Nov/2026 12:01:08] "GET /src/../backend_ml/model/metadata.json HTTP/1.1" 404 -
+127.0.0.1 - - [09/Nov/2026 12:01:08] "GET /data/feature_matrix.parquet HTTP/1.1" 404 -
+127.0.0.1 - - [09/Nov/2026 12:01:09] "HEAD /backend_ml/model/pipeline.joblib HTTP/1.1" 405 -
+127.0.0.1 - - [09/Nov/2026 12:01:09] "GET /api/ml/health HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 12:01:10] "GET /api/ml/health HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 12:01:10] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Nov/2026 12:01:11] "GET /src/app.js HTTP/1.1" 200 -
+----------------------------------------------------------------------
+Ran 28 tests in 25.573s
+
+OK
+
+Result: Python unittest suite 28/28 PASS. Offline/mocked tests only; no live PostgreSQL connection.

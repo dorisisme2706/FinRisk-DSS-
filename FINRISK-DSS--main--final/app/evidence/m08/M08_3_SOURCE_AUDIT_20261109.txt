@@ -1,0 +1,15 @@
+M08.3 source audit: PASS (13/13 PASS)
+PASS | two ordered versioned migrations exist
+PASS | migration runner validates SHA-256 checksums
+PASS | migration runner serializes execution with advisory transaction lock
+PASS | migration runner enforces PostgreSQL 16-18
+PASS | database URLs are restricted to loopback
+PASS | health endpoint does not expose connection details
+PASS | caller-settable actor GUC removed
+PASS | caller-parameterized SECURITY DEFINER resolver removed
+PASS | RLS actor context fails closed until trusted auth exists
+PASS | H16 model lock remains separate
+PASS | migration SQL contains no H16 artifacts or destructive table operations
+PASS | runtime health reads migration version without table-wide SELECT
+PASS | write API remains closed pending trusted authentication
+Live database tested: NO. Authentication integrated: NO. Write API enabled: NO.

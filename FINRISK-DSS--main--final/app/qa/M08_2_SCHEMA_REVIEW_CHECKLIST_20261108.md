@@ -10,7 +10,7 @@ This checklist is a design review. Do not apply SQL until all blocking decisions
 - [ ] Select identity provider/authentication method before M08.3 write routes.
 - [ ] Approve application roles and role assignment owner.
 - [ ] Approve RLS owner scope, transaction-local actor derivation and exact LOGIN-to-group-role membership.
-- [ ] Confirm runtime can call only the narrow `resolve_identity` SECURITY DEFINER function, not SELECT `app_users`.
+- [ ] Approve a trusted authentication adapter and actor-context mechanism; do not expose a caller-parameterized identity resolver or accept a caller-settable GUC as identity proof.
 - [ ] Review column-level UPDATE grants: no update to H18 snapshots/validation records; report update limited to archive fields; scenarios only soft-delete.
 - [ ] Confirm validation records are technical/input-quality only.
 - [ ] Confirm W04 records are hypothetical and never modify risk score.
@@ -25,4 +25,4 @@ This checklist is a design review. Do not apply SQL until all blocking decisions
 - [ ] Only then authorize M08.3 migrations, adapter, auth and persistence APIs.
 
 - [ ] Verify `003_grants_draft.sql` first revokes any prior broad grants and then applies only the column/table permissions documented.
-- [ ] Verify `current_actor_id`, `resolve_identity` and JSON guard functions have only the required explicit EXECUTE grants after PUBLIC function privileges are revoked.
+- [ ] Verify `current_actor_id` and JSON guard functions have only the required explicit EXECUTE grants after PUBLIC function privileges are revoked; no `resolve_identity` function is exposed.

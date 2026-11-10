@@ -28,7 +28,7 @@ A DBA separately provisions per-person LOGIN principals and passwords interactiv
 
 ## 3. Row-level security
 
-Owner-scoped tables use RLS with `finrisk_app.current_actor_id()` reading transaction-local `finrisk.user_id`. The API sets this from an authenticated, verified principal. The draft grants EXECUTE on the RLS helper functions only to the applicable application/auditor roles. Do not accept `owner_user_id` or `finrisk.user_id` from user JSON as identity proof. RLS is defense in depth; it does not replace auth, input validation, parameterized SQL or network controls.
+Security errata M08.3: `current_actor_id()` intentionally returns NULL until a trusted authentication adapter is integrated. Do not restore caller-settable `finrisk.user_id`, and do not expose a resolver that accepts arbitrary provider/subject claims. Owner-scoped RLS therefore denies access until verified actor context is implemented. RLS remains defense in depth, not a substitute for authentication, input validation, parameterized SQL or network controls.
 
 ## 4. Data classification and protection
 

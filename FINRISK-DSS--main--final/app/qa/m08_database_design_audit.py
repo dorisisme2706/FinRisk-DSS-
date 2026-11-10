@@ -30,8 +30,9 @@ def main() -> int:
     add("Loan application contract maps form #09", app_contract, "Reference, encrypted name and requested terms are present")
     h16_exclusion = all(x in schema for x in ("feature_count smallint NOT NULL CHECK (feature_count = 169)", "business_policy_status = 'NOT_APPROVED'", "automatic_credit_decision = false")) and not re.search(r"CREATE TABLE[^;]*(?:target\s+(?:boolean|integer|numeric)|feature_matrix)", schema, re.I | re.S)
     add("H16/H18 governance constraints declared", h16_exclusion, "169 count metadata only; no TARGET/feature matrix; H18 NOT_APPROVED/no-auto-decision")
-    no_plaintext_name = "applicant_name_ciphertext bytea NOT NULL" in schema and "pii_ciphertext_format" in schema and "SECURITY DEFINER" in schema and not re.search(r"\b(full_name|applicant_name)\s+(?:varchar|text)\b", schema, re.I)
-    add("Applicant identity and name are protected", no_plaintext_name and "GRANT EXECUTE ON FUNCTION finrisk_app.resolve_identity(varchar, varchar) TO finrisk_app" in roles and "GRANT SELECT ON finrisk_app.app_users" not in roles, "Encrypted name; identity lookup exposes only user_id/status")
+    no_plaintext_name = "applicant_name_ciphertext bytea NOT NULL" in schema and "pii_ciphertext_format" in schema and "SECURITY DEFINER" not in schema and not re.search(r"\b(full_name|applicant_name)\s+(?:varchar|text)\b", schema, re.I)
+    identity_fail_closed = "SELECT NULL::uuid" in schema and "resolve_identity" not in schema and "resolve_identity" not in roles
+    add("Applicant identity and name are protected", no_plaintext_name and identity_fail_closed and "GRANT SELECT ON finrisk_app.app_users" not in roles, "Encrypted name; identity resolver removed; actor context fails closed pending trusted auth")
     pii_envelope = "CHECK (octet_length(applicant_name_ciphertext) >= 29)" in schema and "pii_key_version varchar(80) NOT NULL" in schema
     add("PII ciphertext envelope has a minimum payload and external key version", pii_envelope, "AES-GCM nonce/tag envelope proposal; key material remains outside database/source")
     policy_locked = "CHECK (is_executable = false)" in schema and "CHECK (approved_at IS NULL)" in schema and "('DRAFT', 'NOT_APPROVED', 'RETIRED')" in schema
@@ -67,16 +68,17 @@ def main() -> int:
     add("Runtime table grants follow least privilege", least_privilege, "H18 and validation snapshots immutable; report archive-only; scenario soft-delete only")
     rls_helpers = (
         "GRANT EXECUTE ON FUNCTION finrisk_app.current_actor_id() TO finrisk_app, finrisk_auditor" in roles
-        and "GRANT EXECUTE ON FUNCTION finrisk_app.resolve_identity(varchar, varchar) TO finrisk_app" in roles
+        and "resolve_identity" not in roles
         and "GRANT SELECT ON finrisk_app.app_users" not in roles
     )
-    add("RLS and identity helper execute rights are explicit", rls_helpers, "Runtime can resolve a verified identity without direct app_users SELECT")
+    add("RLS and identity helper execute rights are explicit", rls_helpers, "Only actor helper and JSON guard are executable; identity resolver is not exposed")
     actor_checks = (
-        "created_by = finrisk_app.current_actor_id()" in schema
+        "owner_user_id = finrisk_app.current_actor_id()" in schema
         and "updated_by = finrisk_app.current_actor_id()" in schema
         and "executed_by = finrisk_app.current_actor_id()" in schema
+        and "GRANT UPDATE (created_by" not in roles
     )
-    add("Owner and actor identity are bound in RLS insert/update checks", actor_checks, "Application owner/creator/editor and validation executor must match transaction actor")
+    add("Owner and actor identity are bound in RLS insert/update checks", actor_checks,  "Owner remains fixed, updated_by/executed_by match actor; created_by is immutable by column grants")
     insensitive_json_guard = "lower(kv.key) = ANY(p_forbidden)" in schema
     add("JSON forbidden-key guard is recursive and case-insensitive", insensitive_json_guard, "Upper/lower-case variants of restricted keys are rejected")
     login_setup = all(x in (APP / "database" / "M08_2_POSTGRES_SETUP_DRAFT.md").read_text(encoding="utf-8") for x in ("finrisk_migrator_login", "finrisk_api_login", "\\password finrisk_api_login"))
