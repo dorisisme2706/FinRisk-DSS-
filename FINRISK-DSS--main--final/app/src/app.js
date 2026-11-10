@@ -188,52 +188,58 @@
   }
 
   function renderOverview() {
-    setHeader("FinRisk DSS · Tổng quan", "Hero & KPI Dashboard · dữ liệu minh họa, chưa tích hợp backend.");
+    setHeader("FinRisk DSS · Tổng quan", "Real Dashboard & Data Management · KPI theo nguồn dữ liệu có thể truy vết.");
 
     $("#content").innerHTML = `
       <section class="product-hero" id="cg-product">
         <div class="product-hero-copy">
           <div class="hero-badge"><span class="hero-badge-dot"></span> FINRISK DSS · CREDIT RISK INTELLIGENCE</div>
           <h2>Hiểu rủi ro rõ hơn.<br><span>Ra quyết định tự tin hơn.</span></h2>
-          <p class="product-hero-lead">FinRisk DSS hỗ trợ quy trình <strong>Hồ sơ → Đặc trưng → Dự báo ML → Đánh giá rủi ro → Quyết định</strong>. Minh bạch đầu vào, hỗ trợ giải thích kết quả và lưu vết quyết định khi tích hợp backend.</p>
+          <p class="product-hero-lead">FinRisk DSS tách biệt dữ liệu vận hành PostgreSQL, nguồn suy luận CORE4/H16 chỉ đọc và tín hiệu hỗ trợ thẩm định. Mọi chỉ số Dashboard phải truy vết được về nguồn dữ liệu và phạm vi truy vấn.</p>
           <div class="hero-actions">
             <button class="btn hero-primary" data-open-screen="data">${icon("database", 17)} Nhập hồ sơ vay <span>→</span></button>
             <button class="btn hero-secondary" data-open-screen="trace">${icon("network", 17)} Xem luồng đánh giá</button>
           </div>
           <div class="hero-proof-row">
-            <span><b>01</b><small>Customer profile</small></span>
-            <span><b>05</b><small>Decision pipeline stages</small></span>
-            <span><b>DEMO</b><small>Chưa kết nối ML/PostgreSQL</small></span>
+            <span><b>DB</b><small>PostgreSQL · app-owned data</small></span>
+            <span><b>ML</b><small>CORE4/H16 · read-only</small></span>
+            <span><b>HUMAN</b><small>Business policy chưa phê duyệt</small></span>
           </div>
         </div>
         <div class="app-preview-shell" aria-label="FinRisk DSS concept preview">
-          <div class="preview-browser-bar"><div class="browser-dots"><i></i><i></i><i></i></div><span>FinRisk DSS · Concept Preview</span><span class="preview-live"><i></i> DEMO</span></div>
+          <div class="preview-browser-bar"><div class="browser-dots"><i></i><i></i><i></i></div><span>FinRisk DSS · Data Sources</span><span class="preview-live"><i></i> SOURCE MAP</span></div>
           <div class="preview-body">
-            <div class="preview-title-row"><div><small>Credit assessment</small><strong>Decision workspace</strong></div><span class="finrisk-demo-tag">MOCK DATA</span></div>
+            <div class="preview-title-row"><div><small>Data governance</small><strong>Source workspace</strong></div><span class="finrisk-demo-tag">M08.4</span></div>
             <div class="preview-metrics">
-              <div class="preview-metric"><span>Hồ sơ</span><strong>1.248</strong><small>Minh họa</small></div>
-              <div class="preview-metric"><span>Phê duyệt</span><strong>68,4%</strong><small>Minh họa</small></div>
-              <div class="preview-metric"><span>Cần xem xét</span><strong>18,2%</strong><small>Minh họa</small></div>
+              <div class="preview-metric"><span>Operational data</span><strong>PostgreSQL</strong><small>App-owned records</small></div>
+              <div class="preview-metric"><span>Inference source</span><strong>CORE4 / H16</strong><small>Read-only snapshot</small></div>
+              <div class="preview-metric"><span>Decision authority</span><strong>Human-led</strong><small>Policy NOT_APPROVED</small></div>
             </div>
-            <div class="preview-panel"><div class="preview-panel-head"><span>Decision pipeline</span><small>Concept UI · Chưa chạy mô hình</small></div>
-              <div class="preview-flow-mini"><div class="mini-node ok">Customer<span>Profile</span></div><b>→</b><div class="mini-node ok">Features<span>Input</span></div><b>→</b><div class="mini-node warn">ML<span>Pending</span></div><b>→</b><div class="mini-node warn">Decision<span>Pending</span></div></div>
+            <div class="preview-panel"><div class="preview-panel-head"><span>Data boundaries</span><small>Operational · Inference · Governance</small></div>
+              <div class="preview-flow-mini"><div class="mini-node ok">PostgreSQL<span>Operations</span></div><b>+</b><div class="mini-node ok">CORE4<span>Read-only</span></div><b>→</b><div class="mini-node warn">Human<span>Review</span></div></div>
             </div>
-            <div class="preview-status-line"><span class="finrisk-demo-tag">SYNTHETIC DEMO</span><span>Không phải quyết định tín dụng thật</span></div>
+            <div class="preview-status-line"><span class="finrisk-demo-tag">NO APPROVAL POLICY</span><span>ML review signals are not credit decisions</span></div>
           </div>
         </div>
       </section>
-      <section class="finrisk-dashboard" id="finrisk-kpi-dashboard" aria-label="FinRisk KPI Dashboard demo">
-        <div class="finrisk-section-head"><div><span class="section-eyebrow">#06 · FINRISK KPI DASHBOARD</span><h2>Tổng quan danh mục hồ sơ</h2><p>Số liệu giả lập để kiểm tra giao diện. Chưa kết nối PostgreSQL, API hoặc mô hình ML.</p></div><span class="finrisk-demo-tag">DEMO / MOCK</span></div>
+      <section class="finrisk-dashboard" id="finrisk-kpi-dashboard" aria-label="FinRisk real KPI dashboard">
+        <div class="finrisk-section-head"><div><span class="section-eyebrow">M08.4 · REAL DASHBOARD</span><h2>Tổng quan dữ liệu vận hành</h2><p>KPI chỉ được hiển thị khi có truy vấn nguồn hợp lệ và phạm vi actor đáng tin cậy. Số liệu thiếu quyền không bị thay bằng số 0.</p></div><button class="btn" id="fr-dashboard-refresh" type="button">↻ Làm mới dữ liệu</button></div>
         <div class="finrisk-kpi-grid">
-          <article class="finrisk-kpi"><span>Tổng hồ sơ</span><strong>1.248</strong><small>100% dữ liệu minh họa</small></article>
-          <article class="finrisk-kpi"><span>Tỷ lệ phê duyệt</span><strong>68,4%</strong><small>854 hồ sơ (giả lập)</small></article>
-          <article class="finrisk-kpi"><span>Chờ xem xét</span><strong>18,2%</strong><small>227 hồ sơ (giả lập)</small></article>
-          <article class="finrisk-kpi"><span>Rủi ro cao</span><strong>13,4%</strong><small>167 hồ sơ (giả lập)</small></article>
+          <article class="finrisk-kpi"><span>Tổng hồ sơ vay</span><strong id="fr-kpi-applications">—</strong><small id="fr-kpi-applications-note">Đang tải từ PostgreSQL</small></article>
+          <article class="finrisk-kpi"><span>Lượt kiểm tra dữ liệu</span><strong id="fr-kpi-validations">—</strong><small id="fr-kpi-validations-note">INPUT_QUALITY · PostgreSQL</small></article>
+          <article class="finrisk-kpi"><span>Lượt đánh giá H18</span><strong id="fr-kpi-assessments">—</strong><small id="fr-kpi-assessments-note">Tín hiệu hỗ trợ, không phải quyết định</small></article>
+          <article class="finrisk-kpi"><span>Báo cáo đang hoạt động</span><strong id="fr-kpi-reports">—</strong><small id="fr-kpi-reports-note">Report records · PostgreSQL</small></article>
         </div>
         <div class="finrisk-chart-grid">
-          <article class="finrisk-chart"><h3>Phân bố trạng thái hồ sơ</h3><p>Giả lập · 1.248 hồ sơ</p><div class="finrisk-stacked" role="img" aria-label="Phê duyệt 68,4 phần trăm; chờ xem xét 18,2 phần trăm; rủi ro cao 13,4 phần trăm"><i style="width:68.4%;background:#16a36b"></i><i style="width:18.2%;background:#e5ad48"></i><i style="width:13.4%;background:#d46b61"></i></div><div class="finrisk-legend"><span>🟢 Phê duyệt 68,4%</span><span>🟡 Xem xét 18,2%</span><span>🔴 Rủi ro cao 13,4%</span></div></article>
-          <article class="finrisk-chart"><h3>Xu hướng hồ sơ theo tháng</h3><p>Giả lập · Tháng 5–10/2026</p><div class="finrisk-bars" role="img" aria-label="Số hồ sơ giả lập: tháng 5 là 125, tháng 6 là 158, tháng 7 là 180, tháng 8 là 212, tháng 9 là 261, tháng 10 là 312">${[125,158,180,212,261,312].map((v,i)=>`<div><b style="height:${Math.round(v/312*100)}%" title="${v} hồ sơ"></b><small>T${i+5}</small></div>`).join("")}</div></article>
+          <article class="finrisk-chart"><h3>Phân bố trạng thái hồ sơ</h3><p>Nguồn: loan_applications · theo actor hiện tại</p><div id="fr-application-status-chart" class="fr-dashboard-chart-state">Đang chờ phạm vi dữ liệu hợp lệ.</div></article>
+          <article class="finrisk-chart"><h3>Hồ sơ tạo mới theo tháng</h3><p>Sáu tháng gần nhất · theo actor hiện tại</p><div id="fr-application-monthly-chart" class="fr-dashboard-chart-state">Đang chờ phạm vi dữ liệu hợp lệ.</div></article>
         </div>
+        <div class="finrisk-chart-grid fr-source-grid">
+          <article class="finrisk-chart"><h3>Nguồn PostgreSQL</h3><div id="fr-dashboard-postgres" class="fr-source-state">Đang kiểm tra…</div></article>
+          <article class="finrisk-chart"><h3>Nguồn CORE4 / H16</h3><div id="fr-dashboard-core4" class="fr-source-state">Đang kiểm tra…</div></article>
+        </div>
+        <div class="notice warning" id="fr-dashboard-governance">Business policy: NOT_APPROVED. Tín hiệu cần xem xét không đồng nghĩa phê duyệt hoặc từ chối.</div>
+        <p class="fr-dashboard-updated" id="fr-dashboard-updated">Chưa có lần cập nhật.</p>
       </section>
 
       <section class="landing-section product-suite-section" id="cg-suite" aria-label="FinRisk Product Roadmap">
@@ -379,9 +385,9 @@
       <section class="landing-section faq-section" id="cg-faq">
         <div class="section-heading centered"><span class="section-eyebrow">FAQ</span><h2>Những câu hỏi thường gặp về FinRisk DSS</h2></div>
         <div class="faq-list">
-          <details open><summary>FinRisk DSS đã đưa ra quyết định cho vay thật chưa?</summary><p>Chưa. Điểm rủi ro, ngưỡng và kết quả hiện tại là MOCK, không có giá trị phê duyệt.</p></details>
-          <details><summary>Dữ liệu hồ sơ được lưu ở đâu?</summary><p>Bản demo dùng localStorage trên trình duyệt. Chưa kết nối API hoặc PostgreSQL.</p></details>
-          <details><summary>Đã có mô hình Machine Learning chưa?</summary><p>Chưa tích hợp mô hình ML thật. Kịch bản minh họa giúp thử luồng đánh giá và giải thích.</p></details>
+          <details open><summary>FinRisk DSS đã đưa ra quyết định cho vay thật chưa?</summary><p>Chưa. H16 chỉ tạo tín hiệu hỗ trợ xem xét; Business Policy vẫn NOT_APPROVED và không có quyết định tự động.</p></details>
+          <details><summary>Dữ liệu hồ sơ được lưu ở đâu?</summary><p>PostgreSQL đã có schema và health endpoint. Form #09 vẫn là MOCK localStorage; CRUD tập trung đang chờ Trusted Authentication và API được phân quyền.</p></details>
+          <details><summary>Đã có mô hình Machine Learning chưa?</summary><p>H16/CORE4 đã có luồng suy luận chỉ đọc theo mã hồ sơ. Máy chạy cần cấu hình đúng CORE4 Snapshot; form #09 không được tự suy diễn thành 169 predictors.</p></details>
           <details><summary>Kiểm thử PASS có nghĩa là đã nghiệm thu chưa?</summary><p>Không. Cần kiểm thử UAT thực tế, bằng chứng và xác nhận của leader.</p></details>
         </div>
       </section>
@@ -402,6 +408,93 @@
     document.querySelectorAll("[data-open-screen]").forEach((element) => {
       element.addEventListener("click", () => render(element.dataset.openScreen));
     });
+
+    const dashboardValue = value => Number.isFinite(value)
+      ? value.toLocaleString(document.documentElement.lang === "en" ? "en-US" : "vi-VN")
+      : "—";
+    const setMetric = (id, noteId, value, note) => {
+      const valueNode = document.getElementById(id);
+      const noteNode = document.getElementById(noteId);
+      if (valueNode) valueNode.textContent = dashboardValue(value);
+      if (noteNode) noteNode.textContent = note;
+    };
+    const sourceMarkup = source => {
+      const ready = source?.status === "ready";
+      const statusText = ready ? "READY" : (source?.code || "UNAVAILABLE");
+      const details = source?.source === "CORE4/H16"
+        ? [source.model_version, source.data_version, source.feature_set_version, source.feature_count ? `${source.feature_count} predictors` : null].filter(Boolean)
+        : [source?.integration_stage, "Local PostgreSQL connection"] .filter(Boolean);
+      return `<div class="fr-source-status ${ready ? "is-ready" : "is-unavailable"}"><strong>${escapeHtml(statusText)}</strong><span>${escapeHtml(details.join(" · ") || "No source metadata")}</span></div>`;
+    };
+    const paintDashboard = payload => {
+      const metrics = payload?.metrics;
+      const sources = payload?.sources || {};
+      const metricsReady = metrics?.status === "ready";
+      const counts = metricsReady ? (metrics.counts || {}) : {};
+      const note = metrics?.code === "AUTH_CONTEXT_REQUIRED"
+        ? "Cần Trusted Authentication để truy vấn KPI theo chủ sở hữu. Hiện không hiển thị số 0 giả."
+        : (metricsReady ? "Nguồn PostgreSQL · phạm vi actor hiện tại" : `Chưa thể tổng hợp KPI: ${metrics?.code || "BACKEND_UNAVAILABLE"}`);
+      setMetric("fr-kpi-applications", "fr-kpi-applications-note", counts.applications_total, note);
+      setMetric("fr-kpi-validations", "fr-kpi-validations-note", counts.validation_runs_total, metricsReady ? "Phạm vi INPUT_QUALITY · actor hiện tại" : note);
+      setMetric("fr-kpi-assessments", "fr-kpi-assessments-note", counts.assessments_total, metricsReady ? "Chỉ gồm tín hiệu H18 · policy NOT_APPROVED" : note);
+      setMetric("fr-kpi-reports", "fr-kpi-reports-note", counts.active_reports, metricsReady ? "Báo cáo ACTIVE · actor hiện tại" : note);
+      const statusHost = document.getElementById("fr-application-status-chart");
+      const monthlyHost = document.getElementById("fr-application-monthly-chart");
+      if (statusHost) {
+        if (!metricsReady) {
+          statusHost.textContent = note;
+        } else if (!metrics.applications_by_status?.length) {
+          statusHost.textContent = "Chưa có hồ sơ trong phạm vi actor hiện tại.";
+        } else {
+          const statusColors = {DRAFT: "#4c88c7", SUBMITTED: "#16a36b", WITHDRAWN: "#dfa82b", CLOSED: "#71877b"};
+          const total = metrics.applications_by_status.reduce((sum, item) => sum + item.count, 0);
+          const segments = metrics.applications_by_status.map(item => {
+            const width = total ? item.count / total * 100 : 0;
+            const color = statusColors[item.status] || "#71877b";
+            return `<i style="width:${width}%;background:${color}" title="${escapeHtml(item.status)}: ${dashboardValue(item.count)}"></i>`;
+          }).join("");
+          const legend = metrics.applications_by_status.map(item => `<span>${escapeHtml(item.status)}: ${dashboardValue(item.count)}</span>`).join("");
+          statusHost.innerHTML = `<div class="finrisk-stacked" role="img" aria-label="Application status distribution">${segments}</div><div class="finrisk-legend">${legend}</div>`;
+        }
+      }
+      if (monthlyHost) {
+        monthlyHost.innerHTML = metricsReady && Array.isArray(metrics.monthly_applications)
+          ? `<div class="finrisk-bars">${metrics.monthly_applications.map(item => {
+              const max = Math.max(1, ...metrics.monthly_applications.map(point => point.count));
+              const height = item.count ? Math.max(4, Math.round(item.count / max * 100)) : 0;
+              return `<div><b style="height:${height}%;${item.count ? "" : "visibility:hidden;"}" title="${dashboardValue(item.count)}"></b><small>${escapeHtml(item.month.slice(5))}</small></div>`;
+            }).join("")}</div>`
+          : escapeHtml(note);
+      }
+      const postgresHost = document.getElementById("fr-dashboard-postgres");
+      const coreHost = document.getElementById("fr-dashboard-core4");
+      if (postgresHost) postgresHost.innerHTML = sourceMarkup(sources.postgresql);
+      if (coreHost) coreHost.innerHTML = sourceMarkup(sources.core4_h16);
+      const updated = document.getElementById("fr-dashboard-updated");
+      if (updated) updated.textContent = payload.generated_at ? `Cập nhật: ${new Date(payload.generated_at).toLocaleString(document.documentElement.lang === "en" ? "en-US" : "vi-VN")}` : "Không có timestamp từ API.";
+    };
+    const refreshDashboard = async () => {
+      const button = document.getElementById("fr-dashboard-refresh");
+      setButtonBusy(button, true, "Đang tải…");
+      try {
+        const response = await fetch("/api/dashboard/summary", { method: "GET", cache: "no-store", headers: { Accept: "application/json" } });
+        const payload = await response.json();
+        if (!response.ok || !payload || !payload.sources || !payload.metrics) throw new Error("DASHBOARD_API_UNAVAILABLE");
+        paintDashboard(payload);
+      } catch (_) {
+        paintDashboard({
+          metrics: { status: "unavailable", code: "BACKEND_UNAVAILABLE", counts: {} },
+          sources: {
+            postgresql: { status: "unavailable", code: "BACKEND_UNAVAILABLE", integration_stage: "M08.3" },
+            core4_h16: { status: "unavailable", code: "CORE4_STATUS_UNAVAILABLE", source: "CORE4/H16", read_only: true }
+          }
+        });
+      } finally {
+        setButtonBusy(button, false);
+      }
+    };
+    document.getElementById("fr-dashboard-refresh")?.addEventListener("click", refreshDashboard);
+    refreshDashboard();
   }
 
   function inputValue(value) {
@@ -875,23 +968,79 @@
   function renderEvidence() {
     const api = window.FinRiskIntegrationMock;
     const state = api.read();
-    const rows = state.records.map((r) => `<tr><td class="code">${escapeHtml(r.id)}</td><td>${escapeHtml(r.customer_id)}</td><td>${escapeHtml(r.full_name)}</td><td>${escapeHtml(r.saved_at)}</td><td>${pill("MOCK")}</td></tr>`).join("");
-    setHeader("Quản lý dữ liệu", "#19 · PostgreSQL Integration: giao diện MOCK, chưa có backend, schema hay kết nối database thật.");
-    $("#content").innerHTML = `<div class="workspace-screen finrisk-integration-screen">
+    setHeader("Quản lý dữ liệu", "M08.4 · Theo dõi nguồn PostgreSQL, CORE4/H16 và phạm vi dữ liệu có thể truy vấn.");
+    $("#content").innerHTML = `<div class="workspace-screen finrisk-integration-screen fr-data-management">
       <div class="screen-summary-grid">
-        <div class="screen-summary-card"><span>Database</span><strong>OFFLINE</strong><small>PostgreSQL chưa kết nối</small></div>
-        <div class="screen-summary-card"><span>Chế độ</span><strong>MOCK</strong><small>localStorage trên thiết bị</small></div>
-        <div class="screen-summary-card"><span>Hồ sơ lưu</span><strong>${state.records.length}</strong><small>Bản ghi giả lập</small></div>
-        <div class="screen-summary-card"><span>API</span><strong>CHƯA CÓ</strong><small>Chờ backend/schema</small></div>
+        <div class="screen-summary-card"><span>PostgreSQL</span><strong id="fr-data-db-status">ĐANG TẢI</strong><small>finrisk_app · M08.3</small></div>
+        <div class="screen-summary-card"><span>CORE4 / H16</span><strong id="fr-data-core-status">ĐANG TẢI</strong><small>Snapshot chỉ đọc</small></div>
+        <div class="screen-summary-card"><span>KPI vận hành</span><strong id="fr-data-metric-status">ĐANG TẢI</strong><small>Phạm vi theo actor hiện tại</small></div>
+        <div class="screen-summary-card"><span>Business Policy</span><strong>NOT_APPROVED</strong><small>Không tự động duyệt/từ chối</small></div>
       </div>
-      <section class="workspace-panel"><div class="panel-heading"><div><span class="panel-eyebrow">#19 · DATA MANAGEMENT · MOCK</span><h2>Quản lý hồ sơ vay</h2><p>Lưu/đọc hồ sơ #09 trên trình duyệt để thử giao diện; không ghi dữ liệu vào PostgreSQL.</p></div><span class="panel-status">MOCK · Local only</span></div>
-      <div class="finrisk-integration-actions"><button class="btn primary" id="fr-db-save">${icon("save",16)} Lưu hồ sơ #09 (MOCK)</button><button class="btn" id="fr-db-reload">${icon("refresh",16)} Đọc lại (MOCK)</button><button class="btn" id="fr-db-export">${icon("download",16)} Xuất JSON</button></div>
-      <div class="finrisk-table-scroll"><table class="finrisk-integration-table"><thead><tr><th>ID</th><th>Mã khách hàng</th><th>Họ tên</th><th>Thời gian lưu</th><th>Nguồn</th></tr></thead><tbody>${rows || '<tr><td colspan="5">Chưa có hồ sơ MOCK được lưu.</td></tr>'}</tbody></table></div></section>
-      <section class="workspace-panel"><div class="panel-heading"><div><span class="panel-eyebrow">INTEGRATION READINESS</span><h2>Chuẩn bị tích hợp PostgreSQL</h2></div></div><div class="finrisk-status-grid"><div><strong>Schema</strong><span>Chưa thống nhất</span></div><div><strong>REST API</strong><span>Chưa có endpoint</span></div><div><strong>Authentication</strong><span>Chưa tích hợp</span></div><div><strong>Storage</strong><span>Browser localStorage (MOCK)</span></div></div><div class="notice warning">Không nhập dữ liệu khách hàng thật vào chế độ MOCK. Lưu/đọc ở đây không chứng minh kết nối PostgreSQL.</div></section>
+      <section class="workspace-panel"><div class="panel-heading"><div><span class="panel-eyebrow">M08.4 · DATA SOURCE HEALTH</span><h2>Tình trạng nguồn dữ liệu</h2><p>Trạng thái được truy vấn từ backend; không sử dụng dữ liệu giả lập để thay thế kết nối thật.</p></div><button class="btn primary" id="fr-data-refresh" type="button">↻ Kiểm tra lại</button></div>
+        <div class="finrisk-status-grid" id="fr-data-health-details"><div><strong>PostgreSQL</strong><span>Đang kiểm tra…</span></div><div><strong>CORE4/H16</strong><span>Đang kiểm tra…</span></div><div><strong>Metric scope</strong><span>Đang kiểm tra…</span></div><div><strong>Policy</strong><span>NOT_APPROVED</span></div></div>
+        <div class="notice warning" id="fr-data-health-note">KPI dữ liệu nghiệp vụ chỉ được tổng hợp sau khi có trusted actor context. Dữ liệu CORE4/H16 giữ nguyên chế độ chỉ đọc.</div>
+      </section>
+      <section class="workspace-panel"><div class="panel-heading"><div><span class="panel-eyebrow">DATA CATALOG · M08.4</span><h2>Danh mục nguồn dữ liệu</h2><p>Phân biệt dữ liệu vận hành của ứng dụng với dữ liệu phân tích phục vụ suy luận mô hình.</p></div></div>
+        <div class="finrisk-status-grid"><div><strong>PostgreSQL / finrisk_app</strong><span>Hồ sơ, validation INPUT_QUALITY, assessment metadata, report records, audit events.</span></div><div><strong>CORE4 snapshot</strong><span>Nguồn Parquet chuẩn cho profile lookup và H16 inference; không ghi ngược vào PostgreSQL.</span></div><div><strong>H16 model package</strong><span>169 predictors đã khóa; không thêm/bớt/sắp xếp lại hoặc huấn luyện lại trong M08.</span></div><div><strong>Test split</strong><span>Không đưa test split vào KPI Dashboard hoặc thống kê dữ liệu vận hành.</span></div></div>
+      </section>
+      <details class="workspace-panel fr-legacy-mock-panel"><summary><strong>Dữ liệu MOCK cục bộ (localStorage) – không phải PostgreSQL</strong></summary><p>Vùng tương thích tạm thời để giữ luồng demo cũ trong M08.4. Không nhập dữ liệu khách hàng thật; không dùng bản ghi này cho ML hoặc KPI thật.</p><p><strong>${state.records.length}</strong> bản ghi MOCK trên trình duyệt hiện tại.</p><div class="finrisk-integration-actions"><button class="btn" id="fr-db-save">${icon("save",16)} Lưu demo MOCK</button><button class="btn" id="fr-db-reload">${icon("refresh",16)} Đọc lại MOCK</button><button class="btn" id="fr-db-export">${icon("download",16)} Xuất JSON MOCK</button></div></details>
     </div>`;
-    $("#fr-db-save").addEventListener("click", () => { const loan = window.FinRiskLoan.load(); const validation = window.FinRiskLoan.validate(loan); if (!validation.valid) {showToast("Hồ sơ #09 chưa hợp lệ; không lưu MOCK.","warning"); return;} api.saveLoan(loan); showToast("Đã lưu hồ sơ MOCK trên trình duyệt.","success"); renderEvidence(); });
-    $("#fr-db-reload").addEventListener("click", () => {renderEvidence(); showToast("Đã đọc lại dữ liệu MOCK.","info");});
-    $("#fr-db-export").addEventListener("click", () => triggerDownload("finrisk-data-mock.json","application/json;charset=utf-8",JSON.stringify(api.read(),null,2)));
+
+    const paintHealth = payload => {
+      const sources = payload?.sources || {};
+      const metrics = payload?.metrics || {};
+      const db = sources.postgresql || {};
+      const core = sources.core4_h16 || {};
+      const dbStatus = document.getElementById("fr-data-db-status");
+      const coreStatus = document.getElementById("fr-data-core-status");
+      const metricStatus = document.getElementById("fr-data-metric-status");
+      if (dbStatus) dbStatus.textContent = db.code || db.status || "UNAVAILABLE";
+      if (coreStatus) coreStatus.textContent = core.code || core.status || "UNAVAILABLE";
+      if (metricStatus) metricStatus.textContent = metrics.code || "NOT_AVAILABLE";
+      const detailHost = document.getElementById("fr-data-health-details");
+      if (detailHost) detailHost.innerHTML = [
+        ["PostgreSQL", `${db.status || "unavailable"} · ${db.code || "UNKNOWN"}`],
+        ["CORE4 / H16", `${core.status || "unavailable"} · ${core.code || "UNKNOWN"}`],
+        ["Metric scope", `${metrics.scope || "CURRENT_ACTOR"} · ${metrics.code || "NOT_AVAILABLE"}`],
+        ["Business Policy", `${payload.business_policy_status || payload.governance?.business_policy_status || "NOT_APPROVED"} · automatic decision: false`]
+      ].map(([title, value]) => `<div><strong>${escapeHtml(title)}</strong><span>${escapeHtml(value)}</span></div>`).join("");
+      const note = document.getElementById("fr-data-health-note");
+      if (note) note.textContent = metrics.code === "AUTH_CONTEXT_REQUIRED"
+        ? "Database đang kết nối, nhưng Trusted Authentication chưa cung cấp actor. KPI theo chủ sở hữu được khóa; hệ thống không hiển thị tổng số toàn cục hoặc số 0 giả."
+        : `Nguồn dữ liệu được cập nhật từ API. Trạng thái tổng thể: ${payload.status || "unknown"}.`;
+    };
+    const refresh = async () => {
+      const button = document.getElementById("fr-data-refresh");
+      setButtonBusy(button, true, "Đang kiểm tra…");
+      try {
+        const response = await fetch("/api/dashboard/summary", { cache: "no-store", headers: { Accept: "application/json" } });
+        const payload = await response.json();
+        if (!response.ok || !payload?.sources) throw new Error("DATA_HEALTH_UNAVAILABLE");
+        paintHealth(payload);
+      } catch (_) {
+        paintHealth({
+          status: "unavailable",
+          sources: {
+            postgresql: { status: "unavailable", code: "BACKEND_UNAVAILABLE" },
+            core4_h16: { status: "unavailable", code: "CORE4_STATUS_UNAVAILABLE" }
+          },
+          metrics: { status: "unavailable", code: "BACKEND_UNAVAILABLE", scope: "CURRENT_ACTOR" },
+          business_policy_status: "NOT_APPROVED"
+        });
+      } finally {
+        setButtonBusy(button, false);
+      }
+    };
+    document.getElementById("fr-data-refresh")?.addEventListener("click", refresh);
+    refresh();
+    document.getElementById("fr-db-save")?.addEventListener("click", () => {
+      const loan = window.FinRiskLoan.load();
+      const validation = window.FinRiskLoan.validate(loan);
+      if (!validation.valid) { showToast("Hồ sơ demo chưa hợp lệ; không lưu MOCK.", "warning"); return; }
+      api.saveLoan(loan); showToast("Đã lưu hồ sơ MOCK trên trình duyệt; không ghi PostgreSQL.", "success"); renderEvidence();
+    });
+    document.getElementById("fr-db-reload")?.addEventListener("click", () => { renderEvidence(); showToast("Đã đọc lại dữ liệu MOCK cục bộ.", "info"); });
+    document.getElementById("fr-db-export")?.addEventListener("click", () => triggerDownload("finrisk-data-mock.json", "application/json;charset=utf-8", JSON.stringify(api.read(), null, 2)));
   }
 
   function renderValidation() {

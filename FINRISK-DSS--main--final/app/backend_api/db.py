@@ -113,3 +113,147 @@ def database_health() -> dict:
         return {"status": "unavailable", "code": code if code.startswith("DB_") else "DB_UNAVAILABLE"}
     except Exception:
         return {"status": "unavailable", "code": "DB_UNAVAILABLE"}
+
+
+def _empty_dashboard_metrics(code: str, status: str) -> dict:
+    """Return explicit unavailable values; never turn missing scope into zero."""
+    return {
+        "status": status,
+        "code": code,
+        "scope": "CURRENT_ACTOR",
+        "counts": {
+            "applications_total": None,
+            "applications_draft": None,
+            "applications_submitted": None,
+            "validation_runs_total": None,
+            "validation_pass": None,
+            "validation_warn": None,
+            "validation_fail": None,
+            "assessments_total": None,
+            "manual_review_recommended": None,
+            "no_review_signal": None,
+            "active_reports": None,
+        },
+        "applications_by_status": None,
+        "monthly_applications": None,
+    }
+
+
+def dashboard_metrics(*, health: dict | None = None) -> dict:
+    """Aggregate app-owned metrics only for a trusted current actor.
+
+    The SQL is owner-scoped and remains subject to PostgreSQL RLS. The current
+    M08.3 actor helper intentionally returns NULL until trusted authentication
+    is integrated; in that case metrics are unavailable rather than fabricated
+    as zero or aggregated across all users.
+    """
+    health = health or database_health()
+    if health.get("status") != "ready":
+        return _empty_dashboard_metrics(health.get("code", "DB_UNAVAILABLE"), "unavailable")
+
+    try:
+        with _connect(application_name="finrisk-dss-dashboard") as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT finrisk_app.current_actor_id()")
+                actor_row = cur.fetchone()
+                actor_id = actor_row[0] if actor_row else None
+                if actor_id is None:
+                    return _empty_dashboard_metrics("AUTH_CONTEXT_REQUIRED", "blocked")
+
+                cur.execute(
+                    """SELECT application_status, count(*)::bigint
+                       FROM finrisk_app.loan_applications
+                       WHERE owner_user_id = %s AND deleted_at IS NULL
+                       GROUP BY application_status""",
+                    (actor_id,),
+                )
+                application_rows = cur.fetchall()
+                applications_by_status = {
+                    str(status): int(count) for status, count in application_rows
+                }
+                app_total = sum(applications_by_status.values())
+
+                cur.execute(
+                    """SELECT outcome, count(*)::bigint
+                       FROM finrisk_app.financial_validation_runs
+                       WHERE owner_user_id = %s AND validation_scope = 'INPUT_QUALITY'
+                       GROUP BY outcome""",
+                    (actor_id,),
+                )
+                validation_rows = cur.fetchall()
+                validation_by_outcome = {str(outcome): int(count) for outcome, count in validation_rows}
+
+                cur.execute(
+                    """SELECT review_signal, count(*)::bigint
+                       FROM finrisk_app.assessment_runs
+                       WHERE owner_user_id = %s
+                         AND business_policy_status = 'NOT_APPROVED'
+                         AND automatic_credit_decision = false
+                       GROUP BY review_signal""",
+                    (actor_id,),
+                )
+                assessment_rows = cur.fetchall()
+                assessments_by_signal = {str(signal): int(count) for signal, count in assessment_rows}
+                assessments_total = sum(assessments_by_signal.values())
+
+                cur.execute(
+                    """SELECT count(*)::bigint
+                       FROM finrisk_app.report_records
+                       WHERE owner_user_id = %s AND record_status = 'ACTIVE'""",
+                    (actor_id,),
+                )
+                active_reports = int(cur.fetchone()[0])
+
+                cur.execute(
+                    """WITH months AS (
+                           SELECT generate_series(
+                               date_trunc('month', now()) - interval '5 months',
+                               date_trunc('month', now()),
+                               interval '1 month'
+                           ) AS month_start
+                       )
+                       SELECT to_char(months.month_start, 'YYYY-MM') AS month,
+                              count(a.application_id)::bigint AS application_count
+                       FROM months
+                       LEFT JOIN finrisk_app.loan_applications a
+                         ON a.owner_user_id = %s
+                        AND a.deleted_at IS NULL
+                        AND a.created_at >= months.month_start
+                        AND a.created_at < months.month_start + interval '1 month'
+                       GROUP BY months.month_start
+                       ORDER BY months.month_start""",
+                    (actor_id,),
+                )
+                monthly_applications = [
+                    {"month": str(month), "count": int(count)}
+                    for month, count in cur.fetchall()
+                ]
+
+        return {
+            "status": "ready",
+            "code": "ACTOR_SCOPED_METRICS_READY",
+            "scope": "CURRENT_ACTOR",
+            "counts": {
+                "applications_total": app_total,
+                "applications_draft": applications_by_status.get("DRAFT", 0),
+                "applications_submitted": applications_by_status.get("SUBMITTED", 0),
+                "validation_runs_total": sum(validation_by_outcome.values()),
+                "validation_pass": validation_by_outcome.get("PASS", 0),
+                "validation_warn": validation_by_outcome.get("WARN", 0),
+                "validation_fail": validation_by_outcome.get("FAIL", 0),
+                "assessments_total": assessments_total,
+                "manual_review_recommended": assessments_by_signal.get("MANUAL_REVIEW_RECOMMENDED", 0),
+                "no_review_signal": assessments_by_signal.get("NO_REVIEW_SIGNAL", 0),
+                "active_reports": active_reports,
+            },
+            "applications_by_status": [
+                {"status": status, "count": count}
+                for status, count in sorted(applications_by_status.items())
+            ],
+            "monthly_applications": monthly_applications,
+        }
+    except RuntimeError as exc:
+        code = str(exc)
+        return _empty_dashboard_metrics(code if code.startswith("DB_") else "DB_UNAVAILABLE", "unavailable")
+    except Exception:
+        return _empty_dashboard_metrics("DB_QUERY_FAILED", "unavailable")

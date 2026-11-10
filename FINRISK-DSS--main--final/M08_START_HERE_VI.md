@@ -49,3 +49,13 @@ PostgreSQL Foundation đã được apply và kiểm thử trên PostgreSQL 17.1
 Tài liệu bàn giao: `app/FINRISK_M08_3_HANDOFF_20261109.md`. Hướng dẫn triển khai máy mới: `app/database/FINRISK_M08_3_DEPLOYMENT_GUIDE_VI.md`. Bằng chứng live DB: `app/evidence/m08/M08_3_POSTGRESQL_LIVE_VALIDATION_20261109.md`.
 
 Không diễn giải M08.3 là CRUD/authentication đã hoàn tất; đây là PostgreSQL Foundation đã được live-validated.
+
+## M08.4 — Real Dashboard & Data Management (khởi tạo 10/11/2026)
+
+**Trạng thái:** Initial implementation increment; chưa nghiệm thu hoàn tất. Đã bổ sung `/api/dashboard/summary` và `/api/data/health`, metric aggregation theo `current_actor_id` trên PostgreSQL, KPI có nguồn truy vết, trạng thái CORE4/H16 chỉ đọc và Data Management source-health view. Không đưa approval-rate, high-risk/risk-band hay test-split metrics vào Dashboard. Khi actor context chưa có, API trả `AUTH_CONTEXT_REQUIRED` với giá trị `null`; UI hiển thị `—`, không giả lập số 0 hoặc tổng toàn cục.
+
+**QA build container:** M08.4 Source Audit 13/13 PASS; Python Database + Server tests 34/34 PASS; full Node regression 129/129 PASS; M08 Core Freeze 8/8 PASS và protected files 39/39 MATCH. Build container có scikit-learn 1.8.0 trong khi model lock là 1.9.1, nên target-Windows QA theo H16 lock vẫn bắt buộc.
+
+**Giới hạn:** M08.3 `current_actor_id()` vẫn trả `NULL` tới khi trusted authentication được tích hợp; vì vậy KPI nghiệp vụ hiện bị khóa với `AUTH_CONTEXT_REQUIRED`. Chưa kiểm thử live HTTP endpoint M08.4 trên PostgreSQL Windows của owner, chưa hoàn thành visual/responsive/manual VI/EN QA. Không có migration mới hoặc CRUD API.
+
+Tài liệu: `app/FINRISK_M08_4_HANDOFF_20261110.md`, `app/qa/M08_4_METRIC_GLOSSARY_20261110.md`, `app/qa/M08_4_DASHBOARD_API_CONTRACT_20261110.yaml`.

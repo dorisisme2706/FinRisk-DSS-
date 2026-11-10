@@ -327,3 +327,19 @@
 - Thu hẹp database access: revoke PUBLIC CONNECT và default PUBLIC grants cho tables/functions tương lai.
 - Sửa M08.1 source audit để phân biệt 3 SQL design proposals với 0 active migrations.
 - Thêm `run_m08_2_design_audit.bat`; không có SQL nào được apply và không thay đổi backend/model.
+
+
+## 2026-11-09 — M08.3 PostgreSQL persistence foundation
+- Added versioned PostgreSQL migrations, checksum/advisory-lock migration runner, loopback-only connection helper and sanitized DB health endpoint.
+- Hardened actor identity fail-closed: removed caller-settable GUC identity and caller-parameterized SECURITY DEFINER resolver.
+- Kept write APIs disabled pending trusted authentication and live RLS/grants validation.
+- No CORE4/H16/H18/UI changes; no live database migration claimed.
+
+## 2026-11-10 — M08.4 Real Dashboard & Data Management (initial increment)
+- Added actor-scoped PostgreSQL operational KPI aggregation and the `/api/dashboard/summary` and `/api/data/health` endpoints.
+- Added owner predicates and retained RLS; null trusted actor returns `AUTH_CONTEXT_REQUIRED` and null metrics without running aggregate queries.
+- Replaced illustrative approval/high-risk KPI claims with live API-backed application, INPUT_QUALITY, H18 support-signal and active-report metrics.
+- Added source-health/data-catalog view separating PostgreSQL operational records from read-only CORE4/H16.
+- Kept localStorage demo records in a clearly labelled compatibility area, outside live KPIs and ML.
+- Added Metric Glossary, Dashboard API Contract, M08.4 source audit and regression tests.
+- No database migration, CRUD endpoint, authentication change, H16/CORE4 artifact change or H18 policy change. Target-Windows HTTP/UI verification remains pending.

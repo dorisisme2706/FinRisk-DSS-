@@ -1,0 +1,20 @@
+M08.4 Dashboard Source Audit — 10/11/2026
+Command: python qa/m08_4_dashboard_audit.py
+Exit code: 0
+
+M08.4 Dashboard Source Audit
+PASS | dashboard summary and data health endpoints exist
+PASS | metrics require finrisk_app.current_actor_id
+PASS | null actor blocks aggregate queries
+PASS | all aggregates are owner-scoped
+PASS | validation metrics are INPUT_QUALITY only
+PASS | assessments remain support-only and NOT_APPROVED
+PASS | monthly trend uses application created_at
+PASS | CORE4/H16 source is marked read-only
+PASS | test split and risk-band metrics are explicitly excluded
+PASS | UI fetches live summary API
+PASS | legacy MOCK storage remains separated and labelled
+PASS | glossary and API contract define the scope
+PASS | approval and high-risk KPI claims were removed from live dashboard
+
+RESULT: 13/13 PASS

@@ -55,6 +55,73 @@ class DatabaseConfigTests(unittest.TestCase):
         self.assertNotIn("private-user", str(result))
 
 
+class DashboardMetricsTests(unittest.TestCase):
+    def test_metrics_fail_closed_without_trusted_actor(self):
+        class Cursor:
+            def __init__(self): self.statements = []
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def execute(self, sql, params=None): self.statements.append((sql, params))
+            def fetchone(self): return (None,)
+            def fetchall(self): raise AssertionError("No aggregate query may run without an actor.")
+        class Conn:
+            def __init__(self): self.cur = Cursor()
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def cursor(self): return self.cur
+        conn = Conn()
+        with patch.object(db, "_connect", return_value=conn):
+            result = db.dashboard_metrics(health={"status": "ready", "code": "DB_CONNECTED"})
+        self.assertEqual(result["status"], "blocked")
+        self.assertEqual(result["code"], "AUTH_CONTEXT_REQUIRED")
+        self.assertEqual(result["scope"], "CURRENT_ACTOR")
+        self.assertTrue(all(value is None for value in result["counts"].values()))
+        self.assertEqual(len(conn.cur.statements), 1)
+
+    def test_metrics_aggregate_only_current_actor_and_allowed_signals(self):
+        class Cursor:
+            def __init__(self): self.fetchall_results = iter([
+                [("DRAFT", 2), ("SUBMITTED", 1)],
+                [("PASS", 3), ("WARN", 1)],
+                [("MANUAL_REVIEW_RECOMMENDED", 1), ("NO_REVIEW_SIGNAL", 2)],
+                [("2026-06", 0), ("2026-07", 3)],
+            ]); self.statements = []; self.fetchone_results = iter([("actor-uuid",), (4,)])
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def execute(self, sql, params=None): self.statements.append((sql, params))
+            def fetchone(self): return next(self.fetchone_results)
+            def fetchall(self): return next(self.fetchall_results)
+        class Conn:
+            def __init__(self): self.cur = Cursor()
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def cursor(self): return self.cur
+        conn = Conn()
+        with patch.object(db, "_connect", return_value=conn):
+            result = db.dashboard_metrics(health={"status": "ready", "code": "DB_CONNECTED"})
+        self.assertEqual(result["status"], "ready")
+        self.assertEqual(result["counts"]["applications_total"], 3)
+        self.assertEqual(result["counts"]["validation_runs_total"], 4)
+        self.assertEqual(result["counts"]["assessments_total"], 3)
+        self.assertEqual(result["counts"]["manual_review_recommended"], 1)
+        self.assertEqual(result["counts"]["active_reports"], 4)
+        aggregate_sql = "\n".join(sql for sql, _ in conn.cur.statements[1:]).lower()
+        self.assertIn("owner_user_id = %s", aggregate_sql)
+        self.assertIn("validation_scope = 'input_quality'", aggregate_sql)
+        self.assertIn("business_policy_status = 'not_approved'", aggregate_sql)
+        self.assertNotIn("target", aggregate_sql)
+        self.assertNotIn("split_manifest", aggregate_sql)
+
+    def test_metrics_hide_database_exceptions(self):
+        class BrokenConn:
+            def __enter__(self): raise RuntimeError("password=private-secret")
+            def __exit__(self, *args): return False
+        with patch.object(db, "_connect", return_value=BrokenConn()):
+            result = db.dashboard_metrics(health={"status": "ready", "code": "DB_CONNECTED"})
+        self.assertEqual(result["code"], "DB_UNAVAILABLE")
+        self.assertNotIn("private-secret", str(result))
+
+
 class MigrationDesignTests(unittest.TestCase):
     def test_migrations_are_ordered_and_checksum_pinned(self):
         migrations = migrate.discover_migrations()

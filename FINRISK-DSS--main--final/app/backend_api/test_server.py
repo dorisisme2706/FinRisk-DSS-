@@ -16,6 +16,49 @@ api = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(api)
 
 class ServerTests(unittest.TestCase):
+    def test_database_health_is_explicitly_unavailable_without_configuration(self):
+        with patch.object(api, "database_health", return_value={
+            "status": "unavailable", "code": "DB_NOT_CONFIGURED"
+        }):
+            status, body = self.request("/api/db/health")
+        self.assertEqual(status, 503)
+        payload = json.loads(body)
+        self.assertEqual(payload["integration_stage"], "M08.3")
+        self.assertEqual(payload["code"], "DB_NOT_CONFIGURED")
+        self.assertNotIn("database_url", payload)
+
+    def test_m084_dashboard_summary_is_actor_scoped_and_does_not_fabricate_counts(self):
+        metrics = {
+            "status": "blocked", "code": "AUTH_CONTEXT_REQUIRED", "scope": "CURRENT_ACTOR",
+            "counts": {"applications_total": None, "active_reports": None},
+            "applications_by_status": None, "monthly_applications": None,
+        }
+        with patch.object(api, "database_health", return_value={"status": "ready", "code": "DB_CONNECTED"}), \
+             patch.object(api, "dashboard_metrics", return_value=metrics):
+            status, body = self.request("/api/dashboard/summary")
+        self.assertEqual(status, 200)
+        payload = json.loads(body)
+        self.assertEqual(payload["integration_stage"], "M08.4")
+        self.assertEqual(payload["sources"]["postgresql"]["code"], "DB_CONNECTED")
+        self.assertEqual(payload["sources"]["core4_h16"]["code"], "SNAPSHOT_NOT_CONFIGURED")
+        self.assertEqual(payload["metrics"]["code"], "AUTH_CONTEXT_REQUIRED")
+        self.assertIsNone(payload["metrics"]["counts"]["applications_total"])
+        self.assertFalse(payload["governance"]["test_split_included"])
+        self.assertFalse(payload["governance"]["automatic_credit_decision"])
+        self.assertNotIn("database_url", payload)
+        self.assertNotIn("password", str(payload).lower())
+
+    def test_m084_data_health_reports_both_separate_sources(self):
+        with patch.object(api, "database_health", return_value={"status": "ready", "code": "DB_CONNECTED"}):
+            status, body = self.request("/api/data/health")
+        self.assertEqual(status, 200)
+        payload = json.loads(body)
+        self.assertEqual(payload["integration_stage"], "M08.4")
+        self.assertEqual(payload["sources"]["postgresql"]["status"], "ready")
+        self.assertEqual(payload["sources"]["core4_h16"]["status"], "unavailable")
+        self.assertEqual(payload["business_policy_status"], "NOT_APPROVED")
+        self.assertFalse(payload["automatic_credit_decision"])
+
     def test_snapshot_configuration_precedence(self):
         with patch.dict(api.os.environ, {"FINRISK_SNAPSHOT": "/configured/core4"}):
             self.assertEqual(api.parse_args([]).snapshot, "/configured/core4")

@@ -1,0 +1,64 @@
+version: m08.4.dashboard.v1
+endpoints:
+  - method: GET
+    path: /api/dashboard/summary
+    purpose: Actor-scoped operational metrics and separate PostgreSQL/CORE4-H16 source health.
+    authentication: localhost_only_current_release; aggregates require trusted current_actor_id context
+    response:
+      status: ready|partial|unavailable
+      integration_stage: M08.4
+      generated_at: UTC_ISO8601
+      sources:
+        postgresql:
+          status: ready|connected|unavailable
+          code: sanitized_status_code
+          integration_stage: M08.3
+        core4_h16:
+          status: ready|unavailable
+          code: sanitized_status_code
+          source: CORE4/H16
+          read_only: true
+          model_version: optional
+          data_version: optional
+          feature_set_version: optional
+          feature_count: optional
+      metrics:
+        status: ready|blocked|unavailable
+        code: ACTOR_SCOPED_METRICS_READY|AUTH_CONTEXT_REQUIRED|DB_*
+        scope: CURRENT_ACTOR
+        counts:
+          applications_total: integer|null
+          applications_draft: integer|null
+          applications_submitted: integer|null
+          validation_runs_total: integer|null
+          validation_pass: integer|null
+          validation_warn: integer|null
+          validation_fail: integer|null
+          assessments_total: integer|null
+          manual_review_recommended: integer|null
+          no_review_signal: integer|null
+          active_reports: integer|null
+        applications_by_status: array|null
+        monthly_applications: array|null
+      governance:
+        business_policy_status: NOT_APPROVED
+        automatic_credit_decision: false
+        test_split_included: false
+        risk_band_metrics_enabled: false
+  - method: GET
+    path: /api/data/health
+    purpose: Source-health view for PostgreSQL and CORE4/H16.
+    response:
+      integration_stage: M08.4
+      sources: same_as_dashboard_summary.sources
+      business_policy_status: NOT_APPROVED
+      automatic_credit_decision: false
+security:
+  - Do not return DSN, username, hostname, password, filesystem paths, raw exception messages, or customer records.
+  - Aggregate only when finrisk_app.current_actor_id() returns a non-null trusted actor.
+  - Never set actor identity from HTTP parameters or caller-settable GUCs.
+  - Keep owner_user_id predicates and PostgreSQL RLS active.
+  - Do not grant BYPASSRLS or aggregate globally across owners.
+  - Exclude CORE4 test split; do not query target or raw features.
+  - Keep CORE4/H16 read-only and outside the app-owned PostgreSQL schema.
+  - Never derive APPROVE, REJECT, approval rates, risk bands, or loan terms.
