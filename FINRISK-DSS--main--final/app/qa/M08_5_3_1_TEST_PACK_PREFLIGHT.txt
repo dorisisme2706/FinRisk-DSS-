@@ -1,0 +1,26 @@
+PASS | migration 0003 SHA-256 matches approved revised draft
+PASS | test harness initializes a distinct data directory
+PASS | test harness uses loopback port 55432 by default
+PASS | test harness refuses port 5432
+PASS | test harness never stops the existing PostgreSQL service
+PASS | test harness verifies all PostgreSQL 17 binaries
+PASS | test harness requires a dedicated isolation marker before reusing a cluster
+PASS | test harness confirms the actual server endpoint before database work
+PASS | test harness restores pre-existing environment variables
+PASS | test harness disposes the secure password buffer
+PASS | test harness uses only the temporary test cluster password prompt
+PASS | test harness does not open or write app .env
+PASS | test migrations are applied in exact 0001-0003 order
+PASS | test harness invokes the actual FinRisk migration runner with a temporary test-only DSN
+PASS | test harness supports the project venv or an explicit Python executable
+PASS | test SQL uses only synthetic fixtures
+PASS | test SQL covers all four derived simulation outcomes
+PASS | test SQL exercises runtime RLS denial and auditor read-only
+PASS | isolated role bootstrap creates only the five expected NOLOGIN technical groups
+PASS | isolated role bootstrap does not overwrite the repository proposal
+PASS | guide documents why the isolated cluster is required
+PASS | test harness preserves the test data directory and does not auto-delete it
+SUMMARY: 22/22 PASS
+MIGRATION_0003_SHA256: 9428be4f4ff3bdf4aeab4bc31251774e1d14844584a073e229998db1c301ac66
+POSTGRES_EXECUTION: NOT RUN IN THIS ENVIRONMENT (server binaries unavailable)
+LIVE_DATABASE: NOT CONNECTED

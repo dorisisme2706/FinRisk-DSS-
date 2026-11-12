@@ -1,0 +1,116 @@
+{
+  "audit_id": "FINRISK_M08_5_3_1_MIGRATION_STATIC_AUDIT_REVISED",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "next sequential migration filename",
+      "status": "PASS"
+    },
+    {
+      "name": "extends the existing Registry rather than creating a duplicate",
+      "status": "PASS"
+    },
+    {
+      "name": "creates exactly two supporting tables",
+      "status": "PASS"
+    },
+    {
+      "name": "contains all six approved rule types",
+      "status": "PASS"
+    },
+    {
+      "name": "contains all seven approved application scopes",
+      "status": "PASS"
+    },
+    {
+      "name": "requires rule_type, application_scope and basis_reference",
+      "status": "PASS"
+    },
+    {
+      "name": "requires rule_owner and created_by on new rules",
+      "status": "PASS"
+    },
+    {
+      "name": "separates basis_reference from evidence_reference",
+      "status": "PASS"
+    },
+    {
+      "name": "keeps approval and execution guards intact",
+      "status": "PASS"
+    },
+    {
+      "name": "prevents unreviewed metadata backfill when Registry is no longer empty",
+      "status": "PASS"
+    },
+    {
+      "name": "creates exactly one new application role RULE_MANAGER",
+      "status": "PASS"
+    },
+    {
+      "name": "role lookup uses current trusted actor and existing application role mapping",
+      "status": "PASS"
+    },
+    {
+      "name": "all three rule/testing tables have RLS enabled and forced",
+      "status": "PASS"
+    },
+    {
+      "name": "all three INSERT policies require RULE_MANAGER",
+      "status": "PASS"
+    },
+    {
+      "name": "simulation-run INSERT policy binds executed_by to trusted actor",
+      "status": "PASS"
+    },
+    {
+      "name": "finrisk_auditor receives SELECT on all three tables",
+      "status": "PASS"
+    },
+    {
+      "name": "run history copies snapshots from exact immutable test case",
+      "status": "PASS"
+    },
+    {
+      "name": "simulation compares observed and expected JSON only",
+      "status": "PASS"
+    },
+    {
+      "name": "every inserted attempt receives one of four derived outcomes",
+      "status": "PASS"
+    },
+    {
+      "name": "run history is idempotency-keyed and append-only for runtime",
+      "status": "PASS"
+    },
+    {
+      "name": "JSON snapshots reject PII, credentials and protected model keys",
+      "status": "PASS"
+    },
+    {
+      "name": "no destructive DROP or TRUNCATE statements",
+      "status": "PASS"
+    },
+    {
+      "name": "no approval/execution guard is relaxed",
+      "status": "PASS"
+    },
+    {
+      "name": "no executable rule-code field is introduced",
+      "status": "PASS"
+    }
+  ],
+  "migration": "0003_business_rule_registry.sql",
+  "sha256": "9428be4f4ff3bdf4aeab4bc31251774e1d14844584a073e229998db1c301ac66",
+  "application_roles_created": [
+    "rule_manager"
+  ],
+  "owner_decisions_incorporated": {
+    "single_application_role": "RULE_MANAGER",
+    "auditor_select": true,
+    "mandatory_rule_owner_created_by_basis_reference": true,
+    "manual_observed_vs_expected_comparison_only": true
+  },
+  "live_database_tested": false,
+  "sql_execution_tested": false,
+  "source_repository_modified": false
+}
