@@ -1,0 +1,27 @@
+{
+  "milestone": "M08.5.4.2",
+  "title": "Signed Actor Assertion POC",
+  "verified_date": "2026-11-13",
+  "status": "PASS",
+  "environment": {
+    "database": "finrisk_app_db",
+    "host": "127.0.0.1",
+    "port": 55432,
+    "postgres_version": "17.11 (170011)",
+    "isolated_postgresql": true,
+    "production_database_connected": false,
+    "h16_core4_h18_modified": false,
+    "poc_objects_cleaned_up": true
+  },
+  "summary": {
+    "scenario_groups": 11,
+    "total_assertions": 17,
+    "failures": 0
+  },
+  "artifacts": [
+    "app/qa/M08_5_4_2_ACTOR_ASSERTION_POC.sql",
+    "app/qa/test_m08_5_4_2_signed_actor_assertion.py",
+    "app/qa/run_m08_5_4_2_signed_actor_assertion_test.ps1",
+    "app/qa/M08_5_4_2_SIGNED_ACTOR_ASSERTION_GUIDE_VI.md"
+  ]
+}

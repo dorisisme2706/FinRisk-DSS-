@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "release": "FinRisk DSS W07 Runtime Compatibility Gate",
+  "generated_at_utc": "2026-11-13T00:30:28.013660+00:00",
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "D:\\FinRisk-DSS-\\FINRISK-DSS--main--final\\app\\.venv\\Scripts\\python.exe",
+  "expected_python_minor": "3.14",
+  "locked_package_count": 13,
+  "installed_package_mismatches": [],
+  "pip_check_returncode": 0,
+  "snapshot_requested": true,
+  "checks_total": 11,
+  "checks_passed": 11,
+  "checks_failed": 0,
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "CPython minor version matches frozen model metadata",
+      "status": "PASS",
+      "detail": "Expected CPython (3, 14); running cpython 3.14.7"
+    },
+    {
+      "name": "Python interpreter is 64-bit",
+      "status": "PASS",
+      "detail": "Pointer width: 64-bit"
+    },
+    {
+      "name": "Runtime operating system is Windows",
+      "status": "PASS",
+      "detail": "Platform: win32; expected win32"
+    },
+    {
+      "name": "Frozen model versions agree with the requirements lock",
+      "status": "PASS",
+      "detail": "Compared 6 metadata package versions with 13 locked packages"
+    },
+    {
+      "name": "Every installed package matches the exact requirements lock",
+      "status": "PASS",
+      "detail": "All locked package versions match"
+    },
+    {
+      "name": "pip dependency graph is consistent",
+      "status": "PASS",
+      "detail": "No broken requirements found."
+    },
+    {
+      "name": "All model runtime libraries import successfully",
+      "status": "PASS",
+      "detail": "NumPy, pandas, PyArrow, LightGBM, scikit-learn and joblib import"
+    },
+    {
+      "name": "PyArrow Parquet read/write works",
+      "status": "PASS",
+      "detail": "In-memory Parquet write/read round-trip succeeded"
+    },
+    {
+      "name": "Frozen H16 pipeline SHA-256 matches metadata",
+      "status": "PASS",
+      "detail": "Expected 7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34; actual 7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34"
+    },
+    {
+      "name": "H16 pipeline unpickles without scikit-learn version warnings",
+      "status": "PASS",
+      "detail": "Pipeline unpickled without InconsistentVersionWarning; schema has 169 ordered features"
+    },
+    {
+      "name": "CORE4 snapshot hash and Parquet header are valid",
+      "status": "PASS",
+      "detail": "D:\\FinRisk_CORE4_Snapshot_For_GK_20261029\\FinRisk_CORE4_Snapshot\\data\\feature_matrix.parquet: SHA-256 MATCH; rows=307511; sk_id_curr column present=True"
+    }
+  ]
+}

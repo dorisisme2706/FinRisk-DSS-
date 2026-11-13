@@ -1,0 +1,16 @@
+W07 Runtime Compatibility Gate: PASS
+Checks: 11/11 PASS; 0 FAIL
+Python: 3.14.7 (expected 3.14)
+Locked package count: 13; mismatches: 0
+pip check: PASS
+PASS | CPython minor version matches frozen model metadata | Expected CPython (3, 14); running cpython 3.14.7
+PASS | Python interpreter is 64-bit | Pointer width: 64-bit
+PASS | Runtime operating system is Windows | Platform: win32; expected win32
+PASS | Frozen model versions agree with the requirements lock | Compared 6 metadata package versions with 13 locked packages
+PASS | Every installed package matches the exact requirements lock | All locked package versions match
+PASS | pip dependency graph is consistent | No broken requirements found.
+PASS | All model runtime libraries import successfully | NumPy, pandas, PyArrow, LightGBM, scikit-learn and joblib import
+PASS | PyArrow Parquet read/write works | In-memory Parquet write/read round-trip succeeded
+PASS | Frozen H16 pipeline SHA-256 matches metadata | Expected 7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34; actual 7db887ce309eaa9c2151c9f408c1f7b673e562fa8b3aed08f8f22942581dae34
+PASS | H16 pipeline unpickles without scikit-learn version warnings | Pipeline unpickled without InconsistentVersionWarning; schema has 169 ordered features
+PASS | CORE4 snapshot hash and Parquet header are valid | D:\FinRisk_CORE4_Snapshot_For_GK_20261029\FinRisk_CORE4_Snapshot\data\feature_matrix.parquet: SHA-256 MATCH; rows=307511; sk_id_curr column present=True
