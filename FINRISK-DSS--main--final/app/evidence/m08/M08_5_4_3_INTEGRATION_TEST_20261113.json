@@ -1,0 +1,210 @@
+{
+  "evidence_id": "FINRISK_M08_5_4_3_INTEGRATION_TEST_20261113",
+  "milestone": "M08.5.4.3",
+  "title": "Persistent Actor Assertion Verifier Migration (0004), Out-of-Band Key Provisioning & Backend Integration",
+  "executed_at_utc": "2026-11-13T12:20:40Z",
+  "environment": {
+    "target_endpoint": "127.0.0.1:55432/finrisk_app_db",
+    "postgres_major_version": 17,
+    "production_port_5432_touched": false,
+    "core_freeze_modified": false
+  },
+  "migration_0004": {
+    "filename": "0004_actor_assertion_verifier.sql",
+    "sha256": "11c76d90f5d10302f20e66dcbc28fce2b931701969e7d9bb5477638ae141e6ba"
+  },
+  "summary": {
+    "status": "PASS",
+    "scenarios_passed": 10,
+    "scenarios_total": 10,
+    "assertions_passed": 23,
+    "assertions_total": 23
+  },
+  "scenarios": [
+    {
+      "scenario_id": "S01",
+      "title": "Migration 0004 applied via migrate.py and checksum-verified on re-run",
+      "status": "PASS",
+      "assertions": [
+        {
+          "name": "apply_0004_committed",
+          "status": "PASS",
+          "detail": "['SKIP 0001_initial_schema (checksum verified)', 'SKIP 0002_runtime_grants (checksum verified)', 'SKIP 0003_business_rule_registry (checksum verified)', 'APPLY 0004_actor_assertion_verifier (committed)']"
+        },
+        {
+          "name": "rerun_0004_skipped_verified",
+          "status": "PASS",
+          "detail": "['SKIP 0001_initial_schema (checksum verified)', 'SKIP 0002_runtime_grants (checksum verified)', 'SKIP 0003_business_rule_registry (checksum verified)', 'SKIP 0004_actor_assertion_verifier (checksum verified)']"
+        },
+        {
+          "name": "schema_migrations_0004_checksum",
+          "status": "PASS",
+          "detail": "[('0004', 'actor_assertion_verifier', '11c76d90f5d10302f20e66dcbc28fce2b931701969e7d9bb5477638ae141e6ba')]"
+        },
+        {
+          "name": "database_health_ready",
+          "status": "PASS",
+          "detail": "{'status': 'ready', 'code': 'DB_CONNECTED'}"
+        }
+      ]
+    },
+    {
+      "scenario_id": "S02",
+      "title": "Verifier and dashboard_metrics fail closed before key provisioning",
+      "status": "PASS",
+      "assertions": [
+        {
+          "name": "current_actor_id_is_null",
+          "status": "PASS",
+          "detail": "actor=None"
+        },
+        {
+          "name": "dashboard_metrics_blocked",
+          "status": "PASS",
+          "detail": "AUTH_CONTEXT_REQUIRED"
+        }
+      ]
+    },
+    {
+      "scenario_id": "S03",
+      "title": "Out-of-band provisioning activates key_id=1 without exposing key material",
+      "status": "PASS",
+      "assertions": [
+        {
+          "name": "provisioned_key_1",
+          "status": "PASS",
+          "detail": "{'status': 'PROVISIONED', 'active_key_id': 1, 'key_bytes': 32, 'demoted_previous_active_count': 0, 'demoted_to': 'VERIFY_ONLY'}"
+        },
+        {
+          "name": "metadata_lists_key_1_active",
+          "status": "PASS",
+          "detail": "[{'key_id': 1, 'key_bytes': 32, 'key_status': 'ACTIVE', 'created_at': '2026-11-13 19:20:38.196989+07', 'rotated_at': None}]"
+        }
+      ]
+    },
+    {
+      "scenario_id": "S04",
+      "title": "db.bind_actor_assertion establishes transaction-bound identity and enforces RLS under finrisk_app",
+      "status": "PASS",
+      "assertions": [
+        {
+          "name": "user_a_resolved_and_sees_own_2_apps",
+          "status": "PASS",
+          "detail": "actor=11111111-1111-4111-8111-111111111101, apps=2, rm=True"
+        },
+        {
+          "name": "user_b_resolved_and_sees_own_1_app",
+          "status": "PASS",
+          "detail": "actor=22222222-2222-4222-8222-222222222202, apps=1, rm=False"
+        }
+      ]
+    },
+    {
+      "scenario_id": "S05",
+      "title": "dashboard_metrics(actor_user_id=...) returns strict owner-scoped aggregates",
+      "status": "PASS",
+      "assertions": [
+        {
+          "name": "user_a_metrics_match_seeded_rows",
+          "status": "PASS",
+          "detail": "{'applications_total': 2, 'applications_draft': 1, 'applications_submitted': 1, 'validation_runs_total': 1, 'validation_pass': 1, 'validation_warn': 0, 'validation_fail': 0, 'assessments_total': 1, 'manual_review_recommended': 1, 'no_review_signal': 0, 'active_reports': 1}"
+        },
+        {
+          "name": "user_b_metrics_match_seeded_rows",
+          "status": "PASS",
+          "detail": "{'applications_total': 1, 'applications_draft': 1, 'applications_submitted': 0, 'validation_runs_total': 1, 'validation_pass': 0, 'validation_warn': 1, 'validation_fail': 0, 'assessments_total': 1, 'manual_review_recommended': 0, 'no_review_signal': 1, 'active_reports': 0}"
+        },
+        {
+          "name": "missing_actor_remains_blocked",
+          "status": "PASS",
+          "detail": "AUTH_CONTEXT_REQUIRED"
+        }
+      ]
+    },
+    {
+      "scenario_id": "S06",
+      "title": "Zero-downtime key rotation: key_id=2 becomes ACTIVE while key_id=1 remains accepted in VERIFY_ONLY",
+      "status": "PASS",
+      "assertions": [
+        {
+          "name": "rotation_status_map",
+          "status": "PASS",
+          "detail": "{1: 'VERIFY_ONLY', 2: 'ACTIVE'}"
+        },
+        {
+          "name": "active_key_2_verifies",
+          "status": "PASS",
+          "detail": "actor=11111111-1111-4111-8111-111111111101"
+        },
+        {
+          "name": "verify_only_key_1_still_verifies",
+          "status": "PASS",
+          "detail": "actor=11111111-1111-4111-8111-111111111101"
+        }
+      ]
+    },
+    {
+      "scenario_id": "S07",
+      "title": "Retired key rejection: key_id=1 in RETIRED state fails closed while key_id=2 continues working",
+      "status": "PASS",
+      "assertions": [
+        {
+          "name": "retired_key_1_rejected",
+          "status": "PASS",
+          "detail": "actor=None"
+        },
+        {
+          "name": "active_key_2_unaffected",
+          "status": "PASS",
+          "detail": "actor=11111111-1111-4111-8111-111111111101"
+        }
+      ]
+    },
+    {
+      "scenario_id": "S08",
+      "title": "Cross-transaction replay and signature tampering fail closed",
+      "status": "PASS",
+      "assertions": [
+        {
+          "name": "replay_in_new_tx_rejected",
+          "status": "PASS",
+          "detail": "replayed_actor=None"
+        },
+        {
+          "name": "tampered_signature_rejected",
+          "status": "PASS",
+          "detail": "tampered_actor=None"
+        }
+      ]
+    },
+    {
+      "scenario_id": "S09",
+      "title": "Disabled app_users row fails closed even with valid signature from active key",
+      "status": "PASS",
+      "assertions": [
+        {
+          "name": "disabled_user_metrics_blocked",
+          "status": "PASS",
+          "detail": "{'status': 'blocked', 'code': 'AUTH_CONTEXT_REQUIRED', 'scope': 'CURRENT_ACTOR', 'counts': {'applications_total': None, 'applications_draft': None, 'applications_submitted': None, 'validation_runs_total': None, 'validation_pass': None, 'validation_warn': None, 'validation_fail': None, 'assessments_total': None, 'manual_review_recommended': None, 'no_review_signal': None, 'active_reports': None}, 'applications_by_status': None, 'monthly_applications': None}"
+        }
+      ]
+    },
+    {
+      "scenario_id": "S10",
+      "title": "finrisk_app runtime role cannot access finrisk_private key table or private helper functions",
+      "status": "PASS",
+      "assertions": [
+        {
+          "name": "key_table_select_denied",
+          "status": "PASS",
+          "detail": "denied=True"
+        },
+        {
+          "name": "private_function_execute_denied",
+          "status": "PASS",
+          "detail": "denied=True"
+        }
+      ]
+    }
+  ]
+}

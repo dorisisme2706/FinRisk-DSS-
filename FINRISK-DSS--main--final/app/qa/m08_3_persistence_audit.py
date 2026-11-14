@@ -4,8 +4,10 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import re
 
 APP = Path(__file__).resolve().parents[1]
+NL = chr(10)
 
 
 def read(rel):
@@ -22,7 +24,7 @@ def main():
     migration_files = sorted(p.name for p in (APP / "database/migrations").glob("*.sql"))
 
     checks = {
-        "two ordered versioned migrations exist": migration_files == [
+        "two ordered versioned migrations exist": migration_files[:2] == [
             "0001_initial_schema.sql", "0002_runtime_grants.sql"
         ],
         "migration runner validates SHA-256 checksums": "hashlib.sha256" in runner and "checksum_sha256" in runner,
@@ -37,15 +39,15 @@ def main():
         "migration SQL contains no H16 artifacts or destructive table operations": (
             "pipeline.joblib" not in (migration1 + migration2).lower()
             and "split_manifest" not in (migration1 + migration2).lower()
-            and not __import__("re").search(
-                r"(?im)^\\s*(?:drop\\s+table|truncate\\s+(?:table\\s+)?)",
-                __import__("re").sub(r"(?m)^\\s*--.*$", "", migration1 + migration2),
+            and not re.search(
+                r"(?im)^\s*(?:drop\s+table|truncate\s+(?:table\s+)?)",
+                re.sub(r"(?m)^\s*--.*$", "", migration1 + migration2),
             )
         ),
         "runtime health reads migration version without table-wide SELECT": (
             "REVOKE ALL ON finrisk_app.schema_migrations FROM finrisk_app;" in migration2
             and "GRANT SELECT (migration_version) ON finrisk_app.schema_migrations TO finrisk_app;" in migration2
-            and not __import__("re").search(
+            and not re.search(
                 r"(?i)GRANT\s+SELECT\s+ON\s+finrisk_app\.schema_migrations\b", migration2
             )
         ),
@@ -68,7 +70,7 @@ def main():
         print(f"{item['status']} | {item['name']}")
     target = APP / "evidence/m08/M08_3_SOURCE_AUDIT_20261109.json"
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    target.write_text(json.dumps(out, ensure_ascii=False, indent=2) + NL, encoding="utf-8")
     return 0 if all(checks.values()) else 1
 
 

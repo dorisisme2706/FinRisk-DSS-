@@ -1,0 +1,14 @@
+M08.5.4.3 static audit: PASS (12/12 PASS)
+PASS | sequential migration filename 0004_actor_assertion_verifier.sql
+PASS | preflight verifies migration 0003 checksum
+PASS | creates isolated finrisk_private schema owned by finrisk_owner
+PASS | installs pgcrypto in finrisk_private schema
+PASS | creates actor_assertion_keys with >=32 byte constraint and single ACTIVE index
+PASS | no hardcoded secret key material in migration SQL
+PASS | defines constant_time_bytea_equal in finrisk_private
+PASS | replaces current_actor_id with SECURITY DEFINER transaction-bound verifier
+PASS | enforces 60s lifetime and active app_users check
+PASS | db.py implements canonical HMAC-SHA256 mint_actor_assertion and bind_actor_assertion
+PASS | provision_assertion_key.py supports out-of-band key activation and rotation
+PASS | no destructive DROP TABLE or TRUNCATE in migration 0004
+SHA-256 | 11c76d90f5d10302f20e66dcbc28fce2b931701969e7d9bb5477638ae141e6ba

@@ -1,0 +1,56 @@
+{
+  "audit_id": "FINRISK_M08_5_4_3_STATIC_AUDIT",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "sequential migration filename 0004_actor_assertion_verifier.sql",
+      "status": "PASS"
+    },
+    {
+      "name": "preflight verifies migration 0003 checksum",
+      "status": "PASS"
+    },
+    {
+      "name": "creates isolated finrisk_private schema owned by finrisk_owner",
+      "status": "PASS"
+    },
+    {
+      "name": "installs pgcrypto in finrisk_private schema",
+      "status": "PASS"
+    },
+    {
+      "name": "creates actor_assertion_keys with >=32 byte constraint and single ACTIVE index",
+      "status": "PASS"
+    },
+    {
+      "name": "no hardcoded secret key material in migration SQL",
+      "status": "PASS"
+    },
+    {
+      "name": "defines constant_time_bytea_equal in finrisk_private",
+      "status": "PASS"
+    },
+    {
+      "name": "replaces current_actor_id with SECURITY DEFINER transaction-bound verifier",
+      "status": "PASS"
+    },
+    {
+      "name": "enforces 60s lifetime and active app_users check",
+      "status": "PASS"
+    },
+    {
+      "name": "db.py implements canonical HMAC-SHA256 mint_actor_assertion and bind_actor_assertion",
+      "status": "PASS"
+    },
+    {
+      "name": "provision_assertion_key.py supports out-of-band key activation and rotation",
+      "status": "PASS"
+    },
+    {
+      "name": "no destructive DROP TABLE or TRUNCATE in migration 0004",
+      "status": "PASS"
+    }
+  ],
+  "migration": "0004_actor_assertion_verifier.sql",
+  "sha256": "11c76d90f5d10302f20e66dcbc28fce2b931701969e7d9bb5477638ae141e6ba"
+}

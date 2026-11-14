@@ -1,10 +1,9 @@
-"""Offline tests for M08.3 PostgreSQL adapter boundaries; no live DB is simulated as PASS."""
-import importlib.util
+"""Offline tests for M08.3-M08.5 PostgreSQL adapter boundaries; no live DB is simulated as PASS."""
 import os
 from pathlib import Path
 import sys
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend_api"))
@@ -122,10 +121,63 @@ class DashboardMetricsTests(unittest.TestCase):
         self.assertNotIn("private-secret", str(result))
 
 
+class ActorAssertionSigningTests(unittest.TestCase):
+    def test_signing_config_is_none_when_unconfigured(self):
+        with patch.dict(os.environ, {}, clear=True), patch.object(db, "load_local_env"):
+            self.assertIsNone(db.assertion_signing_config())
+
+    def test_rejects_short_key_material(self):
+        with patch.dict(os.environ, {
+            "FINRISK_ACTOR_ASSERTION_KEY_ID": "1",
+            "FINRISK_ACTOR_ASSERTION_KEY_HEX": "00" * 16,
+        }, clear=True), patch.object(db, "load_local_env"):
+            with self.assertRaisesRegex(RuntimeError, "ASSERTION_KEY_TOO_SHORT"):
+                db.assertion_signing_config()
+
+    def test_mints_canonical_hmac_sha256_assertion(self):
+        key = bytes.fromhex("11" * 32)
+        uid = "11111111-1111-4111-8111-111111111111"
+        nonce = "22222222-2222-4222-8222-222222222222"
+        claims = db.mint_actor_assertion(
+            uid,
+            "987654",
+            key_id=1,
+            key_material=key,
+            issued_at=1700000000,
+            expires_at=1700000030,
+            nonce=nonce,
+        )
+        self.assertEqual(claims["finrisk.actor_assertion_key_id"], "1")
+        self.assertEqual(claims["finrisk.actor_assertion_user_id"], uid)
+        self.assertEqual(claims["finrisk.actor_assertion_xid"], "987654")
+        self.assertEqual(len(claims["finrisk.actor_assertion_signature"]), 64)
+
+    def test_bind_actor_assertion_sets_all_seven_transaction_local_gucs(self):
+        class Cursor:
+            def __init__(self): self.calls = []
+            def execute(self, sql, params=None): self.calls.append((sql, params))
+            def fetchone(self): return ("424242", 1700000100)
+        cur = Cursor()
+        claims = db.bind_actor_assertion(
+            cur,
+            "11111111-1111-4111-8111-111111111111",
+            key_id=2,
+            key_material=bytes.fromhex("ab" * 32),
+            ttl_seconds=30,
+        )
+        self.assertEqual(claims["finrisk.actor_assertion_xid"], "424242")
+        set_config_calls = [c for c in cur.calls if "set_config" in c[0]]
+        self.assertEqual(len(set_config_calls), 7)
+
+
 class MigrationDesignTests(unittest.TestCase):
     def test_migrations_are_ordered_and_checksum_pinned(self):
         migrations = migrate.discover_migrations()
-        self.assertEqual([m["version"] for m in migrations], ["0001", "0002"])
+        versions = [m["version"] for m in migrations]
+        expected = [f"{idx:04d}" for idx in range(1, len(migrations) + 1)]
+        self.assertGreaterEqual(len(migrations), 2)
+        self.assertEqual(versions[:2], ["0001", "0002"])
+        self.assertEqual(versions, expected)
         self.assertTrue(all(len(m["checksum"]) == 64 for m in migrations))
 
     def test_initial_migration_fails_closed_for_actor_identity(self):
@@ -163,7 +215,7 @@ class MigrationDesignTests(unittest.TestCase):
         )
         self.assertNotRegex(
             sql,
-            r"(?i)GRANT\s+SELECT\s+ON\s+finrisk_app\.schema_migrations\b",
+            r"(?i)GRANT\s+SELECT\s+ON\s+finrisk_app\.schema_migrations",
         )
 
     def test_schema_migration_files_do_not_change_model_or_snapshot_contracts(self):
