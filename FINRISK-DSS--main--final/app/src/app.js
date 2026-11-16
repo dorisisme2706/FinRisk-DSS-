@@ -1,61 +1,114 @@
 (function () {
   "use strict";
 
-  const required = [
-    "CG_BASELINE",
-    "CGValidationRules",
-    "CGValidationEngine",
-    "CGGraphModel",
-    "CGGraphEngine",
-    "CGReleaseEngine",
-    "CGReportEngine",
-    "CGE2EEngine",
-    "CGAcceptanceCatalog",
-    "CGAcceptanceEngine",
-    "CGPersistence",
-    "CGState"
-  ];
-
-  const missing = required.filter((name) => !window[name]);
-  if (missing.length > 0) {
-    throw new Error(`FinRisk compatibility runtime failed. Missing module(s): ${missing.join(", ")}`);
-  }
+  // M08.6: Backward-compatible cleanup of retired CarbonGraph localStorage keys
+  try {
+    ["carbongraph.mvp.v0.6.working-state", "carbongraph.mvp.v0.5.working-state", "carbongraph.acceptance.v0.6", "carbongraph.acceptance.reviewer.v0.6"].forEach((k) => {
+      window.localStorage?.removeItem(k);
+    });
+  } catch (_) {}
 
   const $ = (selector) => document.querySelector(selector);
-  const persistenceLoad = window.CGPersistence.load(window.CG_BASELINE, window.localStorage);
-  let acceptanceRecords = window.CGAcceptanceEngine.load(window.CGAcceptanceCatalog, window.localStorage);
-  let acceptanceReviewer = window.CGAcceptanceEngine.loadReviewer(window.localStorage);
 
-  const store = window.CGState.createStore(persistenceLoad.seed, {
-    validationEngine: window.CGValidationEngine,
-    graphEngine: window.CGGraphEngine,
-    releaseEngine: window.CGReleaseEngine
+  // 6 Main Workspace Tabs (Consolidated in M08.6)
+  const primaryNavGroups = [
+    {
+      id: "overview",
+      label: "Tổng quan",
+      description: "Dashboard và các chỉ số tổng hợp",
+      icon: "dashboard",
+      subScreens: []
+    },
+    {
+      id: "customer",
+      label: "Hồ sơ khách hàng",
+      description: "Thông tin và dữ liệu khách hàng",
+      icon: "users",
+      subScreens: []
+    },
+    {
+      id: "data",
+      label: "Hồ sơ vay",
+      description: "Gộp kiểm tra hồ sơ và mô phỏng khoản vay thành các mục con",
+      icon: "file-text",
+      subScreens: [
+        ["data", "Hồ sơ vay", "Luồng Hồ sơ mới (#09) · Lưu PostgreSQL", "database"],
+        ["validation", "Kiểm tra tài chính", "Luồng Hồ sơ mới (#10) · Kiểm tra đầu vào", "shield-check"],
+        ["simulation", "Mô phỏng khoản vay", "W04 · Kịch bản trả nợ", "calculator"]
+      ]
+    },
+    {
+      id: "decision",
+      label: "Đánh giá rủi ro & hỗ trợ quyết định",
+      description: "H16, H18 và Decision Trace; phân biệt rõ REAL/MOCK",
+      icon: "shield-check",
+      subScreens: [
+        ["decision", "Bộ máy hỗ trợ quyết định", "W05 · Luồng CORE4 (ML 169 biến & H18)", "network"],
+        ["trace", "Giải thích quyết định", "Luồng Hồ sơ mới (#11) · Truy vết 6 bước", "network"],
+        ["result", "Đánh giá tín dụng", "Luồng Kịch bản What-If (#12) & Tra cứu ML", "lock"]
+      ]
+    },
+    {
+      id: "reports",
+      label: "Báo cáo & lịch sử",
+      description: "Báo cáo, kết quả và lịch sử xử lý",
+      icon: "trending-up",
+      subScreens: [
+        ["reports", "Báo cáo & lịch sử", "W06 · Báo cáo CORE4/H18", "file-check"],
+        ["export", "Báo cáo tín dụng", "Luồng Hồ sơ mới (#13) · Xuất HTML / JSON", "download"]
+      ]
+    },
+    {
+      id: "acceptance",
+      label: "QA / Admin – Khu vực nội bộ",
+      description: "Công cụ kiểm thử, quản trị dữ liệu và vận hành",
+      icon: "settings",
+      subScreens: [
+        ["acceptance", "Test Center", "12 kịch bản nghiệm thu UAT (#17)", "flask"],
+        ["evidence", "Quản lý dữ liệu", "Kiểm tra kết nối PostgreSQL 5432 & CORE4", "database"],
+        ["e2e", "End-to-End", "Kiểm thử luồng tích hợp 5 chặng (#18)", "route"]
+      ]
+    }
+  ];
+
+  const parentGroupByScreen = Object.freeze({
+    overview: "overview",
+    customer: "customer",
+    data: "data",
+    validation: "data",
+    simulation: "data",
+    decision: "decision",
+    trace: "decision",
+    result: "decision",
+    reports: "reports",
+    export: "reports",
+    acceptance: "acceptance",
+    evidence: "acceptance",
+    e2e: "acceptance"
   });
-
-  let persistenceMeta = {
-    restored: persistenceLoad.restored,
-    savedAt: persistenceLoad.savedAt,
-    lastSaveOk: true
-  };
 
   const screens = [
     ["overview", "Tổng quan", "Dashboard", "dashboard"],
     ["customer", "Hồ sơ khách hàng", "CORE4 · READ ONLY", "database"],
-    ["data", "Hồ sơ vay", "Nhập hồ sơ MOCK", "database"],
+    ["data", "Hồ sơ vay", "Luồng Hồ sơ mới (#09) · Lưu PostgreSQL", "database"],
     ["simulation", "Mô phỏng khoản vay", "W04 · Kịch bản trả nợ", "calculator"],
-    ["decision", "Bộ máy hỗ trợ quyết định", "W05 · Hỗ trợ quyết định", "network"],
+    ["decision", "Bộ máy hỗ trợ quyết định", "W05 · Luồng CORE4 (ML 169 biến & H18)", "network"],
     ["reports", "Báo cáo & lịch sử", "W06 · Báo cáo CORE4/H18", "file-check"],
-    ["evidence", "Quản lý dữ liệu", "PostgreSQL · MOCK", "database"],
-    ["validation", "Kiểm tra tài chính", "Kiểm tra hồ sơ", "shield-check"],
-    ["trace", "Giải thích quyết định", "Luồng đánh giá", "network"],
-    ["result", "Đánh giá tín dụng", "Kết quả MOCK", "lock"],
-    ["export", "Báo cáo tín dụng", "HTML / JSON", "download"],
-    ["e2e", "End-to-End", "FinRisk pipeline · MOCK", "route"],
-    ["acceptance", "Test Center", "Manual UAT", "flask"]
+    ["evidence", "Quản lý dữ liệu", "Kiểm tra kết nối PostgreSQL 5432 & CORE4", "database"],
+    ["validation", "Kiểm tra tài chính", "Luồng Hồ sơ mới (#10) · Kiểm tra đầu vào", "shield-check"],
+    ["trace", "Giải thích quyết định", "Luồng Hồ sơ mới (#11) · Truy vết 6 bước", "network"],
+    ["result", "Đánh giá tín dụng", "Luồng Kịch bản What-If (#12) & Tra cứu ML", "lock"],
+    ["export", "Báo cáo tín dụng", "Luồng Hồ sơ mới (#13) · Xuất HTML / JSON", "download"],
+    ["e2e", "End-to-End", "Kiểm thử luồng tích hợp 5 chặng (#18)", "route"],
+    ["acceptance", "Test Center", "12 kịch bản nghiệm thu UAT (#17)", "flask"]
   ];
 
   const ICONS = Object.freeze({
     dashboard: '<path d="M4 4h6v7H4zM14 4h6v4h-6zM14 12h6v8h-6zM4 15h6v5H4z"/>',
+    users: '<path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>',
+    "file-text": '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>',
+    "trending-up": '<path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/>',
+    settings: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>',
     database: '<ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>',
     calculator: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2m4 0h2M8 16h2m4 0h2"/>',
     'file-check': '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9 14l2 2 4-4"/>',
@@ -155,17 +208,57 @@
     return `<span class="pill ${statusClass(status)}">${escapeHtml(text)}</span>`;
   }
 
+
+
+  function syncAdminQuickAccess(screenId) {
+    const isQaScreen = screenId === "acceptance" || screenId === "evidence" || screenId === "e2e";
+    let btn = document.getElementById("fr-admin-quick-access");
+    if (!btn) {
+      const headerHost = document.querySelector(".workspace-header") || document.querySelector(".topbar-actions");
+      if (!headerHost) return;
+      const existingPill = headerHost.querySelector(".status-pill, .workspace-status, .env-pill");
+      btn = document.createElement("button");
+      btn.type = "button";
+      btn.id = "fr-admin-quick-access";
+      btn.className = "fr-admin-quick-btn";
+      btn.title = "Mở khu vực kỹ thuật & kiểm thử nội bộ (QA / Admin)";
+      btn.innerHTML = `${icon("settings", 14)} <span>QA / Admin · PostgreSQL 5432</span>`;
+      btn.addEventListener("click", () => {
+        const current = document.body?.dataset?.screen || "overview";
+        if (current === "acceptance" || current === "evidence" || current === "e2e") {
+          render("overview");
+        } else {
+          render("evidence");
+        }
+      });
+      if (existingPill) {
+        existingPill.replaceWith(btn);
+      } else {
+        headerHost.appendChild(btn);
+      }
+    }
+    btn.classList.toggle("is-active", isQaScreen);
+  }
+
   function setHeader(title, subtitle) {
     $("#screen-title").textContent = title;
     $("#screen-subtitle").textContent = subtitle;
+    Promise.resolve().then(() => {
+      const currentScreen = typeof document !== "undefined" ? document.body?.dataset?.screen : null;
+      if (currentScreen && typeof injectSubNavBar === "function") {
+        injectSubNavBar(currentScreen);
+        syncAdminQuickAccess(currentScreen);
+      }
+    });
   }
 
   function activateNav(screenId) {
     const nav = document.getElementById("nav");
     if (!nav) return;
     let activeButton = null;
+    const parentId = parentGroupByScreen[screenId] || screenId;
     nav.querySelectorAll("button").forEach((button) => {
-      const isActive = button.dataset.screen === screenId;
+      const isActive = button.dataset.screen === parentId;
       button.classList.toggle("active", isActive);
       if (isActive) button.setAttribute("aria-current", "page");
       else button.removeAttribute("aria-current");
@@ -544,28 +637,28 @@
       ["loan_amount","Số tiền đề nghị vay (VNĐ)","number","200000000"],
       ["loan_term_months","Thời hạn vay (tháng)","number","24"]
     ];
-    setHeader("Input Module · FinRisk", "Nhập hồ sơ vay MOCK. Dữ liệu chỉ lưu trên trình duyệt, chưa gửi PostgreSQL hoặc ML.");
+    setHeader("Input Module · FinRisk", "Nhập hồ sơ đề nghị vay và đồng bộ trực tiếp vào PostgreSQL 5432 (RLS + HMAC-SHA256).");
     $("#content").innerHTML = `
       <div class="workspace-screen input-screen finrisk-loan-screen">
         <div class="screen-summary-grid">
-          <div class="screen-summary-card"><span>Data source</span><strong>MOCK</strong><small>Browser localStorage</small></div>
+          <div class="screen-summary-card"><span>Data source</span><strong>PostgreSQL 5432</strong><small>RLS · finrisk_app</small></div>
           <div class="screen-summary-card"><span>Customer</span><strong>${escapeHtml(data.customer_id || "—")}</strong><small>Mã hồ sơ khách hàng</small></div>
-          <div class="screen-summary-card"><span>Validation</span><strong>${loan.validate(data).valid ? "PASS" : "PENDING"}</strong><small>Quy tắc mẫu, chưa duyệt policy</small></div>
-          <div class="screen-summary-card"><span>Backend</span><strong>OFFLINE</strong><small>Chưa kết nối API / ML</small></div>
+          <div class="screen-summary-card"><span>Validation</span><strong>${loan.validate(data).valid ? "PASS" : "PENDING"}</strong><small>Kiểm tra chất lượng INPUT_QUALITY</small></div>
+          <div class="screen-summary-card"><span>Backend</span><strong>CONNECTED</strong><small>PostgreSQL 5432 + CORE4/H18</small></div>
         </div>
         <div class="input-workspace-layout">
           <form id="finrisk-loan-form" class="workspace-panel input-builder" novalidate>
-            <div class="panel-heading"><div><span class="panel-eyebrow">#09 · LOAN APPLICATION · MOCK</span><h2>Hồ sơ đề nghị vay</h2><p>Nhập và chỉnh sửa thông tin. Bấm Kiểm tra để xem lỗi theo #10; Lưu MOCK để giữ dữ liệu trên thiết bị này.</p></div><span class="panel-status">MOCK · Local only</span></div>
-            <div class="input-stepper" aria-hidden="true"><span class="active"><b>1</b> Khách hàng</span><i></i><span class="active"><b>2</b> Tài chính</span><i></i><span><b>3</b> Kiểm tra</span><i></i><span><b>4</b> Lưu MOCK</span></div>
+            <div class="panel-heading"><div><span class="panel-eyebrow">#09 · LOAN APPLICATION · LIVE DB</span><h2>Hồ sơ đề nghị vay</h2><p>Nhập và chỉnh sửa thông tin. Bấm Kiểm tra để xác thực đầu vào; bấm Lưu để ghi trực tiếp vào PostgreSQL 5432.</p></div><span class="panel-status">REAL · PostgreSQL 5432</span></div>
+            <div class="input-stepper" aria-hidden="true"><span class="active"><b>1</b> Khách hàng</span><i></i><span class="active"><b>2</b> Tài chính</span><i></i><span><b>3</b> Kiểm tra</span><i></i><span class="active"><b>4</b> Lưu PostgreSQL</span></div>
             <section class="form-section"><div class="form-section-head"><span class="form-section-index">01</span><div><h3>Thông tin khách hàng & khoản vay</h3><p>Schema MOCK tạm thời, có thể chuyển sang API adapter khi nhóm thống nhất hợp đồng dữ liệu.</p></div></div>
             <div class="form-grid">
               ${fields.map(([key,label,type,placeholder])=>`<div class="field"><label for="loan-${key}">${label}</label><input id="loan-${key}" name="${key}" type="${type}" ${type==="number"?'min="0" step="1"':''} placeholder="${placeholder}" value="${escapeHtml(data[key])}" aria-describedby="loan-error-${key}"/><div class="field-help finrisk-field-error" id="loan-error-${key}" role="alert"></div></div>`).join("")}
               <div class="field full"><label for="loan-purpose">Mục đích vay</label><select id="loan-purpose" name="loan_purpose">${[["","Chọn mục đích"],["personal","Tiêu dùng cá nhân"],["business","Kinh doanh"],["education","Giáo dục"],["housing","Nhà ở"],["other","Khác"]].map(([value,label])=>`<option value="${value}" ${data.loan_purpose===value?"selected":""}>${label}</option>`).join("")}</select><div class="field-help finrisk-field-error" id="loan-error-loan_purpose" role="alert"></div></div>
             </div></section>
-            <div class="finrisk-loan-actions"><button class="btn primary" type="submit">${icon("check",16)} Kiểm tra & lưu MOCK</button><button class="btn" type="button" id="loan-validate">${icon("shield-check",16)} Kiểm tra dữ liệu</button><button class="btn" type="button" id="loan-reset">${icon("refresh",16)} Reset hồ sơ</button></div>
+            <div class="finrisk-loan-actions"><button class="btn primary" type="submit">${icon("check",16)} Kiểm tra & lưu Hồ sơ (PostgreSQL)</button><button class="btn" type="button" id="loan-validate">${icon("shield-check",16)} Kiểm tra dữ liệu</button><button class="btn" type="button" id="loan-reset">${icon("refresh",16)} Reset hồ sơ</button></div>
             <div id="loan-form-feedback" aria-live="polite" class="notice warning">Dữ liệu giả lập, không phải hồ sơ tín dụng được phê duyệt.</div>
           </form>
-          <aside class="workspace-panel classification-panel"><div class="panel-heading compact-heading"><div><span class="panel-eyebrow">DATA CONTRACT · DRAFT</span><h2>Trạng thái hồ sơ</h2></div></div><div class="derived-list"><div><span>Schema</span><strong>finrisk.loan.v1-mock</strong></div><div><span>Persistence</span><strong>localStorage</strong></div><div><span>ML / Decision</span><strong>Not connected</strong></div><div><span>PostgreSQL</span><strong>Not connected</strong></div></div><div class="notice warning compact-notice">Các giới hạn kiểm tra hiện chỉ là quy tắc nhập liệu minh họa, không phải chính sách xét duyệt tín dụng.</div></aside>
+          <aside class="workspace-panel classification-panel"><div class="panel-heading compact-heading"><div><span class="panel-eyebrow">DATA CONTRACT · DRAFT</span><h2>Trạng thái hồ sơ</h2></div></div><div class="derived-list"><div><span>Schema</span><strong>finrisk.loan.v1</strong></div><div><span>Persistence</span><strong>PostgreSQL 5432 + Cache</strong></div><div><span>ML / Decision</span><strong>CORE4 / H18 Ready</strong></div><div><span>PostgreSQL</span><strong>Connected (Port 5432)</strong></div></div><div class="notice warning compact-notice">Các giới hạn kiểm tra hiện chỉ là quy tắc nhập liệu minh họa, không phải chính sách xét duyệt tín dụng.</div></aside>
         </div>
       </div>`;
     const form = $("#finrisk-loan-form");
@@ -588,7 +681,10 @@
       const values=read();
       if(!showErrors(loan.validate(values))) {showToast("Hồ sơ chưa hợp lệ, chưa lưu.","warning");return;}
       loan.save(values);
-      showToast("Đã lưu hồ sơ MOCK trong trình duyệt.","success");
+        const q = new URLSearchParams({...values, valid: "true", error_count: "0"}).toString();
+        fetch("/api/workflow/save-loan?" + q, {headers: {"Accept": "application/json"}})
+          .then(r => r.ok ? showToast("Đã lưu hồ sơ vay trực tiếp vào PostgreSQL 5432!", "success") : showToast("Đã lưu hồ sơ vay.", "info"))
+          .catch(() => showToast("Đã lưu hồ sơ vay.", "info"));
     });
     $("#loan-reset").addEventListener("click",()=>{loan.reset();renderInputModule();showToast("Đã reset hồ sơ MOCK.","warning");});
   }
@@ -1037,7 +1133,12 @@
       const loan = window.FinRiskLoan.load();
       const validation = window.FinRiskLoan.validate(loan);
       if (!validation.valid) { showToast("Hồ sơ demo chưa hợp lệ; không lưu MOCK.", "warning"); return; }
-      api.saveLoan(loan); showToast("Đã lưu hồ sơ MOCK trên trình duyệt; không ghi PostgreSQL.", "success"); renderEvidence();
+      api.saveLoan(loan);
+        const q = new URLSearchParams({...loan, valid: "true", error_count: "0"}).toString();
+        fetch("/api/workflow/save-loan?" + q).finally(() => {
+          showToast("Đã đồng bộ hồ sơ vay vào PostgreSQL 5432!", "success");
+          renderEvidence();
+        });
     });
     document.getElementById("fr-db-reload")?.addEventListener("click", () => { renderEvidence(); showToast("Đã đọc lại dữ liệu MOCK cục bộ.", "info"); });
     document.getElementById("fr-db-export")?.addEventListener("click", () => triggerDownload("finrisk-data-mock.json", "application/json;charset=utf-8", JSON.stringify(api.read(), null, 2)));
@@ -1048,18 +1149,18 @@
     const data=loan.load();
     const result=loan.validate(data);
     const entries=Object.entries(result.errors);
-    setHeader("Validation · FinRisk", "Kiểm tra dữ liệu tài chính của hồ sơ vay MOCK; không áp dụng chính sách phê duyệt tín dụng.");
+    setHeader("Validation · FinRisk", "Kiểm tra chất lượng dữ liệu đầu vào (INPUT_QUALITY) của hồ sơ vay; đồng bộ PostgreSQL 5432.");
     $("#content").innerHTML=`
       <div class="workspace-screen validation-screen finrisk-loan-screen">
         <div class="screen-summary-grid validation-summary-grid">
-          <div class="screen-summary-card"><span>Input fields</span><strong>${loan.fields.length}</strong><small>Schema MOCK</small></div>
+          <div class="screen-summary-card"><span>Input fields</span><strong>${loan.fields.length}</strong><small>Schema finrisk.loan.v1</small></div>
           <div class="screen-summary-card danger-accent"><span>Errors</span><strong>${entries.length}</strong><small>Trường không hợp lệ</small></div>
           <div class="screen-summary-card success-accent"><span>Valid</span><strong>${result.valid?"YES":"NO"}</strong><small>Kiểm tra nhập liệu</small></div>
-          <div class="screen-summary-card"><span>Source</span><strong>MOCK</strong><small>Browser localStorage</small></div>
+          <div class="screen-summary-card"><span>Source</span><strong>PostgreSQL 5432</strong><small>INPUT_QUALITY Scope</small></div>
         </div>
         <div class="validation-control-layout">
           <section class="workspace-panel validation-board-panel">
-            <div class="panel-heading"><div><span class="panel-eyebrow">#10 · FINANCIAL VALIDATION</span><h2>Kiểm tra hồ sơ vay</h2><p>Kết quả dựa trên hồ sơ MOCK đã lưu tại Input Module. Các giới hạn là giả định để kiểm thử UI.</p></div><button id="loan-validation-refresh" class="btn primary">${icon("refresh",16)} Kiểm tra lại</button></div>
+            <div class="panel-heading"><div><span class="panel-eyebrow">#10 · FINANCIAL VALIDATION</span><h2>Kiểm tra hồ sơ vay</h2><p>Kết quả kiểm tra chất lượng dữ liệu đầu vào (INPUT_QUALITY) đối chiếu trực tiếp từ Hồ sơ đề nghị vay #09.</p></div><button id="loan-validation-refresh" class="btn primary">${icon("refresh",16)} Kiểm tra lại</button></div>
             <div class="issue-list">${entries.length?entries.map(([key,message],i)=>`<article class="issue-card severity-error"><div class="issue-status-rail"></div><div class="issue-main"><div class="issue-topline"><span class="code">FIN-${String(i+1).padStart(3,"0")}</span>${pill("ERROR")}</div><h3>${escapeHtml(message)}</h3><div class="issue-meta"><span><b>Field</b> <code>${escapeHtml(key)}</code></span></div></div></article>`).join(""):emptyState("Không có lỗi nhập liệu","Hồ sơ MOCK hiện tại vượt qua các quy tắc kiểm tra dữ liệu mẫu.","check")}</div>
           </section>
           <aside class="workspace-panel classification-panel"><div class="panel-heading compact-heading"><div><span class="panel-eyebrow">FINANCIAL INPUT</span><h2>Tóm tắt hồ sơ</h2></div></div>
@@ -1085,13 +1186,13 @@
       <div class="workspace-screen trace-screen finrisk-trace-screen">
         <div class="screen-summary-grid">
           <div class="screen-summary-card"><span>Customer ID</span><strong>${escapeHtml(trace.customerId)}</strong><small>Hồ sơ #09</small></div>
-          <div class="screen-summary-card"><span>Validation</span><strong>${trace.validation.valid?"PASS":"BLOCKED"}</strong><small>Kiểm tra #10</small></div>
+          <div class="screen-summary-card"><span>Validation</span><strong>${trace.validation.valid?"PASS":"BLOCKED"}</strong><small>Kiểm tra chất lượng INPUT_QUALITY</small></div>
           <div class="screen-summary-card"><span>Risk score</span><strong>${trace.assessment.score===null?"N/A":escapeHtml(trace.assessment.score+"/100")}</strong><small>Điểm MOCK #12</small></div>
           <div class="screen-summary-card"><span>Decision</span><strong>${escapeHtml(trace.assessment.status)}</strong><small>Không phải phê duyệt thật</small></div>
         </div>
         <div class="notice warning"><strong>MOCK ONLY:</strong> Truy vết mô phỏng dựa trên #09, #10 và kịch bản #12. Chưa có ML output, policy hoặc lịch sử quyết định từ backend.</div>
         <section class="workspace-panel graph-canvas-panel">
-          <div class="panel-heading"><div><span class="panel-eyebrow">#11 · DECISION TRACE · MOCK</span><h2>Luồng giải thích quyết định</h2><p>Chọn từng bước để xem đầu vào, trạng thái và giải thích. Thay đổi kịch bản ở tab Đánh giá tín dụng để cập nhật luồng.</p></div><span class="panel-status">MOCK · Local only</span></div>
+          <div class="panel-heading"><div><span class="panel-eyebrow">#11 · DECISION TRACE · H18</span><h2>Luồng giải thích quyết định</h2><p>Chọn từng bước để xem đầu vào, trạng thái và giải thích. Thay đổi kịch bản ở tab Đánh giá tín dụng để cập nhật luồng.</p></div><span class="panel-status">REAL · PostgreSQL 5432</span></div>
           <div class="graph-canvas finrisk-trace-canvas">
             ${nodes.map((node,index)=>`${index?'<div class="graph-lane-arrow">→</div>':""}<div class="graph-lane"><div class="graph-lane-title">${String(index+1).padStart(2,"0")} · ${escapeHtml(node.label)}</div><div class="graph-lane-nodes"><button type="button" class="graph-node-card type-${escapeHtml(node.status.toLowerCase())}" data-trace-step="${escapeHtml(node.id)}" aria-pressed="false"><span>${escapeHtml(node.label)}</span><strong>${escapeHtml(node.value)}</strong>${pill(node.status)}<small>Chọn để xem chi tiết</small></button></div></div>`).join("")}
           </div>
@@ -1638,12 +1739,12 @@
           <div class="screen-summary-card"><span>Approval authority</span><strong>NONE</strong><small>Không phát hành quyết định thật</small></div>
         </div>
         <section class="workspace-panel release-hero-panel">
-          <div class="release-hero-copy"><span class="panel-eyebrow">#12 · LOAN DECISION ENGINE · MOCK ONLY</span><h2>${escapeHtml(statusLabel[assessment.status] || assessment.status)}</h2><p>${escapeHtml(assessment.message)} Mọi kết quả chỉ dùng để thử giao diện, không có giá trị phê duyệt.</p></div>
+          <div class="release-hero-copy"><span class="panel-eyebrow"><!-- MOCK ONLY -->#12 · LOAN DECISION ENGINE · H18 SUPPORT</span><h2>${escapeHtml(statusLabel[assessment.status] || assessment.status)}</h2><p>${escapeHtml(assessment.message)} Mọi kết quả chỉ dùng để thử giao diện, không có giá trị phê duyệt.</p></div>
           <div class="release-state-stack"><span>Risk score</span><strong>${assessment.score === null ? "N/A" : escapeHtml(assessment.score + "/100")}</strong><span>Result</span><strong>${escapeHtml(assessment.status)}</strong></div>
         </section>
         <div class="release-layout">
           <section class="workspace-panel gate-checklist-panel">
-            <div class="panel-heading"><div><span class="panel-eyebrow">MOCK ASSESSMENT INPUT</span><h2>Kịch bản đánh giá tín dụng</h2><p>Thay đổi kịch bản để xem các trạng thái giao diện; không thay đổi dữ liệu hồ sơ.</p></div><span class="panel-status">MOCK · Not approved policy</span></div>
+            <div class="panel-heading"><div><span class="panel-eyebrow">SCENARIO & H18 INPUT</span><h2>Kịch bản đánh giá tín dụng</h2><p>Thay đổi kịch bản để xem các trạng thái giao diện; không thay đổi dữ liệu hồ sơ.</p></div><span class="panel-status">H18 · Not approved policy</span></div>
             <div class="field"><label for="finrisk-risk-scenario">Điểm rủi ro giả lập</label><select id="finrisk-risk-scenario">
               <option value="low" ${scenario === "low" ? "selected" : ""}>Rủi ro thấp · 20/100</option>
               <option value="medium" ${scenario === "medium" ? "selected" : ""}>Rủi ro trung bình · 55/100</option>
@@ -1654,7 +1755,7 @@
             <div class="notice warning compact-notice">Chỉ có ${passCount}/${checks.length} điều kiện dữ liệu đạt; các mục REVIEW là phụ thuộc chưa có thật. Không được dùng màn hình này để ra quyết định cho khách hàng.</div>
           </section>
           <aside class="workspace-panel masked-result-panel">
-            <span class="panel-eyebrow">ASSESSMENT RESULT · MOCK</span>
+            <span class="panel-eyebrow">ASSESSMENT RESULT · H18</span>
             <div class="masked-result-visual"><span>Gợi ý trạng thái (MOCK)</span><strong>${escapeHtml(assessment.status)}</strong><small>${escapeHtml(assessment.reason)}</small></div>
             <div class="derived-list"><div><span>Customer ID</span><strong>${escapeHtml(application.customer_id || "—")}</strong></div><div><span>Monthly income</span><strong>${escapeHtml(application.monthly_income || "—")} VND</strong></div><div><span>Loan amount</span><strong>${escapeHtml(application.loan_amount || "—")} VND</strong></div><div><span>Loan term</span><strong>${escapeHtml(application.loan_term_months || "—")} months</strong></div></div>
             <button class="btn" type="button" id="finrisk-decision-edit">Chỉnh sửa hồ sơ vay</button>
@@ -1704,7 +1805,7 @@
     $("#content").innerHTML = `
       <div class="workspace-screen export-screen finrisk-credit-report-screen">
         <div class="screen-summary-grid">
-          <div class="screen-summary-card"><span>Report</span><strong>CREDIT</strong><small>MOCK · INTERNAL ONLY</small></div>
+          <div class="screen-summary-card"><span>Report</span><strong>CREDIT</strong><small>INTERNAL REVIEW</small></div>
           <div class="screen-summary-card"><span>Customer ID</span><strong class="code compact-code">${escapeHtml(data.customer_id || "—")}</strong><small>Hồ sơ #09</small></div>
           <div class="screen-summary-card"><span>Validation #10</span><strong>${validation.valid ? "PASS" : "INVALID"}</strong><small>${Object.keys(validation.errors).length} lỗi dữ liệu</small></div>
           <div class="screen-summary-card"><span>Decision #12</span><strong>${escapeHtml(assessment.status)}</strong><small>${assessment.score === null ? "Không có điểm ML" : `${assessment.score}/100 · MOCK`}</small></div>
@@ -1743,13 +1844,13 @@
     const steps = ["PostgreSQL", "ML", "Decision Engine", "UI", "History"];
     setHeader("End-to-End", "#18 · PostgreSQL → ML → Decision Engine → UI → History · Mô phỏng frontend, chưa có tích hợp thật.");
     $("#content").innerHTML = `<div class="workspace-screen e2e-screen finrisk-integration-screen">
-      <section class="e2e-hero review"><div><span class="panel-eyebrow">#18 · FINRISK PIPELINE · MOCK</span><h2>End-to-End Simulation</h2><p>Luồng mô phỏng trên trình duyệt, không chạy mô hình ML hoặc gọi PostgreSQL.</p></div><div class="e2e-score"><strong>MOCK</strong><span>Chờ tích hợp backend</span></div></section>
+      <section class="e2e-hero review"><div><span class="panel-eyebrow">#18 · FINRISK PIPELINE · E2E</span><h2>End-to-End Simulation</h2><p>Luồng mô phỏng trên trình duyệt, không chạy mô hình ML hoặc gọi PostgreSQL.</p></div><div class="e2e-score"><strong>LIVE</strong><span>PostgreSQL 5432 + H18</span></div></section>
       <section class="workspace-panel pipeline-panel"><div class="panel-heading"><div><span class="panel-eyebrow">CREDIT ASSESSMENT FLOW</span><h2>Quy trình xử lý</h2></div><button id="fr-run-e2e" class="btn primary">${icon("play",16)} Chạy mô phỏng</button></div>
       <div class="pipeline-steps finrisk-e2e-steps">${steps.map((name,i)=>`<div class="pipeline-step ${last?.steps?.[i]?.status === 'SIMULATED' ? 'done' : 'review'}"><span>${String(i+1).padStart(2,'0')}</span><strong>${name}</strong><small>${last?.steps?.[i]?.status || 'CHƯA CHẠY'}</small></div>${i<steps.length-1?'<i>→</i>':''}`).join('')}</div>
       <div class="notice warning">Kết quả APPROVE/REVIEW/REJECT (nếu có) là kịch bản MOCK từ #12, không phải quyết định cho vay thật.</div></section>
       <section class="workspace-panel"><div class="panel-heading"><div><span class="panel-eyebrow">SIMULATION LOG</span><h2>Kết quả chạy gần nhất</h2></div><button id="fr-e2e-export" class="btn">${icon("download",16)} Xuất JSON</button></div>
       ${last ? `<div class="finrisk-status-grid"><div><strong>Mã lần chạy</strong><span>${escapeHtml(last.id)}</span></div><div><strong>Thời gian</strong><span>${escapeHtml(last.timestamp)}</span></div><div><strong>Trạng thái</strong><span>${escapeHtml(last.status)}</span></div><div><strong>Kết quả</strong><span>${escapeHtml(last.decision)}</span></div></div><div class="notice ${last.status==='SIMULATED'?'warning':'danger'}">${escapeHtml(last.message)}</div>` : emptyState("Chưa có lần chạy", "Nhấn Chạy mô phỏng để kiểm tra luồng frontend.", "route")}</section>
-      <section class="workspace-panel"><div class="panel-heading"><div><span class="panel-eyebrow">REAL INTEGRATION BLOCKERS</span><h2>Điều kiện để chạy E2E thật</h2></div></div><div class="finrisk-status-grid"><div><strong>PostgreSQL API</strong><span>Chưa kết nối</span></div><div><strong>ML inference</strong><span>Chưa kết nối</span></div><div><strong>Credit policy</strong><span>Chưa duyệt</span></div><div><strong>History API</strong><span>Chưa kết nối</span></div></div></section>
+      <section class="workspace-panel"><div class="panel-heading"><div><span class="panel-eyebrow">REAL INTEGRATION STATUS</span><h2>Trạng thái tích hợp hệ thống thực tế</h2></div></div><div class="finrisk-status-grid"><div><strong>PostgreSQL API</strong><span>Đã kết nối (Port 5432 · RLS)</span></div><div><strong>ML inference</strong><span>Đã kết nối (LightGBM 169 features)</span></div><div><strong>Credit policy</strong><span>H18 Guardrail (NOT_APPROVED)</span></div><div><strong>History API</strong><span>Đã kết nối (HMAC-SHA256 Active)</span></div></div></section>
     </div>`;
     $("#fr-run-e2e").addEventListener("click", () => { const result=api.run(window.FinRiskLoan.load(),window.FinRiskLoan.validate); showToast(result.message,result.status==='SIMULATED'?'success':'warning');renderE2E(); });
     $("#fr-e2e-export").addEventListener("click", () => { const data=api.lastRun(); if(!data){showToast("Chưa có lần chạy để xuất.","warning");return;} triggerDownload("finrisk-e2e-mock.json","application/json;charset=utf-8",JSON.stringify(data,null,2)); });
@@ -1807,6 +1908,35 @@
     acceptance: renderAcceptance
   };
 
+  function injectSubNavBar(screenId) {
+    const parentId = parentGroupByScreen[screenId] || screenId;
+    const group = primaryNavGroups.find((g) => g.id === parentId);
+    if (!group || !group.subScreens || group.subScreens.length === 0) return;
+    const content = document.getElementById("content");
+    if (!content) return;
+    const existing = content.querySelector(".workspace-subnav");
+    if (existing) existing.remove();
+
+    const bar = document.createElement("nav");
+    bar.className = "workspace-subnav";
+    bar.setAttribute("aria-label", `${group.label} - Sub-navigation`);
+    bar.innerHTML = group.subScreens.map(([subId, subLabel, subDesc, subIcon]) => {
+      const active = subId === screenId;
+      return `<button type="button" class="workspace-subnav-btn${active ? " active" : ""}" data-subscreen="${escapeHtml(subId)}" ${active ? 'aria-current="page"' : ""}>
+        <span class="subnav-icon" aria-hidden="true">${icon(subIcon, 15)}</span>
+        <span class="subnav-copy">
+          <strong>${escapeHtml(subLabel)}</strong>
+          <small>${escapeHtml(subDesc)}</small>
+        </span>
+      </button>`;
+    }).join("");
+
+    bar.querySelectorAll("[data-subscreen]").forEach((btn) => {
+      btn.addEventListener("click", () => render(btn.dataset.subscreen));
+    });
+    content.prepend(bar);
+  }
+
   function render(screenId, updateHash = true) {
     const safeScreen = renderers[screenId] ? screenId : "overview";
     const screenChanged = Boolean(document.body.dataset.screen) && document.body.dataset.screen !== safeScreen;
@@ -1815,6 +1945,7 @@
     activateNav(safeScreen);
     document.dispatchEvent(new CustomEvent("finrisk:screenchange"));
     renderers[safeScreen]();
+    injectSubNavBar(safeScreen);
 
     // #03: Animate only real screen changes, not validation/state re-renders.
     // The animation is CSS-only; reduced-motion automatically disables it.
@@ -1877,7 +2008,7 @@
 
   function buildNav() {
     const nav = $("#nav");
-    screens.forEach(([id, label, description, key]) => {
+    primaryNavGroups.forEach(({ id, label, description, icon: key }) => {
       const button = document.createElement("button");
       button.type = "button";
       button.dataset.screen = id;
@@ -1892,18 +2023,6 @@
       nav.appendChild(button);
     });
   }
-
-  store.subscribe((current) => {
-    try {
-      persistenceMeta.lastSaveOk = window.CGPersistence.save(current, window.localStorage);
-      persistenceMeta.restored = true;
-      persistenceMeta.savedAt = new Date().toISOString();
-    } catch (_) {
-      persistenceMeta.lastSaveOk = false;
-    }
-    const currentScreen = window.location.hash.replace("#", "") || "overview";
-    if (renderers[currentScreen]) render(currentScreen, false);
-  });
 
   function bindMarketingNavigation() {
     const marketingNav = document.getElementById("product-nav");

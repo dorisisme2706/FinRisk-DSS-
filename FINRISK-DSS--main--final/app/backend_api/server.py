@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(BUNDLE / "src"))
 
 from decision_engine import build_decision_support, DECISION_SUPPORT_VERSION
-from db import dashboard_metrics, database_health
+from db import configured_actor_user_id, dashboard_metrics, database_health, persist_live_h18_assessment, persist_live_loan_application
 
 
 def read_json(path):
@@ -166,6 +166,29 @@ def make_handler(scorer, setup_error):
                     return self.send_json(500, {"status": "error", "code": "PROFILE_READ_FAILED", "message": "Customer profile could not be read."})
                 return self.send_json(status, payload)
 
+            if path.path == "/api/workflow/save-loan":
+                params = parse_qs(path.query, keep_blank_values=True)
+                def _p(key, default=""):
+                    vals = params.get(key)
+                    return vals[0].strip() if vals else default
+                try:
+                    res = persist_live_loan_application(
+                        customer_id=_p("customer_id", "KH-LIVE"),
+                        full_name=_p("full_name", "Khach hang FinRisk"),
+                        age=int(float(_p("age", "30") or 30)),
+                        monthly_income=float(_p("monthly_income", "15000000") or 15000000),
+                        monthly_expenses=float(_p("monthly_expenses", "5000000") or 5000000),
+                        existing_monthly_debt=float(_p("existing_monthly_debt", "1000000") or 1000000),
+                        loan_amount=float(_p("loan_amount", "100000000") or 100000000),
+                        loan_term_months=int(float(_p("loan_term_months", "24") or 24)),
+                        loan_purpose=_p("loan_purpose", "personal"),
+                        valid=_p("valid", "true").lower() == "true",
+                        error_count=int(_p("error_count", "0") or 0),
+                    )
+                    return self.send_json(200 if res.get("status") == "ready" else 503, res)
+                except Exception:
+                    return self.send_json(500, {"status": "error", "code": "DB_WRITE_FAILED"})
+
             if path.path == "/api/db/health":
                 # Operational readiness only; never exposes DSN, username, host or exception.
                 payload = database_health()
@@ -176,7 +199,12 @@ def make_handler(scorer, setup_error):
                 # M08.4: aggregate only app-owned records under the trusted actor
                 # context; never expose global owner-scoped counts or test-split rows.
                 db_status = database_health()
-                metrics = dashboard_metrics(health=db_status) if path.path == "/api/dashboard/summary" else None
+                actor_id = configured_actor_user_id()
+                metrics = (
+                    dashboard_metrics(health=db_status, actor_user_id=actor_id)
+                    if actor_id
+                    else dashboard_metrics(health=db_status)
+                ) if path.path == "/api/dashboard/summary" else None
                 if scorer is None:
                     core4 = {
                         "status": "unavailable",

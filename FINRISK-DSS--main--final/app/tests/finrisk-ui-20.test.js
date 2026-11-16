@@ -14,9 +14,7 @@ function check(message, ok) {
   console.log("PASS", message);
   n++;
 }
-for (const file of ["assets/styles.css", "src/app.js", "src/ambient-graph.js", "src/i18n.js",
-  "src/state.js", "src/validation-engine.js", "src/graph-engine.js", "src/release-engine.js",
-  "src/report-engine.js", "src/persistence.js", "qa/responsive_qa.py"]) {
+for (const file of ["assets/styles.css", "src/app.js", "src/ambient-graph.js", "src/i18n.js", "qa/responsive_qa.py"]) {
   check(`Required file: ${file}`, fs.existsSync(path.join(root, file)));
 }
 for (const match of html.matchAll(/<script\s+src="([^"]+)"/g)) {

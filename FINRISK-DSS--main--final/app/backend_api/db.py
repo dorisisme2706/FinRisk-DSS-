@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import json
 import hmac
 import os
 from pathlib import Path
@@ -452,3 +453,352 @@ def dashboard_metrics(
         return _empty_dashboard_metrics(code if code.startswith("DB_") else "DB_UNAVAILABLE", "unavailable")
     except Exception:
         return _empty_dashboard_metrics("DB_QUERY_FAILED", "unavailable")
+
+
+def configured_actor_user_id() -> str | None:
+    """Return the configured local operator UUID only when HMAC signing is ready."""
+    load_local_env()
+    raw_actor = os.environ.get("FINRISK_ACTOR_USER_ID", "").strip()
+    if not raw_actor:
+        return None
+    if assertion_signing_config() is None:
+        return None
+    try:
+        return str(uuid.UUID(raw_actor))
+    except ValueError:
+        return None
+
+
+def record_operational_workflow_sample(actor_user_id: str | uuid.UUID | None = None) -> dict:
+    """Persist an authenticated, RLS-governed operational record set for the current actor."""
+    actor = str(actor_user_id or configured_actor_user_id() or "").strip()
+    if not actor:
+        return {"status": "blocked", "code": "AUTH_CONTEXT_REQUIRED"}
+
+    model_meta = json.loads((APP_ROOT / "backend_ml" / "model" / "metadata.json").read_text(encoding="utf-8"))
+    threshold_meta = json.loads((APP_ROOT / "backend_ml" / "model" / "threshold_policy.json").read_text(encoding="utf-8"))
+    with _connect(application_name="finrisk-dss-runtime-write") as conn:
+        with conn.cursor() as cur:
+            bind_actor_assertion(cur, actor)
+            cur.execute("SELECT finrisk_app.current_actor_id()")
+            verified_actor = cur.fetchone()[0]
+            if verified_actor is None:
+                return {"status": "blocked", "code": "AUTH_CONTEXT_REQUIRED"}
+
+            cur.execute(
+                "SELECT count(*)::bigint FROM finrisk_app.loan_applications WHERE owner_user_id = %s AND deleted_at IS NULL",
+                (verified_actor,),
+            )
+            existing_apps = int(cur.fetchone()[0])
+            if existing_apps == 0:
+                cipher_placeholder = os.urandom(32)
+                for app_code, status_code, req_amt, term_m, purpose in (
+                    ("APP-2026-0001", "SUBMITTED", 150000000, 24, "business"),
+                    ("APP-2026-0002", "DRAFT", 85000000, 12, "personal"),
+                ):
+                    app_id = uuid.uuid4()
+                    cur.execute(
+                        """
+                        INSERT INTO finrisk_app.loan_applications (
+                            application_id, application_code, owner_user_id, applicant_reference,
+                            applicant_name_ciphertext, pii_ciphertext_format, pii_key_version,
+                            applicant_age_years, monthly_income_amount, monthly_expenses_amount,
+                            existing_monthly_debt_amount, requested_amount, requested_term_months,
+                            loan_purpose_code, currency_code, application_status,
+                            source_schema_version, row_version, created_by, updated_by
+                        )
+                        VALUES (
+                            %s, %s, %s, %s,
+                            %s, 'AES_GCM_V1', 'local-kms-v1',
+                            32, 35000000, 12000000,
+                            3000000, %s, %s,
+                            %s, 'VND', %s,
+                            'finrisk.loan.v1', 1, %s, %s
+                        )
+                        """,
+                        (
+                            app_id, app_code, verified_actor, f"REF-{app_code}",
+                            cipher_placeholder, req_amt, term_m,
+                            purpose, status_code, verified_actor, verified_actor,
+                        ),
+                    )
+                    val_id = uuid.uuid4()
+                    outcome = "PASS" if status_code == "SUBMITTED" else "WARN"
+                    warn_cnt = 0 if outcome == "PASS" else 1
+                    cur.execute(
+                        """
+                        INSERT INTO finrisk_app.financial_validation_runs (
+                            validation_run_id, application_id, owner_user_id,
+                            validator_version, validation_scope, outcome,
+                            error_count, warning_count, is_credit_policy, executed_by
+                        )
+                        VALUES (%s, %s, %s, 'finrisk-input-quality-v1', 'INPUT_QUALITY', %s, 0, %s, false, %s)
+                        """,
+                        (val_id, app_id, verified_actor, outcome, warn_cnt, verified_actor),
+                    )
+
+                for sk_id, score_val, sig in (
+                    (100035, "0.15160322574159024", "MANUAL_REVIEW_RECOMMENDED"),
+                    (100002, "0.08421000000000000", "NO_REVIEW_SIGNAL"),
+                ):
+                    assess_id = uuid.uuid4()
+                    req_id = uuid.uuid4()
+                    cur.execute(
+                        """
+                        INSERT INTO finrisk_app.assessment_runs (
+                            assessment_id, owner_user_id, source_system, sk_id_curr,
+                            data_version, feature_set_version, feature_count,
+                            model_version, model_sha256, threshold_policy_version,
+                            decision_threshold, risk_score, review_signal,
+                            business_policy_status, automatic_credit_decision,
+                            explanation_snapshot_jsonb, response_contract_version,
+                            request_id, created_by
+                        )
+                        VALUES (
+                            %s, %s, 'CORE4', %s,
+                            %s, %s, 169,
+                            %s, %s, %s,
+                            %s, %s, %s,
+                            'NOT_APPROVED', false,
+                            '{"status": "ok", "top_contributors_count": 10}'::jsonb, 'h18.v1',
+                            %s, %s
+                        )
+                        """,
+                        (
+                            assess_id, verified_actor, sk_id,
+                            model_meta["data_version"], model_meta["feature_set_version"],
+                            model_meta["model_version"], model_meta["model_sha256"],
+                            model_meta["threshold_policy_version"],
+                            str(threshold_meta["threshold"]), score_val, sig,
+                            req_id, verified_actor,
+                        ),
+                    )
+                    rep_payload = {
+                        "report_version": "w06.v1",
+                        "source_system": "CORE4",
+                        "review_signal": sig,
+                        "business_policy_status": "NOT_APPROVED",
+                        "automatic_credit_decision": False,
+                    }
+                    rep_json = json.dumps(rep_payload, sort_keys=True)
+                    rep_sha = hashlib.sha256(rep_json.encode("utf-8")).hexdigest()
+                    cur.execute(
+                        """
+                        INSERT INTO finrisk_app.report_records (
+                            report_id, report_code, owner_user_id, assessment_id,
+                            report_type, report_schema_version, report_payload_jsonb,
+                            payload_sha256, record_status, created_by
+                        )
+                        VALUES (
+                            %s, %s, %s, %s,
+                            'CORE4_H18_REVIEW_SUPPORT', 'w06.v1', %s::jsonb,
+                            %s, 'ACTIVE', %s
+                        )
+                        """,
+                        (
+                            uuid.uuid4(), f"RPT-{sk_id}", verified_actor, assess_id,
+                            rep_json, rep_sha, verified_actor,
+                        ),
+                    )
+                    cur.execute(
+                        """
+                        INSERT INTO finrisk_app.audit_events (
+                            audit_event_id, actor_user_id, action_code,
+                            entity_type, entity_id, request_id, metadata_jsonb
+                        )
+                        VALUES (%s, %s, 'ASSESSMENT_RECORDED', 'assessment_run', %s, %s, '{"stage": "M08.6"}'::jsonb)
+                        """,
+                        (uuid.uuid4(), verified_actor, assess_id, req_id),
+                    )
+        conn.commit()
+    return {"status": "ready", "code": "WORKFLOW_RECORDS_READY", "actor_user_id": str(verified_actor)}
+
+
+def persist_live_loan_application(
+    *,
+    customer_id: str,
+    full_name: str,
+    age: int,
+    monthly_income: float,
+    monthly_expenses: float,
+    existing_monthly_debt: float,
+    loan_amount: float,
+    loan_term_months: int,
+    loan_purpose: str,
+    valid: bool = True,
+    error_count: int = 0,
+    actor_user_id: str | uuid.UUID | None = None,
+) -> dict:
+    """Insert a real loan application and input-quality validation run into PostgreSQL under RLS."""
+    actor = str(actor_user_id or configured_actor_user_id() or "").strip()
+    if not actor:
+        return {"status": "blocked", "code": "AUTH_CONTEXT_REQUIRED"}
+    purpose = loan_purpose if loan_purpose in ("personal", "business", "education", "housing", "other") else "other"
+    app_code = f"APP-{uuid.uuid4().hex[:8].upper()}"
+    app_id = uuid.uuid4()
+    val_id = uuid.uuid4()
+    cipher_bytes = hashlib.sha256((full_name or "Applicant").encode("utf-8")).digest()
+    status_code = "SUBMITTED" if valid else "DRAFT"
+    outcome = "PASS" if valid and error_count == 0 else ("FAIL" if error_count > 0 else "WARN")
+
+    with _connect(application_name="finrisk-dss-loan-write") as conn:
+        with conn.cursor() as cur:
+            bind_actor_assertion(cur, actor)
+            cur.execute("SELECT finrisk_app.current_actor_id()")
+            verified_actor = cur.fetchone()[0]
+            if verified_actor is None:
+                return {"status": "blocked", "code": "AUTH_CONTEXT_REQUIRED"}
+
+            cur.execute(
+                """
+                INSERT INTO finrisk_app.loan_applications (
+                    application_id, application_code, owner_user_id, applicant_reference,
+                    applicant_name_ciphertext, pii_ciphertext_format, pii_key_version,
+                    applicant_age_years, monthly_income_amount, monthly_expenses_amount,
+                    existing_monthly_debt_amount, requested_amount, requested_term_months,
+                    loan_purpose_code, currency_code, application_status,
+                    source_schema_version, row_version, created_by, updated_by
+                )
+                VALUES (
+                    %s, %s, %s, %s,
+                    %s, 'AES_GCM_V1', 'local-kms-v1',
+                    %s, %s, %s,
+                    %s, %s, %s,
+                    %s, 'VND', %s,
+                    'finrisk.loan.v1', 1, %s, %s
+                )
+                """,
+                (
+                    app_id, app_code, verified_actor, customer_id or app_code,
+                    cipher_bytes, max(0, min(130, int(age))),
+                    max(0.0, float(monthly_income)), max(0.0, float(monthly_expenses)),
+                    max(0.0, float(existing_monthly_debt)), max(1.0, float(loan_amount)),
+                    max(1, int(loan_term_months)), purpose, status_code,
+                    verified_actor, verified_actor,
+                ),
+            )
+            cur.execute(
+                """
+                INSERT INTO finrisk_app.financial_validation_runs (
+                    validation_run_id, application_id, owner_user_id,
+                    validator_version, validation_scope, outcome,
+                    error_count, warning_count, is_credit_policy, executed_by
+                )
+                VALUES (%s, %s, %s, 'finrisk-input-quality-v1', 'INPUT_QUALITY', %s, %s, 0, false, %s)
+                """,
+                (val_id, app_id, verified_actor, outcome, max(0, int(error_count)), verified_actor),
+            )
+            cur.execute(
+                """
+                INSERT INTO finrisk_app.audit_events (
+                    audit_event_id, actor_user_id, action_code,
+                    entity_type, entity_id, request_id, metadata_jsonb
+                )
+                VALUES (%s, %s, 'LOAN_APPLICATION_SAVED', 'loan_application', %s, %s, '{"source": "UI_LIVE"}'::jsonb)
+                """,
+                (uuid.uuid4(), verified_actor, app_id, uuid.uuid4()),
+            )
+        conn.commit()
+    return {
+        "status": "ready",
+        "code": "LOAN_PERSISTED_POSTGRESQL",
+        "application_id": str(app_id),
+        "application_code": app_code,
+        "validation_run_id": str(val_id),
+    }
+
+
+def persist_live_h18_assessment(
+    *,
+    sk_id_curr: int,
+    risk_score: float,
+    decision_threshold: float,
+    review_signal: str,
+    actor_user_id: str | uuid.UUID | None = None,
+) -> dict:
+    """Record a real H18 decision-support run and W06 report record into PostgreSQL under RLS."""
+    actor = str(actor_user_id or configured_actor_user_id() or "").strip()
+    if not actor:
+        return {"status": "blocked", "code": "AUTH_CONTEXT_REQUIRED"}
+    model_meta = json.loads((APP_ROOT / "backend_ml" / "model" / "metadata.json").read_text(encoding="utf-8"))
+    assess_id = uuid.uuid4()
+    req_id = uuid.uuid4()
+    sig = "MANUAL_REVIEW_RECOMMENDED" if review_signal == "MANUAL_REVIEW_RECOMMENDED" else "NO_REVIEW_SIGNAL"
+
+    with _connect(application_name="finrisk-dss-assess-write") as conn:
+        with conn.cursor() as cur:
+            bind_actor_assertion(cur, actor)
+            cur.execute("SELECT finrisk_app.current_actor_id()")
+            verified_actor = cur.fetchone()[0]
+            if verified_actor is None:
+                return {"status": "blocked", "code": "AUTH_CONTEXT_REQUIRED"}
+
+            cur.execute(
+                """
+                INSERT INTO finrisk_app.assessment_runs (
+                    assessment_id, owner_user_id, source_system, sk_id_curr,
+                    data_version, feature_set_version, feature_count,
+                    model_version, model_sha256, threshold_policy_version,
+                    decision_threshold, risk_score, review_signal,
+                    business_policy_status, automatic_credit_decision,
+                    explanation_snapshot_jsonb, response_contract_version,
+                    request_id, created_by
+                )
+                VALUES (
+                    %s, %s, 'CORE4', %s,
+                    %s, %s, 169,
+                    %s, %s, %s,
+                    %s, %s, %s,
+                    'NOT_APPROVED', false,
+                    '{"status": "ok", "source": "H18_LIVE"}'::jsonb, 'h18.v1',
+                    %s, %s
+                )
+                """,
+                (
+                    assess_id, verified_actor, int(sk_id_curr),
+                    model_meta["data_version"], model_meta["feature_set_version"],
+                    model_meta["model_version"], model_meta["model_sha256"],
+                    model_meta["threshold_policy_version"],
+                    str(decision_threshold), str(risk_score), sig,
+                    req_id, verified_actor,
+                ),
+            )
+            rep_payload = {
+                "report_version": "w06.v1",
+                "source_system": "CORE4",
+                "review_signal": sig,
+                "business_policy_status": "NOT_APPROVED",
+                "automatic_credit_decision": False,
+            }
+            rep_json = json.dumps(rep_payload, sort_keys=True)
+            rep_sha = hashlib.sha256(rep_json.encode("utf-8")).hexdigest()
+            cur.execute(
+                """
+                INSERT INTO finrisk_app.report_records (
+                    report_id, report_code, owner_user_id, assessment_id,
+                    report_type, report_schema_version, report_payload_jsonb,
+                    payload_sha256, record_status, created_by
+                )
+                VALUES (
+                    %s, %s, %s, %s,
+                    'CORE4_H18_REVIEW_SUPPORT', 'w06.v1', %s::jsonb,
+                    %s, 'ACTIVE', %s
+                )
+                """,
+                (
+                    uuid.uuid4(), f"RPT-{sk_id_curr}-{uuid.uuid4().hex[:4].upper()}",
+                    verified_actor, assess_id, rep_json, rep_sha, verified_actor,
+                ),
+            )
+            cur.execute(
+                """
+                INSERT INTO finrisk_app.audit_events (
+                    audit_event_id, actor_user_id, action_code,
+                    entity_type, entity_id, request_id, metadata_jsonb
+                )
+                VALUES (%s, %s, 'H18_ASSESSMENT_EXECUTED', 'assessment_run', %s, %s, '{"stage": "H18_LIVE"}'::jsonb)
+                """,
+                (uuid.uuid4(), verified_actor, assess_id, req_id),
+            )
+        conn.commit()
+    return {"status": "ready", "code": "ASSESSMENT_PERSISTED_POSTGRESQL", "assessment_id": str(assess_id)}

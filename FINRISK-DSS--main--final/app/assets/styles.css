@@ -771,7 +771,7 @@ tr:last-child td { border-bottom: 0; }
 /* =========================================================
    UI REFRESH 02 — ECO/ENTERPRISE LANDING + PRODUCT WORKSPACE
    Design inspiration: high-level SaaS patterns only.
-   CarbonGraph keeps its own data/evidence/steel identity.
+   FinRisk DSS keeps its own data/evidence/steel identity.
    ========================================================= */
 
 :root {
@@ -3617,3 +3617,76 @@ html,body{max-width:100%;} .workspace-screen,.workspace-panel,.test-center-layou
 .fr-dashboard-chart-state{min-height:74px;display:flex;align-items:center;color:#61776b;font-size:13px;line-height:1.55;padding:14px 0}.fr-source-state{padding:12px 0}.fr-source-status{display:flex;flex-direction:column;gap:8px}.fr-source-status strong{display:inline-flex;align-self:flex-start;padding:6px 10px;border-radius:999px;font-size:11px;letter-spacing:.05em;background:#fff2df;color:#895915}.fr-source-status.is-ready strong{background:#e3f5eb;color:#126343}.fr-source-status span{color:#61776b;font-size:12px;line-height:1.55;overflow-wrap:anywhere}.fr-dashboard-updated{margin:14px 0 0;color:#71877b;font-size:12px;text-align:right}.fr-legacy-mock-panel>summary{cursor:pointer;color:#7c5c22}.fr-legacy-mock-panel[open]>summary{margin-bottom:14px}.fr-legacy-mock-panel p{color:#71877b;font-size:13px;line-height:1.6}.fr-source-grid{margin-top:16px}
 
 .fr-data-management .screen-summary-card>strong{font-size:clamp(12px,1.2vw,18px);overflow-wrap:anywhere;letter-spacing:0}.fr-data-management .screen-summary-card{min-width:0}.fr-data-management .finrisk-status-grid>div{min-width:0}.fr-data-management .finrisk-status-grid span{overflow-wrap:anywhere}
+
+
+/* M08.6 Consolidated Workspace Sub-navigation Bar */
+.workspace-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+  padding: 0.6rem;
+  border-radius: 14px;
+  background: rgba(15, 41, 30, 0.045);
+  border: 1px solid rgba(20, 83, 45, 0.14);
+}
+.workspace-subnav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.72);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.workspace-subnav-btn:hover {
+  background: #ffffff;
+  border-color: rgba(22, 101, 52, 0.28);
+}
+.workspace-subnav-btn.active {
+  background: #ffffff;
+  border-color: #166534;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.12);
+}
+.workspace-subnav-btn .subnav-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.workspace-subnav-btn .subnav-copy strong {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.workspace-subnav-btn .subnav-copy small {
+  font-size: 0.75rem;
+  opacity: 0.78;
+}
+
+/* Hide internal QA/Admin tab from primary 5-tab business navigation bar */
+#nav button[data-screen="acceptance"] {
+  display: none !important;
+}
+.fr-admin-quick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f3d2e;
+  font-weight: 600;
+  font-size: 0.78rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  transition: all 0.18s ease;
+}
+.fr-admin-quick-btn:hover,
+.fr-admin-quick-btn.is-active {
+  background: #0f3d2e;
+  color: #ffffff;
+  border-color: #0f3d2e;
+}
