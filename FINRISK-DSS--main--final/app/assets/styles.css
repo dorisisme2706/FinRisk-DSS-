@@ -3690,3 +3690,51 @@ html,body{max-width:100%;} .workspace-screen,.workspace-panel,.test-center-layou
   color: #ffffff;
   border-color: #0f3d2e;
 }
+
+.fr-sample-id-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.fr-sample-id-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #4b6358;
+}
+.fr-sample-id-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 61, 46, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f3d2e;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.fr-sample-id-chip:hover {
+  background: #0f3d2e;
+  color: #ffffff;
+  border-color: #0f3d2e;
+}
+.fr-sample-id-chip.is-warn {
+  border-color: rgba(180, 83, 9, 0.35);
+  color: #92400e;
+}
+.fr-sample-id-chip.is-warn:hover {
+  background: #92400e;
+  color: #ffffff;
+}
+.fr-sample-id-chip.is-lock {
+  border-color: rgba(185, 28, 28, 0.3);
+  color: #991b1b;
+}
+.fr-sample-id-chip.is-lock:hover {
+  background: #991b1b;
+  color: #ffffff;
+}

@@ -240,6 +240,96 @@
     btn.classList.toggle("is-active", isQaScreen);
   }
 
+
+  async function loadRecentLoansPanel() {
+    const host = document.getElementById("fr-pg-loans-host");
+    if (!host) return;
+    try {
+      const resp = await fetch("/api/workflow/loans?limit=8", { headers: { Accept: "application/json" } });
+      const data = await resp.json();
+      if (!resp.ok || data.status !== "ready") {
+        host.innerHTML = `<p class="muted">Không thể tải danh sách từ PostgreSQL (${escapeHtml(data.code || "OFFLINE")}).</p>`;
+        return;
+      }
+      if (!data.items || !data.items.length) {
+        host.innerHTML = `<p class="muted">Chưa có hồ sơ nào trong bảng finrisk_app.loan_applications.</p>`;
+        return;
+      }
+      const purposeMap = {
+        personal: "Tiêu dùng cá nhân",
+        business: "Kinh doanh",
+        education: "Học tập",
+        home: "Nhà ở",
+        medical: "Y tế"
+      };
+      const rows = data.items.map((item) => `
+        <tr>
+          <td><code>${escapeHtml(item.application_code)}</code></td>
+          <td><strong>${escapeHtml(item.applicant_reference)}</strong></td>
+          <td>${Number(item.requested_amount || 0).toLocaleString("vi-VN")} VND</td>
+          <td>${escapeHtml(String(item.requested_term_months))} tháng</td>
+          <td>${escapeHtml(purposeMap[item.loan_purpose_code] || item.loan_purpose_code)}</td>
+          <td><span class="status-badge ${item.application_status === "SUBMITTED" ? "pass" : "warn"}">${escapeHtml(item.application_status)}</span></td>
+          <td><small>${escapeHtml(String(item.created_at || "").replace("T", " ").slice(0, 19))}</small></td>
+        </tr>
+      `).join("");
+      host.innerHTML = `
+        <div class="table-wrap" style="overflow-x:auto;">
+          <table class="data-table" style="width:100%; border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th>Mã hồ sơ</th>
+                <th>Mã KH</th>
+                <th>Số tiền vay</th>
+                <th>Kỳ hạn</th>
+                <th>Mục đích</th>
+                <th>Trạng thái</th>
+                <th>Thời gian lưu</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    } catch (_) {
+      host.innerHTML = `<p class="muted">Không kết nối được tới API PostgreSQL.</p>`;
+    }
+  }
+
+
+  function mountSampleIdQuickChips() {
+    const content = typeof document !== "undefined" ? document.getElementById("content") : null;
+    if (!content) return;
+    const inputs = content.querySelectorAll('input[placeholder*="1000"], input[id*="sk-id"], input[id*="customer-id"]');
+    inputs.forEach((inp) => {
+      if (inp.id === "loan-customer-id" || inp.name === "customer_id") return;
+      const host = inp.closest("label, .field, .form-group, .control-group") || inp.parentElement;
+      if (!host || host.querySelector(".fr-sample-id-bar")) return;
+
+      const bar = document.createElement("div");
+      bar.className = "fr-sample-id-bar";
+      bar.innerHTML = `
+        <span class="fr-sample-id-label">Mã mẫu CORE4:</span>
+        <button type="button" class="fr-sample-id-chip is-warn" data-sample-id="100035" title="Rủi ro > ngưỡng (0.1516) → Khuyến nghị xem xét">100035 (Cần xem xét)</button>
+        <button type="button" class="fr-sample-id-chip" data-sample-id="100002" title="Rủi ro < ngưỡng (0.0842) → Không phát tín hiệu">100002 (Bình thường)</button>
+        <button type="button" class="fr-sample-id-chip is-lock" data-sample-id="100009" title="Tập final test → Kiểm tra khóa bảo mật 403">100009 (Tập Test 403)</button>
+      `;
+      host.appendChild(bar);
+
+      bar.querySelectorAll("[data-sample-id]").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          const val = chip.getAttribute("data-sample-id") || "";
+          inp.value = val;
+          inp.dispatchEvent(new Event("input", { bubbles: true }));
+          inp.dispatchEvent(new Event("change", { bubbles: true }));
+          const scope = inp.closest("form, .workspace-panel, .workspace-screen") || content;
+          const submitBtn = scope.querySelector('button[type="submit"], button[id*="lookup"], button[id*="assess"], button[id*="load"], button[id*="build"], button[id*="run"]');
+          if (submitBtn) submitBtn.click();
+        });
+      });
+    });
+  }
+
   function setHeader(title, subtitle) {
     $("#screen-title").textContent = title;
     $("#screen-subtitle").textContent = subtitle;
@@ -247,6 +337,7 @@
       const currentScreen = typeof document !== "undefined" ? document.body?.dataset?.screen : null;
       if (currentScreen && typeof injectSubNavBar === "function") {
         injectSubNavBar(currentScreen);
+        mountSampleIdQuickChips();
         syncAdminQuickAccess(currentScreen);
       }
     });
@@ -686,7 +777,40 @@
           .then(r => r.ok ? showToast("Đã lưu hồ sơ vay trực tiếp vào PostgreSQL 5432!", "success") : showToast("Đã lưu hồ sơ vay.", "info"))
           .catch(() => showToast("Đã lưu hồ sơ vay.", "info"));
     });
-    $("#loan-reset").addEventListener("click",()=>{loan.reset();renderInputModule();showToast("Đã reset hồ sơ MOCK.","warning");});
+    const inputScreen = document.querySelector("#content .workspace-screen");
+      if (inputScreen && !document.getElementById("fr-pg-loans-section")) {
+        const sec = document.createElement("section");
+        sec.id = "fr-pg-loans-section";
+        sec.className = "workspace-panel";
+        sec.style.marginTop = "20px";
+        sec.innerHTML = `
+          <div class="panel-heading">
+            <div>
+              <span class="panel-eyebrow">POSTGRESQL 5432 · LIVE PERSISTENCE</span>
+              <h2>Danh sách hồ sơ vay đã lưu gần đây</h2>
+              <p>Truy vấn trực tiếp từ bảng <code>finrisk_app.loan_applications</code> (bảo vệ bởi RLS &amp; chữ ký HMAC-SHA256).</p>
+            </div>
+            <button type="button" class="btn btn-secondary" id="fr-pg-loans-reload">${icon("refresh", 15)} Tải lại danh sách</button>
+          </div>
+          <div id="fr-pg-loans-host"><p class="muted">Đang tải dữ liệu từ PostgreSQL 5432...</p></div>
+        `;
+        inputScreen.appendChild(sec);
+        document.getElementById("fr-pg-loans-reload")?.addEventListener("click", loadRecentLoansPanel);
+        loadRecentLoansPanel();
+      }
+      if (!window.__frLoanFetchHooked && typeof window.fetch === "function") {
+        window.__frLoanFetchHooked = true;
+        const origFetch = window.fetch.bind(window);
+        window.fetch = async (...args) => {
+          const res = await origFetch(...args);
+          const url = typeof args[0] === "string" ? args[0] : (args[0]?.url || "");
+          if (url.includes("/api/workflow/save-loan")) {
+            window.setTimeout(loadRecentLoansPanel, 250);
+          }
+          return res;
+        };
+      }
+      $("#loan-reset").addEventListener("click",()=>{loan.reset();renderInputModule();showToast("Đã reset hồ sơ MOCK.","warning");});
   }
 
   function renderLoanSimulation() {
@@ -1170,7 +1294,7 @@
           </aside>
         </div>
       </div>`;
-    $("#loan-validation-refresh").addEventListener("click",()=>{renderValidation();showToast("Đã kiểm tra lại dữ liệu MOCK.","info");});
+    $("#loan-validation-refresh").addEventListener("click",()=>{renderValidation();showToast("Đã kiểm tra lại chất lượng dữ liệu đầu vào (#10).","info");});
     $("#loan-edit-from-validation").addEventListener("click",()=>{window.location.hash="data";});
   }
 
@@ -1179,7 +1303,7 @@
       window.FinRiskLoan.load(),
       window.FinRiskDecisionMock.getScenario()
     );
-    setHeader("Giải thích quyết định · FinRisk", "#11 · Decision Trace: truy vết Customer → Features → ML → Risk → Decision → Recommendation bằng dữ liệu MOCK.");
+    setHeader("Giải thích quyết định · FinRisk", "#11 · Decision Trace: truy vết luồng 6 bước Customer → Features → ML → Risk → Decision → Recommendation cho kịch bản hồ sơ mới.");
     const statusText = {PASS:"Sẵn sàng",MOCK:"Giả lập",BLOCKED:"Bị chặn",UNAVAILABLE:"Chưa có dữ liệu"};
     const nodes = trace.steps;
     $("#content").innerHTML = `
@@ -1187,10 +1311,10 @@
         <div class="screen-summary-grid">
           <div class="screen-summary-card"><span>Customer ID</span><strong>${escapeHtml(trace.customerId)}</strong><small>Hồ sơ #09</small></div>
           <div class="screen-summary-card"><span>Validation</span><strong>${trace.validation.valid?"PASS":"BLOCKED"}</strong><small>Kiểm tra chất lượng INPUT_QUALITY</small></div>
-          <div class="screen-summary-card"><span>Risk score</span><strong>${trace.assessment.score===null?"N/A":escapeHtml(trace.assessment.score+"/100")}</strong><small>Điểm MOCK #12</small></div>
+          <div class="screen-summary-card"><span>Risk score</span><strong>${trace.assessment.score===null?"N/A":escapeHtml(trace.assessment.score+"/100")}</strong><small>Điểm kịch bản #12</small></div>
           <div class="screen-summary-card"><span>Decision</span><strong>${escapeHtml(trace.assessment.status)}</strong><small>Không phải phê duyệt thật</small></div>
         </div>
-        <div class="notice warning"><strong>MOCK ONLY:</strong> Truy vết mô phỏng dựa trên #09, #10 và kịch bản #12. Chưa có ML output, policy hoặc lịch sử quyết định từ backend.</div>
+        <div class="notice warning"><strong>LUỒNG KỊCH BẢN WHAT-IF (#11):</strong> Truy vết mô phỏng dựa trên hồ sơ #09, kiểm tra #10 và kịch bản #12 (độc lập với mô hình LightGBM CORE4).</div>
         <section class="workspace-panel graph-canvas-panel">
           <div class="panel-heading"><div><span class="panel-eyebrow">#11 · DECISION TRACE · H18</span><h2>Luồng giải thích quyết định</h2><p>Chọn từng bước để xem đầu vào, trạng thái và giải thích. Thay đổi kịch bản ở tab Đánh giá tín dụng để cập nhật luồng.</p></div><span class="panel-status">REAL · PostgreSQL 5432</span></div>
           <div class="graph-canvas finrisk-trace-canvas">
@@ -1767,7 +1891,7 @@
     $("#finrisk-risk-scenario").addEventListener("change", event => {
       engine.setScenario(event.target.value);
       renderResult();
-      showToast("Đã đổi kịch bản đánh giá MOCK.", "info");
+      showToast("Đã cập nhật kịch bản phân tích What-If.", "info");
     });
     $("#finrisk-decision-edit").addEventListener("click", () => {window.location.hash = "data";});
   }
@@ -1786,7 +1910,7 @@
   }
 
   function renderExport() {
-    setHeader("Báo cáo tín dụng · FinRisk", "#13 · Xem trước và xuất báo cáo HTML / JSON từ dữ liệu MOCK; không phải quyết định cho vay thật.");
+    setHeader("Báo cáo tín dụng · FinRisk", "#13 · Xem trước và xuất phiếu báo cáo HTML / JSON từ hồ sơ vay mới (#09) & kịch bản (#12); không phải quyết định phê duyệt tín dụng.");
     const engine = window.FinRiskCreditReport;
     if (!engine || !window.FinRiskLoan || !window.FinRiskDecisionMock) {
       $("#content").innerHTML = `<div class="workspace-screen">${emptyState("Không thể tạo báo cáo", "Thiếu module báo cáo tín dụng FinRisk.", "alert")}</div>`;

@@ -802,3 +802,42 @@ def persist_live_h18_assessment(
             )
         conn.commit()
     return {"status": "ready", "code": "ASSESSMENT_PERSISTED_POSTGRESQL", "assessment_id": str(assess_id)}
+
+
+def list_recent_loans(*, actor_user_id: str | None = None, limit: int = 10) -> dict[str, Any]:
+    load_local_env()
+    actor = (actor_user_id or configured_actor_user_id() or "").strip()
+    if not actor:
+        return {"status": "blocked", "code": "ACTOR_SCOPE_REQUIRED", "items": []}
+    safe_limit = max(1, min(int(limit), 50))
+    with _connect(application_name="finrisk-dss-loan-list") as conn:
+        with conn.cursor() as cur:
+            bind_actor_assertion(cur, actor)
+            cur.execute(
+                """
+                SELECT application_code, applicant_reference, requested_amount,
+                       requested_term_months, loan_purpose_code, application_status, created_at
+                FROM finrisk_app.loan_applications
+                ORDER BY created_at DESC
+                LIMIT %s
+                """,
+                (safe_limit,),
+            )
+            rows = cur.fetchall()
+    items = []
+    for r in rows:
+        items.append({
+            "application_code": r[0],
+            "applicant_reference": r[1],
+            "requested_amount": float(r[2] or 0),
+            "requested_term_months": int(r[3] or 0),
+            "loan_purpose_code": r[4] or "personal",
+            "application_status": r[5] or "SUBMITTED",
+            "created_at": r[6].isoformat() if hasattr(r[6], "isoformat") else str(r[6]),
+        })
+    return {
+        "status": "ready",
+        "code": "LOAN_LIST_POSTGRESQL",
+        "count": len(items),
+        "items": items,
+    }
