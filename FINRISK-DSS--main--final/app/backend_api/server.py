@@ -194,6 +194,17 @@ def make_handler(scorer, setup_error):
                 payload = database_health()
                 payload["integration_stage"] = "M08.3"
                 return self.send_json(200 if payload["status"] == "ready" else 503, payload)
+            if path.path == "/api/workflow/loans":
+                q = parse_qs(path.query)
+                actor_id = (q.get("actor_user_id", [""])[0] or "").strip() or None
+                limit_raw = (q.get("limit", ["10"])[0] or "10").strip()
+                limit_val = int(limit_raw) if limit_raw.isdigit() else 10
+                try:
+                    from db import list_recent_loans
+                    payload = list_recent_loans(actor_user_id=actor_id, limit=limit_val)
+                    return self.send_json(200 if payload.get("status") == "ready" else 403, payload)
+                except Exception as exc:
+                    return self.send_json(503, {"status": "unavailable", "code": "DB_QUERY_FAILED", "detail": str(exc)})
 
             if path.path in ("/api/dashboard/summary", "/api/data/health"):
                 # M08.4: aggregate only app-owned records under the trusted actor

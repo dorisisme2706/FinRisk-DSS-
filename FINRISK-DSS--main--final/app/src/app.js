@@ -300,9 +300,9 @@
   function mountSampleIdQuickChips() {
     const content = typeof document !== "undefined" ? document.getElementById("content") : null;
     if (!content) return;
-    const inputs = content.querySelectorAll('input[placeholder*="1000"], input[id*="sk-id"], input[id*="customer-id"]');
+    const inputs = content.querySelectorAll('input[id*="sk-id"], input[id*="customer-id"], input[name="sk_id_curr"]');
     inputs.forEach((inp) => {
-      if (inp.id === "loan-customer-id" || inp.name === "customer_id") return;
+      if (!inp.id || inp.id.startsWith("loan-") || (inp.name && inp.name !== "sk_id_curr")) return;
       const host = inp.closest("label, .field, .form-group, .control-group") || inp.parentElement;
       if (!host || host.querySelector(".fr-sample-id-bar")) return;
 
