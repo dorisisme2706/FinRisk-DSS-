@@ -8,7 +8,7 @@ if not defined FINRISK_SNAPSHOT (
   )
 )
 set "HOST=%~2"
-if "%HOST%"=="" set "HOST= 127.0.0.1"
+if "%HOST%"=="" set "HOST=127.0.0.1"
 if not exist ".venv\Scripts\python.exe" (
   echo Run setup_windows.bat first.
   exit /b 1
