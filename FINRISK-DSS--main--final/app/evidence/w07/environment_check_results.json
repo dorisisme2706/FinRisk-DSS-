@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "release": "FinRisk DSS W07 Runtime Compatibility Gate",
-  "generated_at_utc": "2026-11-13T00:30:28.013660+00:00",
+  "generated_at_utc": "2026-11-16T05:05:42.153042+00:00",
   "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
   "python_executable": "D:\\FinRisk-DSS-\\FINRISK-DSS--main--final\\app\\.venv\\Scripts\\python.exe",
   "expected_python_minor": "3.14",
